@@ -1,0 +1,314 @@
+URL´s para pruebas en postman
+
+RF1-2
+Crear un cliente
+Desde administrador rotonda
+
+POST http://localhost:8080/RotondAndes/rest/administradorrotonda/cli
+
+JSON
+{
+        "cedula": 2021202021,
+       
+	 "nombre": "María Juanes",
+        
+       	"correo": "mj@correo.com",
+       
+ 	"idRotonda": 1
+   
+ }
+
+Directo, sin adiministrador rotonda
+
+POST http://localhost:8080/RotondAndes/rest/clientes
+
+RF1 
+Crear un adminRestaurante.
+
+POST http://localhost:8080/RotondAndes/rest/administradorrotonda/adminrestaurante
+JSON
+ {
+        "cedula": 1020304050668,
+        
+"nombre": "Daniela Juanes",
+       
+"correo": "dj@hh.com",
+        
+"nombreRestaurante": "HH"
+    }
+
+Directo, sin administrador rotonda.
+
+POST http://localhost:8080/RotondAndes/rest/administradorrestaurante
+
+
+RF1 
+Crear un adminRotonda.
+
+POST http://localhost:8080/RotondAndes/rest/administradorrotonda
+JSON
+{
+        "cedula": 2021202021,
+       
+	 "nombre": "María Js",
+        
+       	"correo": "mj@correo.com",
+       
+ 	"idRotonda": 1
+   
+}
+
+RF3 
+Crear un restaurante.
+
+POST http://localhost:8080/RotondAndes/rest/administradorrotonda/restaurante
+JSON
+  {
+     "nombre": "Boquitas 3",
+        
+	"tipoComida": "Postres",
+        
+	"pagWeb": "boquitas.com",
+        
+	"encargado": "Juan boq",
+       
+	"idZona": 2,
+        
+	"idRotonda": 1
+    
+}
+
+
+Directo, sin admin rotonda.
+
+POST http://localhost:8080/RotondAndes/rest/restaurantes/
+
+RF4
+Crear un producto.
+
+POST  http://localhost:8080/RotondAndes/rest/administradorrestaurante/product
+JSON
+{
+        "idProducto": 67,
+        
+	"nombre": "Frutas",
+        
+	"idCategoria": 5,
+        
+	"descripcionEsp": "Frutas",
+        
+	"descripcionIng": "Fruits",
+        
+	"tiempo": 5,
+        "costo": 3000,
+        
+	"precio": 5000,
+        
+	"cantidad": 10,
+        
+	"nombreRestaurante": "Chicas rest",
+        
+	"categoria": 5
+    }
+
+Directo, sin administrador restaurante
+
+POST  http://localhost:8080/RotondAndes/rest/productos
+
+RF5
+Registrar ingrediente
+
+POST http://localhost:8080/RotondAndes/rest/administradorrestaurante/ingredient
+
+JSON
+{
+        "idIngrediente": 90,
+        
+	"nombre": "Leche descremada",
+        
+	"descripcionEsp": "Leche",
+        
+	"descripcionIng": "Milk"
+   
+}
+
+Directo, sin adiministrador restaurante
+
+POST http://localhost:8080/RotondAndes/rest/ingredientes
+
+
+RF6
+Registrar menu
+
+POST http://localhost:8080/RotondAndes/rest/administradorrestaurante/men
+JSON
+    {
+   "idMenu": 111,
+
+        "costo": 10000,
+        
+	"precio": 15600,
+        
+	"nombreRestaurante": "Chicas rest",
+        
+	"idPostre": 0,
+        
+	"idEntrada": 7,
+        
+	"idPlatoFuerte": 0,
+        
+	"idAcompaniamiento": 0,
+        
+	"idBebida": 6
+    }
+
+Directo, sin adiministrador restaurante
+
+POST http://localhost:8080/RotondAndes/rest/menus
+
+
+RF7
+Registrar zona
+
+POST http://localhost:8080/RotondAndes/rest/administradorrotonda/nuevazona
+	{
+    	"idZona": 34,
+    
+		"nombre": "ZOOMFUTBOL",
+    
+		"esZonaAbierta": true,
+    
+		"capacidad": 100,
+    
+		"aptoParaTodos": true,
+    
+		"condicionesTecnicas": "a",
+    
+		"idRotonda": 1
+	
+}
+
+Directo, sin admin rotonda
+
+POST http://localhost:8080/RotondAndes/rest/zonas
+
+
+
+RF8
+Registrar preferencia cliente
+
+POST http://localhost:8080/RotondAndes/rest/clientes/preferences
+JSON
+{
+       "idCliente": 2010201120,
+        
+	"preferencia": "VVG" 
+}
+
+Sin recurrir a el usuario directamente
+
+POST http://localhost:8080/RotondAndes/rest/preferencias
+
+Para actualizar una preferencia de un usuario
+
+PUT http://localhost:8080/RotondAndes/rest/clientes/preferences
+JSON
+{
+        "idCliente": 1010054402,
+        
+	"preferencia": "VVG nueva preferencia"
+   
+ }
+
+Sin recurrir a el usuario directamente
+POST http://localhost:8080/RotondAndes/rest/preferencias
+
+
+//Para estos requerimientos, las verificaciones y actualizaciones en productos, se hacen por debajo.  
+
+RF9
+Registar una orden -pedido-
+POST http://localhost:8080/RotondAndes/rest/ordenRestaurantes
+ {
+      "idOrdenRestaurante": 11,
+        
+	"fecha": "2017-10-03",
+        
+	"idMenu": 6,
+        
+	"idRotonda": 1,
+        
+	"idCliente": 2020202020,
+	"servida": false   }
+
+
+
+
+RF10
+Registar una orden servida -pedido servido-
+PUT http://localhost:8080/RotondAndes/rest/ordenRestaurantes/id
+{
+        "idOrdenRestaurante": 2,
+        
+	"fecha": "2017-10-03",
+        
+	"idMenu": 2,
+        
+	"idRotonda": 1,
+        
+	"idCliente": 1090509418,
+        
+	"servida": true
+    
+}
+
+Req de consulta
+
+RFC1
+Obtener la información de los productos.
+Para obtener la información de todos los productos.
+GET http://localhost:8080/RotondAndes/rest/productos
+
+Para obtener la información de todos los productos de un restaurante.
+GET http://localhost:8080/RotondAndes/rest/productos/restauranteproductos/{nombre_restaurante}
+
+Donde {nombre_restaurante}, está registrado como el nombre de un restaurante.
+
+Para obtener la información de todos los productos de cierta categoría.
+GET http://localhost:8080/RotondAndes/rest/productos/categoriaproductos/{idCategoria}
+
+Para obtener información de todos los productos en un rango de precio.
+GET http://localhost:8080/RotondAndes/rest/productos/precios/{precioMin}/max/{precioMax}
+
+
+Donde {idCategoria}, está registrada como una categoría.
+
+RFC2
+Obtener la información de una zona.
+GET http://localhost:8080/RotondAndes/rest/zonas/{idZona}
+
+Donde {idZona}, corresponde a una zona ya existente.
+
+RFC3
+Obtener información de un user cliente.
+
+GET http://localhost:8080/RotondAndes/rest/clientes/{idCliente}
+
+Donde {idCliente}, es la cédula de un cliente registrado.
+
+RFC4
+Obtener el producto que está presente en más menús.
+
+GET http://localhost:8080/RotondAndes/rest/productos/masofrecido
+
+
+
+
+
+
+
+
+
+
+
+
