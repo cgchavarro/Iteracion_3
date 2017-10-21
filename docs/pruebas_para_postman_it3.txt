@@ -1,0 +1,14 @@
+URL´s para pruebas en postman
+
+RF13
+SurtirRestaurante
+Desde administrador rotonda
+
+PUT http://localhost:8080/RotondAndes/rest/administradorrestaurante/surtirrestaurante/{nombreRestaurante}
+
+
+
+
+
+
+

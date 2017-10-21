@@ -1659,6 +1659,20 @@ public class RotondAndesMaster
 		}
 	}
 
+	public void surtirProductosRestaurante(String res)
+	{
+		DAOTablaProducto dao = new DAOTablaProducto();
+		try(Connection conn = darConexion())
+		{
+			dao.surtirProductosRestaurante(conn, res);
+			conn.commit();
+		}
+		catch(SQLException e)
+		{
+
+			e.printStackTrace();
+		}
+	}
 	public void eliminarProducto(Producto producto)
 	{
 		DAOTablaProducto dao = new DAOTablaProducto();

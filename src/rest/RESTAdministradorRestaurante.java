@@ -133,6 +133,21 @@ public class RESTAdministradorRestaurante
 			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
 		}
 	}
+	
+	@PUT
+	@Path( "/surtirrestaurante/{nombreRestaurante}" )
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response surtirRestaurante(@PathParam( "nombreRestaurante" ) String nombre ) {
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		ArrayList<Producto> cliente;
+		try {
+			tm.surtirProductosRestaurante(nombre);
+			cliente = tm.darProductosRestaurante(nombre);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(cliente).build();
+	}
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })

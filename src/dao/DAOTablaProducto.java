@@ -71,7 +71,7 @@ public class DAOTablaProducto {
 				double precio = rs.getDouble("PRECIO");
 				int cantidad = rs.getInt("CANTIDAD");
 				String nombreR = rs.getString("NOMBRE_RESTAURANTE");
-				int cantidadM = rs.getInt("CANTIDADMAXIMA");
+				int cantidadM = rs.getInt("CANTIDAD_MAXIMA");
 				producto = new Producto(idProducto, nombre, idCategoria, descripcionEsp, descripcionIng, tiempo, costo, precio,cantidad,nombreR,cantidadM);
 			}
 			conn.commit();
@@ -113,7 +113,7 @@ public class DAOTablaProducto {
 				double precio = rs.getDouble("PRECIO");
 				int cantidad = rs.getInt("CANTIDAD");
 				String nombreR = rs.getString("NOMBRE_RESTAURANTE");
-				int cantidadM = rs.getInt("CANTIDADMAXIMA");
+				int cantidadM = rs.getInt("CANTIDAD_MAXIMA");
 				productos.add( new Producto(id, nombres, idCategoria, descripcionEsp, descripcionIng, tiempo, costo, precio,cantidad, nombreR, cantidadM));
 			}
 			conn.commit();
@@ -147,7 +147,7 @@ public class DAOTablaProducto {
 				double precio = rs.getDouble("PRECIO");
 				int cantidad = rs.getInt("CANTIDAD");
 				String nombreR = rs.getString("NOMBRE_RESTAURANTE");
-				int cantidadM = rs.getInt("CANTIDADMAXIMA");
+				int cantidadM = rs.getInt("CANTIDAD_MAXIMA");
 				productos.add( new Producto(id, nombres, idCategoria, descripcionEsp, descripcionIng, tiempo, costo, precio,cantidad, nombreR, cantidadM));
 			}
 			conn.commit();
@@ -181,7 +181,7 @@ public class DAOTablaProducto {
 				double precio = rs.getDouble("PRECIO");
 				int cantidad = rs.getInt("CANTIDAD");
 				String nombreR = rs.getString("NOMBRE_RESTAURANTE");
-				int cantidadM = rs.getInt("CANTIDADMAXIMA");
+				int cantidadM = rs.getInt("CANTIDAD_MAXIMA");
 				productos.add( new Producto(id1, nombres, idCategoria, descripcionEsp, descripcionIng, tiempo, costo, precio,cantidad, nombreR, cantidadM));
 			}
 			conn.commit();
@@ -214,7 +214,7 @@ public class DAOTablaProducto {
 				double precio = rs.getDouble("PRECIO");
 				int cantidad = rs.getInt("CANTIDAD");
 				String nombreR = rs.getString("NOMBRE_RESTAURANTE");
-				int cantidadM = rs.getInt("CANTIDADMAXIMA");
+				int cantidadM = rs.getInt("CANTIDAD_MAXIMA");
 				productos.add( new Producto(id1, nombres, idCategoria, descripcionEsp, descripcionIng, tiempo, costo, precio,cantidad, nombreR, cantidadM));
 			}
 			conn.commit();
@@ -260,7 +260,7 @@ public class DAOTablaProducto {
 
 	public void actualizarProducto(Connection conn, Producto producto)
 	{
-		String sql = "UPDATE PRODUCTO SET NOMBRE = ?, ID_CATEGORIA = ?, DESCRIPCION_ESP = ?, DESCRIPCION_ING = ?, TIEMPO = ?, COSTO = ?, PRECIO = ?, CANTIDAD = ?, NOMBRE_RESTAURANTE =?, CANTIDADMAXIMA =? WHERE ID = ?";
+		String sql = "UPDATE PRODUCTO SET NOMBRE = ?, ID_CATEGORIA = ?, DESCRIPCION_ESP = ?, DESCRIPCION_ING = ?, TIEMPO = ?, COSTO = ?, PRECIO = ?, CANTIDAD = ?, NOMBRE_RESTAURANTE =?, CANTIDAD_MAXIMA =? WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, producto.getNombre());
@@ -297,7 +297,22 @@ public class DAOTablaProducto {
 			e.printStackTrace();
 		}
 	}
-
+	public void surtirProductosRestaurante(Connection conn, String nombreRestaurante)
+	{
+		String sql = "UPDATE PRODUCTO SET CANTIDAD = CANTIDAD_MAXIMA WHERE NOMBRE_RESTAURANTE =?";
+		try(PreparedStatement preStat = conn.prepareStatement(sql))
+		{
+		
+		preStat.setString(1, nombreRestaurante);
+						
+			preStat.executeQuery();
+			conn.commit();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 
 	
