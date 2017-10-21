@@ -52,7 +52,7 @@ public class RESTAdministradorRotonda
 	}
 		
 	@POST
-	@Path("/cli")
+	@Path("/clientes")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearCliente(Cliente atraco) 
@@ -84,7 +84,7 @@ public class RESTAdministradorRotonda
 	
 	
 	@POST
-	@Path("/restaurante")
+	@Path("/restaurantes")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearRestaurante(Restaurante atraco) 
@@ -99,7 +99,7 @@ public class RESTAdministradorRotonda
 	}
 
 	@POST
-	@Path("/nuevazona")
+	@Path("/zonas")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearZona(Zona atraco) 

@@ -20,7 +20,7 @@ import master.RotondAndesMaster;
 import vo.Reserva;
 
 
-@Path("reservas")
+@Path("reserva")
 public class RESTReserva 
 {
 	@Context

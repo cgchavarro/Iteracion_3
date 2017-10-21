@@ -20,7 +20,7 @@ import master.RotondAndesMaster;
 import vo.Categoria;
 
 
-@Path("categorias")
+@Path("categoria")
 public class RESTCategoria 
 {
 	@Context

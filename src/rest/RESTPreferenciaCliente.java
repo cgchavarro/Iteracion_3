@@ -20,7 +20,7 @@ import master.RotondAndesMaster;
 import vo.PreferenciaCliente;
 
 
-@Path("preferencias")
+@Path("preferencia")
 public class RESTPreferenciaCliente 
 {
 	@Context
@@ -32,19 +32,6 @@ public class RESTPreferenciaCliente
 	
 	private String getPath() {
 		return context.getRealPath("WEB-INF/ConnectionData");
-	}
-	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response crearPreferenciaCliente(PreferenciaCliente categoria) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
-		try {
-			tm.crearPreferenciaCliente(categoria);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(categoria).build();
 	}
 		
 	@GET
@@ -93,20 +80,7 @@ public class RESTPreferenciaCliente
 		}
 		return Response.status(200).entity(categorias).build();
 	}
-	
-	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response actualizarPreferenciaCliente(PreferenciaCliente categoria) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
-		try {
-			tm.actualizarPreferenciaCliente(categoria);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(categoria).build();
-	}
-	
+
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

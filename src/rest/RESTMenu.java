@@ -20,7 +20,7 @@ import master.RotondAndesMaster;
 import vo.Menu;
 
 
-@Path("menus")
+@Path("menu")
 public class RESTMenu 
 {
 	@Context
@@ -33,19 +33,7 @@ public class RESTMenu
 	private String getPath() {
 		return context.getRealPath("WEB-INF/ConnectionData");
 	}
-	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response crearMenu(Menu menu) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
-		try {
-			tm.crearMenu(menu);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(menu).build();
-	}
+
 		
 	@GET
 	@Path( "{id: \\d+}" )

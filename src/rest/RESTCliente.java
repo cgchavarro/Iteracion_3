@@ -22,7 +22,7 @@ import vo.OrdenRestaurante;
 import vo.PreferenciaCliente;
 
 
-@Path("clientes")
+@Path("cliente")
 public class RESTCliente 
 {
 	@Context
@@ -36,22 +36,9 @@ public class RESTCliente
 		return context.getRealPath("WEB-INF/ConnectionData");
 	}
 	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response crearCliente(Cliente cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
-		try {
-			tm.crearCliente(cliente);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(cliente).build();
-	}
-	
 	
 	@POST
-	@Path("/preferences")
+	@Path("/preferencias")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearPreferencia(PreferenciaCliente cliente) {
@@ -65,7 +52,7 @@ public class RESTCliente
 	}
 	
 	@PUT
-	@Path("/preferences")
+	@Path("/preferencias")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarPreferencia(PreferenciaCliente cliente) {

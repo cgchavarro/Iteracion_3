@@ -18,10 +18,6 @@ JSON
    
  }
 
-Directo, sin adiministrador rotonda
-
-POST http://localhost:8080/RotondAndes/rest/clientes
-
 RF1 
 Crear un adminRestaurante.
 
@@ -36,10 +32,6 @@ JSON
         
 "nombreRestaurante": "HH"
     }
-
-Directo, sin administrador rotonda.
-
-POST http://localhost:8080/RotondAndes/rest/administradorrestaurante
 
 
 RF1 
@@ -79,10 +71,6 @@ JSON
 }
 
 
-Directo, sin admin rotonda.
-
-POST http://localhost:8080/RotondAndes/rest/restaurantes/
-
 RF4
 Crear un producto.
 
@@ -111,10 +99,6 @@ JSON
 	"categoria": 5
     }
 
-Directo, sin administrador restaurante
-
-POST  http://localhost:8080/RotondAndes/rest/productos
-
 RF5
 Registrar ingrediente
 
@@ -131,10 +115,6 @@ JSON
 	"descripcionIng": "Milk"
    
 }
-
-Directo, sin adiministrador restaurante
-
-POST http://localhost:8080/RotondAndes/rest/ingredientes
 
 
 RF6
@@ -162,10 +142,6 @@ JSON
 	"idBebida": 6
     }
 
-Directo, sin adiministrador restaurante
-
-POST http://localhost:8080/RotondAndes/rest/menus
-
 
 RF7
 Registrar zona
@@ -188,11 +164,6 @@ POST http://localhost:8080/RotondAndes/rest/administradorrotonda/nuevazona
 	
 }
 
-Directo, sin admin rotonda
-
-POST http://localhost:8080/RotondAndes/rest/zonas
-
-
 
 RF8
 Registrar preferencia cliente
@@ -205,10 +176,6 @@ JSON
 	"preferencia": "VVG" 
 }
 
-Sin recurrir a el usuario directamente
-
-POST http://localhost:8080/RotondAndes/rest/preferencias
-
 Para actualizar una preferencia de un usuario
 
 PUT http://localhost:8080/RotondAndes/rest/clientes/preferences
@@ -219,9 +186,6 @@ JSON
 	"preferencia": "VVG nueva preferencia"
    
  }
-
-Sin recurrir a el usuario directamente
-POST http://localhost:8080/RotondAndes/rest/preferencias
 
 
 //Para estos requerimientos, las verificaciones y actualizaciones en productos, se hacen por debajo.  

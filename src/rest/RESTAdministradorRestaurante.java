@@ -32,40 +32,32 @@ public class RESTAdministradorRestaurante
 	private String doErrorMessage(Exception e){
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
-	
+
 	private String getPath() {
 		return context.getRealPath("WEB-INF/ConnectionData");
 	}
-	
+
+
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response crearAdministradorRestaurante(AdministradorRestaurante cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
-		try {
-			tm.crearAdministradorRestaurante(cliente);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(cliente).build();
-	}
-	
-	@POST
-	@Path("/product")
+	@Path("/productos")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearProducto(Producto cliente) {
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
-		try {
-			tm.crearProducto(cliente);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
+		if(cliente.getCosto()>0)
+		{
+			try {
+				tm.crearProducto(cliente);
+			} catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+			return Response.status(200).entity(cliente).build();
 		}
-		return Response.status(200).entity(cliente).build();
+		return Response.status(401).entity(cliente).build();
 	}
-	
+
 	@POST
-	@Path("/ingredient")
+	@Path("/ingredientes")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearIngrediente(Ingrediente cliente) {
@@ -78,7 +70,7 @@ public class RESTAdministradorRestaurante
 		return Response.status(200).entity(cliente).build();
 	}
 	@POST
-	@Path("/men")
+	@Path("/menus")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearMenu(Menu cliente) {
@@ -90,7 +82,7 @@ public class RESTAdministradorRestaurante
 		}
 		return Response.status(200).entity(cliente).build();
 	}
-		
+
 	@GET
 	@Path( "{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
@@ -107,7 +99,7 @@ public class RESTAdministradorRestaurante
 			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
 		}
 	}
-	
+
 	@GET
 	@Path( "{nombre}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
@@ -124,7 +116,7 @@ public class RESTAdministradorRestaurante
 			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
 		}
 	}
-	
+
 	@GET
 	@Path( "{correo}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
@@ -141,7 +133,7 @@ public class RESTAdministradorRestaurante
 			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
 		}
 	}
-	
+
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darAdministradorRestaurantes() {
@@ -154,7 +146,7 @@ public class RESTAdministradorRestaurante
 		}
 		return Response.status(200).entity(clientes).build();
 	}
-	
+
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -167,7 +159,7 @@ public class RESTAdministradorRestaurante
 		}
 		return Response.status(200).entity(cliente).build();
 	}
-	
+
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -180,5 +172,5 @@ public class RESTAdministradorRestaurante
 		}
 		return Response.status(200).entity(cliente).build();
 	}
-	
+
 }

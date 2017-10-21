@@ -20,7 +20,7 @@ import master.RotondAndesMaster;
 import vo.Tipo;
 
 
-@Path("tipos")
+@Path("tipo")
 public class RESTTipo 
 {
 	@Context

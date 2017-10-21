@@ -23,7 +23,7 @@ import vo.Producto;
 
 
 
-@Path("productos")
+@Path("producto")
 public class RESTProducto 
 {
 	@Context
@@ -36,19 +36,7 @@ public class RESTProducto
 	private String getPath() {
 		return context.getRealPath("WEB-INF/ConnectionData");
 	}
-	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response crearProducto(Producto producto) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
-		try {
-			tm.crearProducto(producto);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(producto).build();
-	}
+
 		
 	@GET
 	@Path( "{id: \\d+}" )
@@ -98,7 +86,7 @@ public class RESTProducto
 	}
 	
 	@GET
-	@Path( "/restauranteproductos/{nombre}" )
+	@Path( "/productosrestaurante/{nombre}" )
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darProductosRestaurante(@PathParam( "nombre" ) String name) {
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
@@ -112,7 +100,7 @@ public class RESTProducto
 	}
 	
 	@GET
-	@Path( "/categoriaproductos/{idCategoria}" )
+	@Path( "/productoscategoria/{idCategoria}" )
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darProductosRestaurante(@PathParam( "idCategoria" ) Long id) {
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());

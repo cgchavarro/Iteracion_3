@@ -22,7 +22,7 @@ import vo.Restaurante;
 import vo.Zona;
 
 
-@Path("zonas")
+@Path("zona")
 public class RESTZona 
 {
 	@Context
@@ -35,19 +35,7 @@ public class RESTZona
 	private String getPath() {
 		return context.getRealPath("WEB-INF/ConnectionData");
 	}
-	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response crearZona(Zona zona) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
-		try {
-			tm.crearZona(zona);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(zona).build();
-	}
+
 		
 	@GET
 	@Path( "{id: \\d+}" )

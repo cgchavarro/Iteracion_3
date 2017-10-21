@@ -20,7 +20,7 @@ import master.RotondAndesMaster;
 import vo.Restaurante;
 
 
-@Path("restaurantes")
+@Path("restaurante")
 public class RESTRestaurante 
 {
 	@Context
@@ -32,19 +32,6 @@ public class RESTRestaurante
 	
 	private String getPath() {
 		return context.getRealPath("WEB-INF/ConnectionData");
-	}
-	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response crearRestaurante(Restaurante restaurante) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
-		try {
-			tm.crearRestaurante(restaurante);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(restaurante).build();
 	}
 		
 	@GET

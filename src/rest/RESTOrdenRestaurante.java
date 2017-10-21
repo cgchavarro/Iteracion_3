@@ -20,7 +20,7 @@ import master.RotondAndesMaster;
 import vo.OrdenRestaurante;
 
 
-@Path("ordenRestaurantes")
+@Path("ordenRestaurante")
 public class RESTOrdenRestaurante 
 {
 	@Context

@@ -20,7 +20,7 @@ import master.RotondAndesMaster;
 import vo.Rotonda;
 
 
-@Path("rotondas")
+@Path("rotonda")
 public class RESTRotonda 
 {
 	@Context

@@ -20,7 +20,7 @@ import master.RotondAndesMaster;
 import vo.Ingrediente;
 
 
-@Path("ingredientes")
+@Path("ingrediente")
 public class RESTIngrediente 
 {
 	@Context
@@ -33,19 +33,7 @@ public class RESTIngrediente
 	private String getPath() {
 		return context.getRealPath("WEB-INF/ConnectionData");
 	}
-	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response crearIngrediente(Ingrediente ingrediente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
-		try {
-			tm.crearIngrediente(ingrediente);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(ingrediente).build();
-	}
+
 		
 	@GET
 	@Path( "{id: \\d+}" )

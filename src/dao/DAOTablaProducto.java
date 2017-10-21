@@ -246,7 +246,7 @@ public class DAOTablaProducto {
 				double precio = rs.getDouble("PRECIO");
 				int cantidad = rs.getInt("CANTIDAD");
 				String nombreR = rs.getString("NOMBRE_RESTAURANTE");
-				int cantidadM = rs.getInt("CANTIDADMAXIMA");
+				int cantidadM = rs.getInt("CANTIDAD_MAXIMA");
 				productos.add( new Producto(id, nombre, idCategoria, descripcionEsp, descripcionIng, tiempo, costo, precio,cantidad, nombreR, cantidadM));
 			}
 			conn.commit();
