@@ -23,19 +23,24 @@ public class OrdenRestaurante {
 	
 	@JsonProperty(value="servida")
 	private boolean servida;
+	
+	@JsonProperty(value="mesa")
+	private String mesa;
 
 	public OrdenRestaurante(@JsonProperty(value="idOrdenRestaurante")Long idOrdenRestaurante, 
 							@JsonProperty(value="fecha")Date fecha, 
 							@JsonProperty(value="idMenu")Long idMenu, 
 							@JsonProperty(value="idRotonda")Long idRotonda,
 							@JsonProperty(value="idCliente") Long idCliente,
-							@JsonProperty(value="servida") boolean servida) {
+							@JsonProperty(value="servida") boolean servida, 	
+							@JsonProperty(value="mesa") String mesa) {
 		this.idOrdenRestaurante = idOrdenRestaurante;
 		this.fecha = fecha;
 		this.idMenu = idMenu;
 		this.idRotonda = idRotonda;
 		this.idCliente=idCliente;
 		this.servida=servida;
+		this.mesa=mesa;
 	}
 
 	public Long getIdOrdenRestaurante() {
@@ -84,6 +89,14 @@ public class OrdenRestaurante {
 
 	public void setServida(boolean servida) {
 		this.servida = servida;
+	}
+
+	public String getMesa() {
+		return mesa;
+	}
+
+	public void setMesa(String mesa) {
+		this.mesa = mesa;
 	}	
 	
 	

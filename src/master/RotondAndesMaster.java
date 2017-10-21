@@ -29,12 +29,16 @@ import dao.DAOTablaTipoProducto;
 
 import dao.DAOTablaZona;
 import dao.DAOTablaContabilidadRestaurante;
+import dao.DAOTablaEquivalenciasIngredientes;
+import dao.DAOTablaEquivalenciasProductos;
 import vo.AdministradorRestaurante;
 import vo.AdministradorRotonda;
 import vo.Categoria;
 import vo.Cliente;
 import vo.ContabilidadGeneral;
 import vo.ContabilidadRestaurante;
+import vo.EquivalenciaIngredientes;
+import vo.EquivalenciaProductos;
 import vo.Ingrediente;
 import vo.IngredienteProducto;
 import vo.Producto;
@@ -2180,4 +2184,172 @@ public class RotondAndesMaster
 
 
 	// ----------------------------------   Fin metodos PreferenciaCliente	----------------------------------
-}
+	
+	// ----------------------------------Inicio metodos EquivalenciasProducto	----------------------------------
+
+		public void crearEquivalenciasProducto(EquivalenciaProductos tipoProducto)
+		{
+			DAOTablaEquivalenciasProductos dao = new DAOTablaEquivalenciasProductos();
+			try(Connection conn = darConexion())
+			{
+				dao.agregarEquivalenciaProductos(conn, tipoProducto);
+				conn.commit();
+			} 
+			catch (SQLException e) 
+			{
+
+				e.printStackTrace();
+			}
+		}
+
+	
+	
+
+		public ArrayList<EquivalenciaProductos> darEquivalenciasProductos()
+		{
+			ArrayList<EquivalenciaProductos> tiposProductos = new ArrayList<>();
+			DAOTablaEquivalenciasProductos dao = new DAOTablaEquivalenciasProductos();
+			try(Connection conn = darConexion())
+			{
+				tiposProductos = dao.darEquivalencias(conn);
+			} 
+			catch (SQLException e) 
+			{
+
+				e.printStackTrace();
+			}
+			return tiposProductos;
+		}
+//
+//		public void actualizarProductoDeEquivalenciasProducto(EquivalenciasProducto tipoProducto)
+//		{
+//			DAOTablaEquivalenciasProducto dao = new DAOTablaEquivalenciasProducto();
+//			try(Connection conn = darConexion())
+//			{
+//				dao.actualizarProductoEquivalenciasProducto(conn, tipoProducto);
+//				conn.commit();
+//			} 
+//			catch (SQLException e) 
+//			{
+//
+//				e.printStackTrace();
+//			}
+//		}
+
+//		public void actualizarTipoDeEquivalenciasProducto(EquivalenciaProductos tipoProducto)
+//		{
+//			DAOTablaEquivalenciasProductos dao = new DAOTablaEquivalenciasProductos();
+//			try(Connection conn = darConexion())
+//			{
+//				dao.actualizarEquivalencia(conn, tipoProducto);
+//				conn.commit();
+//			} 
+//			catch (SQLException e) 
+//			{
+//
+//				e.printStackTrace();
+//			}
+//		}
+
+		public void eliminarEquivalenciasProducto(EquivalenciaProductos tipoProducto)
+		{
+			DAOTablaEquivalenciasProductos dao = new DAOTablaEquivalenciasProductos();
+			try(Connection conn = darConexion())
+			{
+				dao.eliminarEquivalencia(conn, tipoProducto);
+				conn.commit();
+			} 
+			catch (SQLException e) 
+			{
+
+				e.printStackTrace();
+			}
+		}
+
+		// ----------------------------------  Fin metodos EquivalenciasProducto	----------------------------------
+		
+		// ----------------------------------Inicio metodos EquivalenciasIngrediente----------------------------------
+
+				public void crearEquivalenciasIngrediente(EquivalenciaIngredientes tipoProducto)
+				{
+					DAOTablaEquivalenciasIngredientes dao = new DAOTablaEquivalenciasIngredientes();
+					try(Connection conn = darConexion())
+					{
+						dao.agregarEquivalenciaIngredientes(conn, tipoProducto);
+						conn.commit();
+					} 
+					catch (SQLException e) 
+					{
+
+						e.printStackTrace();
+					}
+				}
+
+			
+			
+
+				public ArrayList<EquivalenciaIngredientes> darEquivalenciasIngredientes()
+				{
+					ArrayList<EquivalenciaIngredientes> tiposProductos = new ArrayList<>();
+					DAOTablaEquivalenciasIngredientes dao = new DAOTablaEquivalenciasIngredientes();
+					try(Connection conn = darConexion())
+					{
+						tiposProductos = dao.darEquivalencias(conn);
+					} 
+					catch (SQLException e) 
+					{
+
+						e.printStackTrace();
+					}
+					return tiposProductos;
+				}
+		//
+//				public void actualizarProductoDeEquivalenciasProducto(EquivalenciasProducto tipoProducto)
+//				{
+//					DAOTablaEquivalenciasProducto dao = new DAOTablaEquivalenciasProducto();
+//					try(Connection conn = darConexion())
+//					{
+//						dao.actualizarProductoEquivalenciasProducto(conn, tipoProducto);
+//						conn.commit();
+//					} 
+//					catch (SQLException e) 
+//					{
+		//
+//						e.printStackTrace();
+//					}
+//				}
+
+//				public void actualizarTipoDeEquivalenciasProducto(EquivalenciaProductos tipoProducto)
+//				{
+//					DAOTablaEquivalenciasProductos dao = new DAOTablaEquivalenciasProductos();
+//					try(Connection conn = darConexion())
+//					{
+//						dao.actualizarEquivalencia(conn, tipoProducto);
+//						conn.commit();
+//					} 
+//					catch (SQLException e) 
+//					{
+		//
+//						e.printStackTrace();
+//					}
+//				}
+
+				public void eliminarEquivalenciasIngredientes(EquivalenciaIngredientes tipoProducto)
+				{
+					DAOTablaEquivalenciasIngredientes dao = new DAOTablaEquivalenciasIngredientes();
+					try(Connection conn = darConexion())
+					{
+						dao.eliminarEquivalencia(conn, tipoProducto);
+						conn.commit();
+					} 
+					catch (SQLException e) 
+					{
+
+						e.printStackTrace();
+					}
+				}
+
+				// ----------------------------------  Fin metodos EquivalenciasProducto	----------------------------------
+		}
+
+

@@ -41,6 +41,9 @@ public class Producto {
 	
 	@JsonProperty(value="nombreRestaurante")
 	private String nombreRestaurante;
+	
+	@JsonProperty(value="cantidadMaxima")
+	private int cantidadMaxima;
 
 	
 	
@@ -53,7 +56,8 @@ public class Producto {
 					@JsonProperty(value="costo")double costo, 
 					@JsonProperty(value="precio")double precio,
 					@JsonProperty(value="cantidad") int cantidad,
-					@JsonProperty(value="nombreRestaurante") String nombreRestaurante) {
+					@JsonProperty(value="nombreRestaurante") String nombreRestaurante, 
+					@JsonProperty(value="cantidadMaxima") int cantidadMaxima) {
 		this.idProducto = idProducto;
 		this.nombre = nombre;
 		this.idCategoria = idCategoria;
@@ -64,6 +68,7 @@ public class Producto {
 		this.precio = precio;
 		this.cantidad=cantidad;
 		this.nombreRestaurante=nombreRestaurante;
+		this.cantidadMaxima=cantidadMaxima;
 	}
 
 	public Long getIdProducto() {
@@ -152,6 +157,14 @@ public class Producto {
 
 	public void setNombreRestaurante(String nombreRestaurante) {
 		this.nombreRestaurante = nombreRestaurante;
+	}
+
+	public int getCantidadMaxima() {
+		return cantidadMaxima;
+	}
+
+	public void setCantidadMaxima(int cantidadMaxima) {
+		this.cantidadMaxima = cantidadMaxima;
 	}
 	
 
