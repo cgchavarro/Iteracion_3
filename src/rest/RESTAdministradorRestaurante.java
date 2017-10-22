@@ -18,6 +18,8 @@ import javax.ws.rs.core.Response;
 
 import master.RotondAndesMaster;
 import vo.AdministradorRestaurante;
+import vo.EquivalenciaIngredientes;
+import vo.EquivalenciaProductos;
 import vo.Ingrediente;
 import vo.Menu;
 import vo.Producto;
@@ -188,4 +190,94 @@ public class RESTAdministradorRestaurante
 		return Response.status(200).entity(cliente).build();
 	}
 
+	
+	//equivalencia productos
+	
+	@POST
+	@Path("/equivalenciaproductos")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response crearSimilitudProductos(EquivalenciaProductos cliente) {
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		try {
+			tm.crearEquivalenciasProducto(cliente);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(cliente).build();
+	}
+	
+	@GET
+	@Path("/equivalenciaproductos")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response darEquivalenciasProductos() {
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		List<EquivalenciaProductos> clientes;
+		try {
+			clientes = tm.darEquivalenciasProductos();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(clientes).build();
+	}
+	
+	@DELETE
+	@Path("/equivalenciaproductos")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response eliminarEquivalenciaProductos(EquivalenciaProductos cliente) {
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		try {
+			tm.eliminarEquivalenciasProducto(cliente);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(cliente).build();
+	}
+	
+	//equivalencia pingredientes
+	
+		@POST
+		@Path("/equivalenciaingredientes")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response crearSimilitudIngredientes(EquivalenciaIngredientes cliente) {
+			RotondAndesMaster tm = new RotondAndesMaster(getPath());
+			try {
+				tm.crearEquivalenciasIngrediente(cliente);
+			} catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+			return Response.status(200).entity(cliente).build();
+		}
+		
+		@GET
+		@Path("/equivalenciaingredientes")
+		@Produces({ MediaType.APPLICATION_JSON })
+		public Response darEquivalenciasIngredientes() {
+			RotondAndesMaster tm = new RotondAndesMaster(getPath());
+			List<EquivalenciaIngredientes> clientes;
+			try {
+				clientes = tm.darEquivalenciasIngredientes();
+			} catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+			return Response.status(200).entity(clientes).build();
+		}
+		
+		@DELETE
+		@Path("/equivalenciaingredientes")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response eliminarEquivalenciaIngredientes(EquivalenciaIngredientes cliente) {
+			RotondAndesMaster tm = new RotondAndesMaster(getPath());
+			try {
+				tm.eliminarEquivalenciasIngredientes(cliente);
+			} catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+			return Response.status(200).entity(cliente).build();
+		}
+		
+	
 }

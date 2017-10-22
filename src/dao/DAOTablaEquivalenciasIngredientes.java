@@ -104,7 +104,7 @@ public class DAOTablaEquivalenciasIngredientes
 
 	public void eliminarEquivalencia(Connection conn, EquivalenciaIngredientes tipoProducto)
 	{
-		String sql = "DELETE FROM EQUIVALENCIASINGREDIENTES WHERE IDPINGREDIENTE1 = ? AND IDINGREDIENTE2 = ?";
+		String sql = "DELETE FROM EQUIVALENCIASINGREDIENTES WHERE IDINGREDIENTE1 = ? AND IDINGREDIENTE2 = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, tipoProducto.getIdIngrediente1());

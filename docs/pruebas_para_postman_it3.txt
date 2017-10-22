@@ -1,8 +1,32 @@
 URL´s para pruebas en postman
 
+
+RF11
+
+Equivalencia ingredientes
+
+POST  http://localhost:8080/RotondAndes/rest/administradorrestaurante/equivalenciaingredientes
+
+ {
+        "idIngrediente1": 1,
+        "idIngrediente2": 11
+    }
+
+RF12
+Equivalencia productos
+
+POST http://localhost:8080/RotondAndes/rest/administradorrestaurante/equivalenciaproductos
+
+{
+    "idProducto1": 1010,
+    "idProducto2": 697
+}
+
+POST
+
 RF13
 SurtirRestaurante
-Desde administrador rotonda
+Desde administrador restaurante se realiza esta acción
 
 PUT http://localhost:8080/RotondAndes/rest/administradorrestaurante/surtirrestaurante/{nombreRestaurante}
 

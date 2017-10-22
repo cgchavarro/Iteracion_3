@@ -11,7 +11,7 @@ public class EquivalenciaIngredientes
 	private Long idIngrediente2;
 
 	public EquivalenciaIngredientes(@JsonProperty(value="idIngrediente1")Long idIngrediente1, 
-			@JsonProperty(value="idIngrediente1")Long idIngrediente2) {
+			@JsonProperty(value="idIngrediente2")Long idIngrediente2) {
 		this.idIngrediente1=idIngrediente1;
 		this.idIngrediente2=idIngrediente2;
 	}
