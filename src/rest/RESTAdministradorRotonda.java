@@ -20,6 +20,10 @@ import master.RotondAndesMaster;
 import vo.AdministradorRestaurante;
 import vo.AdministradorRotonda;
 import vo.Cliente;
+import vo.Menu;
+import vo.OrdenRestaurante;
+import vo.PreferenciaCliente;
+import vo.Producto;
 import vo.Restaurante;
 import vo.Zona;
 
@@ -175,6 +179,68 @@ public class RESTAdministradorRotonda
 		}
 		return Response.status(200).entity(clientes).build();
 	}
+	
+	@GET
+	@Path( "/consumocliente/{idcliente}" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	public Response darConsumoClienteId( @PathParam( "idcliente" ) Long id )
+	{
+		long startTime = System.currentTimeMillis();
+		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		try
+		{
+			Cliente cliente = tm.darClientePorCedula(id);
+			ArrayList<OrdenRestaurante> orden =tm.darOrdenRestaurantePorIdCliente(id);
+			ArrayList<Menu> menus = new ArrayList<Menu>();
+			ArrayList<Producto> productos = new ArrayList<Producto>();
+			for(OrdenRestaurante o: orden)
+			{
+				Menu menuActual = tm.darMenuPorId(o.getIdMenu());
+				menus.add(menuActual);
+				
+			}
+			for(Menu m:menus)
+			{
+				productos.add(tm.darProductoPorId(m.getIdAcompaniamiento()));
+				productos.add(tm.darProductoPorId(m.getIdBebida()));
+				productos.add(tm.darProductoPorId(m.getIdEntrada()));
+				productos.add(tm.darProductoPorId(m.getIdPlatoFuerte()));
+				productos.add(tm.darProductoPorId(m.getIdPostre()));
+				
+			}
+			PreferenciaCliente p = tm.darPreferenciaClientePorId(id);
+			productos = eliminarRepetidos(productos);
+			ArrayList c = new ArrayList();
+			c.add(cliente); c.addAll(orden); c.add(menus); c.add(productos); c.add(p);
+			long endTime = System.currentTimeMillis();
+			System.out.println("Total time spent (milliseconds): "+(endTime-startTime));
+			return Response.status( 200 ).entity( c ).build( );	
+		
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
+	
+	}
+	
+	private ArrayList<Producto> eliminarRepetidos(ArrayList<Producto> productos) 
+	{
+	ArrayList<Producto> pro = productos;
+	for(int i=0; i<pro.size();i++)
+	{
+		Producto iActual = pro.get(i);
+		for(int j=0;j<pro.size();j++)
+		{
+			Producto jActual = pro.get(j);
+			if(iActual.getIdProducto()==jActual.getIdProducto()&&j!=i)
+			{
+				pro.remove(j);
+			}
+		}
+	}
+	return pro;
+}
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
