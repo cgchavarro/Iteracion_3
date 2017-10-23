@@ -32,6 +32,21 @@ PUT http://localhost:8080/RotondAndes/rest/administradorrestaurante/surtirrestau
 
 
 
+RFC7
+Obtener la información de pedidos para un cliente.
+
+GET http://localhost:8080/RotondAndes/rest/cliente/consumocliente/{idCliente}
+
+o bien 
+
+GET http://localhost:8080/RotondAndes/rest/administradorrotonda/consumocliente/{idCliente}
+
+Donde {idCliente}, corresponde a una zona ya existente.
+
+Algunos id de cliente son: 1010054402 y 2020202020.
+
+
+
 
 
 
