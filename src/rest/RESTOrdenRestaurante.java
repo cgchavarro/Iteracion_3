@@ -142,16 +142,55 @@ public class RESTOrdenRestaurante
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response actualizarOrdenRestaurante(OrdenRestaurante ordenRestaurante) {
+	public Response actualizarOrdenRestaurante(OrdenRestaurante ordenRestaurante) 
+	{
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
-		try {
+		OrdenRestaurante ordenAModificar = tm.darOrdenRestaurantePorId(ordenRestaurante.getIdOrdenRestaurante());
+		if(ordenAModificar.isServida()==false&&ordenRestaurante.isServida()==true)
+		{
+			actualizarProductos(ordenRestaurante,tm);
+			try {
+				tm.actualizarOrdenRestaurante(ordenRestaurante);
+			} catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+			return Response.status(200).entity(ordenRestaurante).build();
+		}
+		else
+		{
+		try 
+		{
 			tm.actualizarOrdenRestaurante(ordenRestaurante);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(ordenRestaurante).build();
+		}
 	}
 	
+	private void actualizarProductos(OrdenRestaurante ordenRestaurante, RotondAndesMaster tm) 
+	{
+		// TODO Auto-generated method stub
+		Menu m = tm.darMenuPorId(ordenRestaurante.getIdMenu());
+		
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+		
+		productos.add(tm.darProductoPorId(m.getIdAcompaniamiento()));
+		productos.add(tm.darProductoPorId(m.getIdBebida()));
+		productos.add(tm.darProductoPorId(m.getIdEntrada()));
+		productos.add(tm.darProductoPorId(m.getIdPlatoFuerte()));
+		productos.add(tm.darProductoPorId(m.getIdPostre()));
+		
+		
+		for(Producto p:productos)
+		{
+			p.setCantidad(p.getCantidad()-1);
+			tm.actualizarProducto(p);
+		}
+		
+		
+	}
+
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
