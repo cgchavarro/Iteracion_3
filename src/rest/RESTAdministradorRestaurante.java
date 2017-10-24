@@ -135,7 +135,7 @@ public class RESTAdministradorRestaurante
 			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
 		}
 	}
-	
+
 	@PUT
 	@Path( "/surtirrestaurante/{nombreRestaurante}" )
 	@Produces(MediaType.APPLICATION_JSON)
@@ -190,9 +190,9 @@ public class RESTAdministradorRestaurante
 		return Response.status(200).entity(cliente).build();
 	}
 
-	
+
 	//equivalencia productos
-	
+
 	@POST
 	@Path("/equivalenciaproductos")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -206,7 +206,7 @@ public class RESTAdministradorRestaurante
 		}
 		return Response.status(200).entity(cliente).build();
 	}
-	
+
 	@GET
 	@Path("/equivalenciaproductos")
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -220,7 +220,7 @@ public class RESTAdministradorRestaurante
 		}
 		return Response.status(200).entity(clientes).build();
 	}
-	
+
 	@DELETE
 	@Path("/equivalenciaproductos")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -234,50 +234,60 @@ public class RESTAdministradorRestaurante
 		}
 		return Response.status(200).entity(cliente).build();
 	}
-	
+
 	//equivalencia pingredientes
-	
-		@POST
-		@Path("/equivalenciaingredientes")
-		@Consumes(MediaType.APPLICATION_JSON)
-		@Produces(MediaType.APPLICATION_JSON)
-		public Response crearSimilitudIngredientes(EquivalenciaIngredientes cliente) {
-			RotondAndesMaster tm = new RotondAndesMaster(getPath());
-			try {
-				tm.crearEquivalenciasIngrediente(cliente);
-			} catch (Exception e) {
-				return Response.status(500).entity(doErrorMessage(e)).build();
-			}
-			return Response.status(200).entity(cliente).build();
+
+	@POST
+	@Path("/equivalenciaingredientes")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response crearSimilitudIngredientes(EquivalenciaIngredientes cliente) {
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		try {
+			tm.crearEquivalenciasIngrediente(cliente);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		
-		@GET
-		@Path("/equivalenciaingredientes")
-		@Produces({ MediaType.APPLICATION_JSON })
-		public Response darEquivalenciasIngredientes() {
-			RotondAndesMaster tm = new RotondAndesMaster(getPath());
-			List<EquivalenciaIngredientes> clientes;
-			try {
-				clientes = tm.darEquivalenciasIngredientes();
-			} catch (Exception e) {
-				return Response.status(500).entity(doErrorMessage(e)).build();
-			}
-			return Response.status(200).entity(clientes).build();
+		return Response.status(200).entity(cliente).build();
+	}
+
+	@GET
+	@Path("/equivalenciaingredientes")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response darEquivalenciasIngredientes() {
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		List<EquivalenciaIngredientes> clientes;
+		try {
+			clientes = tm.darEquivalenciasIngredientes();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		
-		@DELETE
-		@Path("/equivalenciaingredientes")
-		@Consumes(MediaType.APPLICATION_JSON)
-		@Produces(MediaType.APPLICATION_JSON)
-		public Response eliminarEquivalenciaIngredientes(EquivalenciaIngredientes cliente) {
-			RotondAndesMaster tm = new RotondAndesMaster(getPath());
-			try {
-				tm.eliminarEquivalenciasIngredientes(cliente);
-			} catch (Exception e) {
-				return Response.status(500).entity(doErrorMessage(e)).build();
-			}
-			return Response.status(200).entity(cliente).build();
+		return Response.status(200).entity(clientes).build();
+	}
+
+	@DELETE
+	@Path("/equivalenciaingredientes")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response eliminarEquivalenciaIngredientes(EquivalenciaIngredientes cliente) {
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		try {
+			tm.eliminarEquivalenciasIngredientes(cliente);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		
-	
+		return Response.status(200).entity(cliente).build();
+	}
+
+
+	//TODO RFC8. CONSULTAR PEDIDOS
+	//		Muestra la información consolidada de los pedidos hechos en RotondAndes.
+	//		Consolida, como mínimo, para cada uno los restaurantes y para cada uno de sus productos 
+	//		las ventas totales (en dinero y en cantidad), lo consumidos por clientes registrados 
+	//		y por clientes no registrados.
+	//		Esta operación es realizada por el administrador de RotondAndes.
+	//		NOTA: Respetando la privacidad de los clientes, 
+	//		cuando un restaurante hace esta consulta obtiene la información de sus propias actividades,
+	//		mientras que el administrador obtiene toda la información. Ver RNF1.
+	//	
 }

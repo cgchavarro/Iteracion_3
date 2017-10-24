@@ -268,6 +268,15 @@ public class RESTAdministradorRotonda
 		return Response.status(200).entity(cliente).build();
 	}
 	
-	
+	//TODO RFC8. CONSULTAR PEDIDOS
+		//		Muestra la información consolidada de los pedidos hechos en RotondAndes.
+		//		Consolida, como mínimo, para cada uno los restaurantes y para cada uno de sus productos 
+		//		las ventas totales (en dinero y en cantidad), lo consumidos por clientes registrados 
+		//		y por clientes no registrados.
+		//		Esta operación es realizada por el administrador de RotondAndes.
+		//		NOTA: Respetando la privacidad de los clientes, 
+		//		cuando un restaurante hace esta consulta obtiene la información de sus propias actividades,
+		//		mientras que el administrador obtiene toda la información. Ver RNF1.
+		//	
 	
 }

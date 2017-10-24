@@ -1,6 +1,7 @@
 package rest;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -17,7 +18,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import master.RotondAndesMaster;
+import vo.MensajeError;
+import vo.Menu;
 import vo.OrdenRestaurante;
+import vo.Producto;
 
 
 @Path("ordenRestaurante")
@@ -39,14 +43,55 @@ public class RESTOrdenRestaurante
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearOrdenRestaurante(OrdenRestaurante ordenRestaurante) {
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+	
+		
+		Menu m = tm.darMenuPorId(ordenRestaurante.getIdMenu());
+		
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+		
+		productos.add(tm.darProductoPorId(m.getIdAcompaniamiento()));
+		productos.add(tm.darProductoPorId(m.getIdBebida()));
+		productos.add(tm.darProductoPorId(m.getIdEntrada()));
+		productos.add(tm.darProductoPorId(m.getIdPlatoFuerte()));
+		productos.add(tm.darProductoPorId(m.getIdPostre()));
+		
+	boolean	verificar=verificarProductos(productos);
+		
+		if(verificar)
+		{
 		try {
 			tm.crearOrdenRestaurante(ordenRestaurante);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
+		
 		return Response.status(200).entity(ordenRestaurante).build();
+		}
+		else
+		{
+		MensajeError ex = new MensajeError("no se logro crear la orden");
+			System.out.println("no se logro crear");
+			return Response.status(500).entity(ex).build();
+		}
+		
 	}
 		
+	
+
+	private boolean verificarProductos(ArrayList<Producto> productos) 
+	{
+		// TODO Auto-generated method stub
+		boolean puede=true;
+		for(Producto p:productos)
+		{
+			if(p.getCantidad()<=0)
+			{
+			puede=false;
+			}
+		}
+		return puede;
+	}
+
 	@GET
 	@Path( "{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )

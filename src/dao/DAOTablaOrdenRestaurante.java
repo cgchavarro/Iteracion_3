@@ -18,6 +18,7 @@ public class DAOTablaOrdenRestaurante
 	
 	public void agregarOrdenRestaurante(Connection conn, OrdenRestaurante ordenRestaurante)
 	{
+	
 		String sql = "INSERT INTO ORDEN_RESTAURANTE VALUES (?,?,?,?,?,?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
@@ -44,8 +45,12 @@ public class DAOTablaOrdenRestaurante
 
 			e.printStackTrace();
 		}
+		
+	
 	}
 	
+
+
 	public OrdenRestaurante darOrdenRestaurantePorId(Connection conn, Long id)
 	{
 		OrdenRestaurante ordenRestaurante = null;
