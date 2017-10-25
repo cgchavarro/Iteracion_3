@@ -2363,6 +2363,9 @@ public class RotondAndesMaster
 					}
 				}
 
+				public void crearOrdenRestauranteEquivalencias(OrdenRestaurante ordenRestaurante) {
+				}
+
 				// ----------------------------------  Fin metodos EquivalenciasProducto	----------------------------------
 		}
 
