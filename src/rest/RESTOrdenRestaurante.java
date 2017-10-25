@@ -264,20 +264,11 @@ public class RESTOrdenRestaurante
 
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
 		ArrayList<OrdenRestaurante> ordenes = tm.darOrdenRestaurantePorMesa(id);
-
+		System.out.println("primeroooooo" + id);
 		System.out.println("Tiempo 1 " + (System.currentTimeMillis() - start));
-		ArrayList respuestas = new ArrayList();
-		int contador = 0;
 		tm.actualizarOrdenesRestaurante(ordenes);
-		for(OrdenRestaurante o :ordenes)
-		{
-			contador ++;
-			System.out.println(("Tiempo " + contador) + (System.currentTimeMillis() - start));
-			o.setServida(true);
-			respuestas.add(actualizarOrdenRestaurante(o).getEntity());
-		}
-		System.out.println("Tiempo total " + (System.currentTimeMillis() - start));
-		return Response.status(200).entity(respuestas).build();
+		ordenes = tm.darOrdenRestaurantePorMesa(id);
+		return Response.status(200).entity(ordenes).build();
 	}
 	
 	@PUT

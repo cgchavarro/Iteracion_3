@@ -843,6 +843,8 @@ public class RotondAndesMaster
 		}
 		return ordenRestaurantes;		
 	}
+	
+	
 
 	public ArrayList<OrdenRestaurante> darOrdenRestaurantes()
 	{
@@ -2396,11 +2398,12 @@ public class RotondAndesMaster
 				}
 
 
-				public void actualizarOrdenesRestaurante(ArrayList<OrdenRestaurante> ordenes) {
+				public ArrayList<OrdenRestaurante> actualizarOrdenesRestaurante(ArrayList<OrdenRestaurante> ordenes) {
 					DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
+					ArrayList<OrdenRestaurante> retornar = new ArrayList<>();
 					try(Connection conn = darConexion())
 					{
-						dao.actualizarOrdenesRestauranteComoServidas(conn, ordenes);
+						retornar = dao.actualizarOrdenesRestauranteComoServidas(conn, ordenes);
 						conn.commit();
 					}
 					catch(SQLException e)
@@ -2408,6 +2411,7 @@ public class RotondAndesMaster
 
 						e.printStackTrace();
 					}
+					return retornar;
 				}
 
 				// ----------------------------------  Fin metodos EquivalenciasProducto	----------------------------------

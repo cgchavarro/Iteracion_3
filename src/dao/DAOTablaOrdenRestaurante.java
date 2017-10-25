@@ -13,12 +13,12 @@ public class DAOTablaOrdenRestaurante
 {
 	public DAOTablaOrdenRestaurante()
 	{
-		
+
 	}
-	
+
 	public void agregarOrdenRestaurante(Connection conn, OrdenRestaurante ordenRestaurante)
 	{
-	
+
 		String sql = "INSERT INTO ORDEN_RESTAURANTE VALUES (?,?,?,?,?,?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
@@ -29,7 +29,7 @@ public class DAOTablaOrdenRestaurante
 			preStat.setLong(5, ordenRestaurante.getIdCliente());
 			preStat.setString(6, darStringBoolean(ordenRestaurante.isServida()));
 			preStat.setString(7, ordenRestaurante.getMesa());
-			
+
 			preStat.executeQuery();
 			conn.commit();
 		}
@@ -45,10 +45,10 @@ public class DAOTablaOrdenRestaurante
 
 			e.printStackTrace();
 		}
-		
-	
+
+
 	}
-	
+
 
 
 	public OrdenRestaurante darOrdenRestaurantePorId(Connection conn, Long id)
@@ -59,7 +59,7 @@ public class DAOTablaOrdenRestaurante
 		{
 			preStat.setLong(1, id);
 			ResultSet rs = preStat.executeQuery();
-			
+
 			while(rs.next())
 			{
 				Long idOrdenRestaurante = rs.getLong("ID");
@@ -87,7 +87,7 @@ public class DAOTablaOrdenRestaurante
 		}
 		return ordenRestaurante;
 	}
-	
+
 	public ArrayList<OrdenRestaurante> darOrdenRestaurantesPorIdCliente(Connection conn, Long idMenu)
 	{
 		ArrayList<OrdenRestaurante> ordenRestaurantes = new ArrayList<>();
@@ -96,7 +96,7 @@ public class DAOTablaOrdenRestaurante
 		{
 			preStat.setLong(1, idMenu);
 			ResultSet rs = preStat.executeQuery();
-			
+
 			while(rs.next())
 			{
 				Long id = rs.getLong("ID");
@@ -125,9 +125,9 @@ public class DAOTablaOrdenRestaurante
 		}
 		return ordenRestaurantes;
 	}
-	
 
-	
+
+
 	public ArrayList<OrdenRestaurante> darOrdenRestaurantesPorMenu(Connection conn, Long idMenu)
 	{
 		ArrayList<OrdenRestaurante> ordenRestaurantes = new ArrayList<>();
@@ -136,7 +136,7 @@ public class DAOTablaOrdenRestaurante
 		{
 			preStat.setLong(1, idMenu);
 			ResultSet rs = preStat.executeQuery();
-			
+
 			while(rs.next())
 			{
 				Long id = rs.getLong("ID");
@@ -165,17 +165,17 @@ public class DAOTablaOrdenRestaurante
 		}
 		return ordenRestaurantes;
 	}
-	
-	
+
+
 	public ArrayList<OrdenRestaurante> darOrdenRestaurantesPorMesa(Connection conn, String idMenu)
 	{
 		ArrayList<OrdenRestaurante> ordenRestaurantes = new ArrayList<>();
-		String sql = "SELECT * FROM ORDEN_RESTAURANTE WHERE MESA = ? AND SERVIDA ='f' ";
+		String sql = "SELECT * FROM ORDEN_RESTAURANTE WHERE MESA = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, idMenu);
 			ResultSet rs = preStat.executeQuery();
-			
+
 			while(rs.next())
 			{
 				Long id = rs.getLong("ID");
@@ -204,17 +204,17 @@ public class DAOTablaOrdenRestaurante
 		}
 		return ordenRestaurantes;
 	}
-	
-	
+
+
 	public ArrayList<OrdenRestaurante> darOrdenRestaurantesServidas(Connection conn)
 	{
 		ArrayList<OrdenRestaurante> ordenRestaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM ORDEN_RESTAURANTE WHERE SERVIDA = t";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			
+
 			ResultSet rs = preStat.executeQuery();
-			
+
 			while(rs.next())
 			{
 				Long id = rs.getLong("ID");
@@ -243,7 +243,7 @@ public class DAOTablaOrdenRestaurante
 		}
 		return ordenRestaurantes;
 	}
-	
+
 	public ArrayList<OrdenRestaurante> darOrdenRestaurantes(Connection conn)
 	{
 		ArrayList<OrdenRestaurante> ordenRestaurantes = new ArrayList<>();
@@ -251,7 +251,7 @@ public class DAOTablaOrdenRestaurante
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
-			
+
 			while(rs.next())
 			{
 				Long id = rs.getLong("ID");
@@ -280,7 +280,7 @@ public class DAOTablaOrdenRestaurante
 		}
 		return ordenRestaurantes;
 	}
-	
+
 	public void actualizarOrdenRestaurante(Connection conn, OrdenRestaurante ordenRestaurante)
 	{
 		String sql = "UPDATE ORDEN_RESTAURANTE SET FECHA = ?, ID_MENU = ?, ID_ROTONDA = ?, ID_CLIENTE = ?, SERVIDA = ?, MESA = ?  WHERE ID = ?";
@@ -309,7 +309,7 @@ public class DAOTablaOrdenRestaurante
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void eliminarOrdenRestaurante(Connection conn, OrdenRestaurante ordenRestaurante)
 	{
 		String sql = "DELETE FROM ORDEN_RESTAURANTE WHERE ID = ?";
@@ -317,7 +317,6 @@ public class DAOTablaOrdenRestaurante
 		{
 			preStat.setLong(1, ordenRestaurante.getIdOrdenRestaurante());
 			preStat.executeQuery();
-			conn.commit();
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -351,12 +350,20 @@ public class DAOTablaOrdenRestaurante
 		return true;
 	}
 
-	public void actualizarOrdenesRestauranteComoServidas(Connection conn, ArrayList<OrdenRestaurante> ordenes) {
-		String sql = "UPDATE ORDEN_RESTAURANTE SET SERVIDA = ?  WHERE";
+	public ArrayList<OrdenRestaurante> actualizarOrdenesRestauranteComoServidas(Connection conn, ArrayList<OrdenRestaurante> ordenes) {
+		System.out.println("algo");
+		ArrayList<OrdenRestaurante> ordenRestaurantes = new ArrayList<>();
+		String sql = "UPDATE ORDEN_RESTAURANTE SET SERVIDA = ? WHERE MESA = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
+			System.out.println("algo0");
 			preStat.setString(1, "t");
-			preStat.executeQuery();
+			System.out.println("algo1");
+			System.out.println("tamano" + ordenes.size());
+			preStat.setString(2, ordenes.get(0).getMesa());
+			System.out.println("algo2 " + ordenes.get(0).getMesa());
+			System.out.println(preStat.toString());
+			preStat.executeQuery();			
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -371,5 +378,11 @@ public class DAOTablaOrdenRestaurante
 
 			e.printStackTrace();
 		}
+		catch(Throwable e)
+		{
+			e.printStackTrace();
+			throw e;
+		}
+		return ordenRestaurantes;
 	}
 }
