@@ -125,5 +125,40 @@ public class DAOTablaEquivalenciasProductos
 		}
 	}
 
+	public EquivalenciaProductos darEquivalencia(Connection conn, EquivalenciaProductos eq) 
+	{
+		EquivalenciaProductos tiposProductos = null;
+		String sql = "SELECT * FROM EQUIVALENCIASPRODUCTOS WHERE  IDPRODUCTO1 = ? AND IDPRODUCTO2 = ?";
+		try(PreparedStatement preStat = conn.prepareStatement(sql))
+		{
+			preStat.setLong(1, eq.getIdProducto1());
+			preStat.setLong(2, eq.getIdProducto2());
+
+			ResultSet rs = preStat.executeQuery();
+
+			while(rs.next())
+			{
+				Long idProducto1 = rs.getLong("IDPRODUCTO1");
+				Long idProducto2 = rs.getLong("IDPRODUCTO2");
+			tiposProductos =	new EquivalenciaProductos(idProducto1, idProducto2);
+			}				
+			conn.commit();
+		}
+		catch(SQLException e)
+		{
+			try 
+			{
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();
+		}
+		return tiposProductos;
+		
+	}
+
 
 }

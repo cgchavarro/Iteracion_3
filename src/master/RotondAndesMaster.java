@@ -2234,6 +2234,22 @@ public class RotondAndesMaster
 			}
 			return tiposProductos;
 		}
+		
+		public EquivalenciaProductos darEquivalenciaProductos (EquivalenciaProductos eq)
+		{
+			EquivalenciaProductos n=null;
+			DAOTablaEquivalenciasProductos dao = new DAOTablaEquivalenciasProductos();
+			try(Connection conn = darConexion())
+			{
+				n = dao.darEquivalencia(conn, eq);
+			} 
+			catch (SQLException e) 
+			{
+
+				e.printStackTrace();
+			}
+			return n;
+		}
 //
 //		public void actualizarProductoDeEquivalenciasProducto(EquivalenciasProducto tipoProducto)
 //		{

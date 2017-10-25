@@ -30,7 +30,30 @@ Desde administrador restaurante se realiza esta acción
 
 PUT http://localhost:8080/RotondAndes/rest/administradorrestaurante/surtirrestaurante/{nombreRestaurante}
 
+RF14
+Registrar orden con equivalencias
 
+POST http://localhost:8080/RotondAndes/rest/ordenRestaurante/equivalencias
+
+{ "ordenRestaurante" : {
+        "idOrdenRestaurante": 2222,
+        
+	"fecha": "2017-10-03",
+        
+	"idMenu": 2,
+        
+	"idRotonda": 1,
+        
+	"idCliente": 1090509418,
+        
+	"servida": true
+    
+},  "equivalencias" :
+[{
+    "idProducto1": 1,
+    "idProducto2": 6
+}]
+}
 
 RFC7
 Obtener la información de pedidos para un cliente.

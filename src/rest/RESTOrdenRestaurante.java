@@ -99,9 +99,9 @@ public class RESTOrdenRestaurante
 
 		for(EquivalenciaProductos equivalencia:equivalencias)
 		{
-			if(!verificarEquivalenciaProducto(equivalencia))
+			if(verificarEquivalenciaProducto(equivalencia)==false)
 			{
-				MensajeError ex = new MensajeError("no se logro crear la orden");
+				MensajeError ex = new MensajeError("no se logro crear la orden   verificando equivalencias");
 				System.out.println("no se logro crear");
 				return Response.status(500).entity(ex).build();
 			}
@@ -118,7 +118,9 @@ public class RESTOrdenRestaurante
 		start = elapsedTimeMillis;
 		System.out.println("Tiempo que transcurre hasta reemplazar los productos " + elapsedTimeMillis/1000F);
 
-		Long idMenuTemp = Long.MAX_VALUE - m.getIdMenu();
+		Long idMenuTemp =  (long) (Math.random()* Long.MAX_VALUE - m.getIdMenu());
+
+	
 		Menu menuTemp = new Menu(idMenuTemp, m.getCosto(), m.getPrecio(), m.getNombreRestaurante(), productos.get(0).getIdProducto(), productos.get(1).getIdProducto(), productos.get(2).getIdProducto(), productos.get(3).getIdProducto(), productos.get(4).getIdProducto());
 		tm.crearMenu(menuTemp);
 		elapsedTimeMillis = System.currentTimeMillis()-start;
@@ -138,12 +140,12 @@ public class RESTOrdenRestaurante
 			} catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();
 			}
-
+			System.out.println("Tiempo total " + (System.currentTimeMillis() - startTotal));
 			return Response.status(200).entity(tm.darMenuPorId(idMenuTemp)).build();
 		}
 		else
 		{
-			MensajeError ex = new MensajeError("no se logro crear la orden");
+			MensajeError ex = new MensajeError("no se logro crear la orden creando la orden");
 			System.out.println("no se logro crear");
 			return Response.status(500).entity(ex).build();
 		}
@@ -170,16 +172,23 @@ public class RESTOrdenRestaurante
 	{
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
 
-		ArrayList<EquivalenciaProductos> equivalencias = tm.darEquivalenciasProductos();
-
-		for(EquivalenciaProductos equiv:equivalencias)
+		if(tm.darEquivalenciaProductos(equivalencia)!=null)
 		{
-			if(equiv.getIdProducto1() == equivalencia.getIdProducto1() && equiv.getIdProducto2() == equivalencia.getIdProducto2())
-			{
-				return true;
-			}
+			return true;
 		}
+//		ArrayList<EquivalenciaProductos> equivalencias = tm.darEquivalenciasProductos();
+//
+//		for(EquivalenciaProductos equiv:equivalencias)
+//		{
+//			if(equiv.getIdProducto1() == equivalencia.getIdProducto1() && equiv.getIdProducto2() == equivalencia.getIdProducto2())
+//			{
+//				return true;
+//			}
+//		}
+		else
+		{
 		return false;
+		}
 	}
 
 
