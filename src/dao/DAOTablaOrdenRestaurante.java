@@ -126,6 +126,8 @@ public class DAOTablaOrdenRestaurante
 		return ordenRestaurantes;
 	}
 	
+
+	
 	public ArrayList<OrdenRestaurante> darOrdenRestaurantesPorMenu(Connection conn, Long idMenu)
 	{
 		ArrayList<OrdenRestaurante> ordenRestaurantes = new ArrayList<>();
@@ -168,7 +170,7 @@ public class DAOTablaOrdenRestaurante
 	public ArrayList<OrdenRestaurante> darOrdenRestaurantesPorMesa(Connection conn, String idMenu)
 	{
 		ArrayList<OrdenRestaurante> ordenRestaurantes = new ArrayList<>();
-		String sql = "SELECT * FROM ORDEN_RESTAURANTE WHERE MESA = ?";
+		String sql = "SELECT * FROM ORDEN_RESTAURANTE WHERE MESA = ? AND SERVIDA ='f' ";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, idMenu);
@@ -292,7 +294,6 @@ public class DAOTablaOrdenRestaurante
 			preStat.setString(6, ordenRestaurante.getMesa());
 			preStat.setLong(7, ordenRestaurante.getIdOrdenRestaurante());
 			preStat.executeQuery();
-			conn.commit();
 			conn.commit();
 		}
 		catch(SQLException e)

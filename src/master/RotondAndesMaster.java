@@ -827,6 +827,22 @@ public class RotondAndesMaster
 		}
 		return ordenRestaurantes;		
 	}
+	
+	public ArrayList<OrdenRestaurante> darOrdenRestaurantePorMesa(String idMenu)
+	{
+		ArrayList<OrdenRestaurante> ordenRestaurantes = null;
+		DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
+		try(Connection conn = darConexion())
+		{
+			ordenRestaurantes = dao.darOrdenRestaurantesPorMesa(conn, idMenu);
+		}
+		catch(SQLException e)
+		{
+
+			e.printStackTrace();
+		}
+		return ordenRestaurantes;		
+	}
 
 	public ArrayList<OrdenRestaurante> darOrdenRestaurantes()
 	{

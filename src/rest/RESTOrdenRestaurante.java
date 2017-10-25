@@ -86,7 +86,7 @@ public class RESTOrdenRestaurante
 		long start = System.currentTimeMillis();
 		long startTotal = System.currentTimeMillis();
 
-		long elapsedTimeMillis = System.currentTimeMillis()-start;
+
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
 		EquivalenciaProductos[] equivalencias = ordenEquiv.getEquivalencias();
 		OrdenRestaurante ordenRestaurante = ordenEquiv.getOrdenRestaurante();
@@ -114,18 +114,17 @@ public class RESTOrdenRestaurante
 		productos.add(tm.darProductoPorId(m.getIdPostre()));
 
 		productos = reemplazarConEquivalencias(productos, equivalencias);
-		elapsedTimeMillis = System.currentTimeMillis()-start;
-		start = elapsedTimeMillis;
-		System.out.println("Tiempo que transcurre hasta reemplazar los productos " + elapsedTimeMillis/1000F);
+	
+		
 
 		Long idMenuTemp =  (long) (Math.random()* Long.MAX_VALUE - m.getIdMenu());
 
+		
 	
 		Menu menuTemp = new Menu(idMenuTemp, m.getCosto(), m.getPrecio(), m.getNombreRestaurante(), productos.get(0).getIdProducto(), productos.get(1).getIdProducto(), productos.get(2).getIdProducto(), productos.get(3).getIdProducto(), productos.get(4).getIdProducto());
 		tm.crearMenu(menuTemp);
-		elapsedTimeMillis = System.currentTimeMillis()-start;
-		start = elapsedTimeMillis;
-		System.out.println("Tiempo que transcurre hasta crear menu " + elapsedTimeMillis/1000F);
+
+	
 
 		ordenRestaurante.setIdMenu(idMenuTemp);
 		boolean	verificar=verificarProductos(productos);
@@ -140,8 +139,9 @@ public class RESTOrdenRestaurante
 			} catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();
 			}
-			System.out.println("Tiempo total " + (System.currentTimeMillis() - startTotal));
-			return Response.status(200).entity(tm.darMenuPorId(idMenuTemp)).build();
+	
+			Menu x = tm.darMenuPorId(idMenuTemp);
+			return Response.status(200).entity(x).build();
 		}
 		else
 		{
@@ -254,6 +254,32 @@ public class RESTOrdenRestaurante
 		return Response.status(200).entity(ordenRestaurantes).build();
 	}
 
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("ordenmesa/{idMesa}")
+	public Response servirOrdenMesa (@PathParam( "idMesa" ) String id)
+	{
+		long start = System.currentTimeMillis();
+
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		ArrayList<OrdenRestaurante> ordenes = tm.darOrdenRestaurantePorMesa(id);
+
+		System.out.println("Tiempo 1 " + (System.currentTimeMillis() - start));
+		ArrayList respuestas = new ArrayList();
+		int contador = 0;
+		for(OrdenRestaurante o :ordenes)
+		{
+			contador ++;
+			System.out.println(("Tiempo " + contador) + (System.currentTimeMillis() - start));
+			o.setServida(true);
+			respuestas.add(actualizarOrdenRestaurante(o).getEntity());
+		}
+		System.out.println("Tiempo total " + (System.currentTimeMillis() - start));
+		return Response.status(200).entity(respuestas).build();
+	}
+	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -265,6 +291,7 @@ public class RESTOrdenRestaurante
 		{
 			actualizarProductos(ordenRestaurante,tm);
 			try {
+				
 				tm.actualizarOrdenRestaurante(ordenRestaurante);
 			} catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();

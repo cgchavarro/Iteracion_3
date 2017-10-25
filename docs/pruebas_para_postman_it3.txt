@@ -55,6 +55,13 @@ POST http://localhost:8080/RotondAndes/rest/ordenRestaurante/equivalencias
 }]
 }
 
+
+RF16
+Servir ordenes en una mesa
+PUT http://localhost:8080/RotondAndes/rest/ordenRestaurante/ordenmesa/{idMesa}
+
+Donde {idMesa} representa a la mesa, ejemplos : a1, vip.
+
 RFC7
 Obtener la información de pedidos para un cliente.
 
