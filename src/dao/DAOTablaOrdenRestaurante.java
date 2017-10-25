@@ -350,4 +350,26 @@ public class DAOTablaOrdenRestaurante
 		}
 		return true;
 	}
+
+	public void actualizarOrdenesRestauranteComoServidas(Connection conn, ArrayList<OrdenRestaurante> ordenes) {
+		String sql = "UPDATE ORDEN_RESTAURANTE SET SERVIDA = ?  WHERE";
+		try(PreparedStatement preStat = conn.prepareStatement(sql))
+		{
+			preStat.setString(1, "t");
+			preStat.executeQuery();
+			conn.commit();
+		}
+		catch(SQLException e)
+		{
+			try 
+			{
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();
+		}
+	}
 }

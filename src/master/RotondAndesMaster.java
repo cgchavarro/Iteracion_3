@@ -2395,7 +2395,19 @@ public class RotondAndesMaster
 					}
 				}
 
-				public void crearOrdenRestauranteEquivalencias(OrdenRestaurante ordenRestaurante) {
+
+				public void actualizarOrdenesRestaurante(ArrayList<OrdenRestaurante> ordenes) {
+					DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
+					try(Connection conn = darConexion())
+					{
+						dao.actualizarOrdenesRestauranteComoServidas(conn, ordenes);
+						conn.commit();
+					}
+					catch(SQLException e)
+					{
+
+						e.printStackTrace();
+					}
 				}
 
 				// ----------------------------------  Fin metodos EquivalenciasProducto	----------------------------------

@@ -256,7 +256,6 @@ public class RESTOrdenRestaurante
 
 	
 	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("ordenmesa/{idMesa}")
 	public Response servirOrdenMesa (@PathParam( "idMesa" ) String id)
@@ -269,6 +268,7 @@ public class RESTOrdenRestaurante
 		System.out.println("Tiempo 1 " + (System.currentTimeMillis() - start));
 		ArrayList respuestas = new ArrayList();
 		int contador = 0;
+		tm.actualizarOrdenesRestaurante(ordenes);
 		for(OrdenRestaurante o :ordenes)
 		{
 			contador ++;
