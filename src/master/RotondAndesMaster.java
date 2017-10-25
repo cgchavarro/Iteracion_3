@@ -891,6 +891,21 @@ public class RotondAndesMaster
 			e.printStackTrace();
 		}
 	}
+	
+	public void eliminarOrdenRestauranteMesa(String idMesa)
+	{
+		DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
+		try(Connection conn = darConexion())
+		{
+			dao.eliminarOrdenRestauranteMesa(conn, idMesa);
+			conn.commit();
+		}
+		catch(SQLException e)
+		{
+
+			e.printStackTrace();
+		}
+	}
 
 	// ----------------------------------  Fin metodos OrdenRestaurante	----------------------------------
 

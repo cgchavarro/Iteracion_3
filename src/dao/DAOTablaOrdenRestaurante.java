@@ -385,4 +385,26 @@ public class DAOTablaOrdenRestaurante
 		}
 		return ordenRestaurantes;
 	}
+
+	public void eliminarOrdenRestauranteMesa(Connection conn, String idMesa) {
+		String sql = "DELETE FROM ORDEN_RESTAURANTE WHERE MESA = ?";
+		try(PreparedStatement preStat = conn.prepareStatement(sql))
+		{
+			preStat.setString(1, idMesa);
+			preStat.executeQuery();
+			conn.commit();
+		}
+		catch(SQLException e)
+		{
+			try 
+			{
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();
+		}
+	}
 }

@@ -114,17 +114,17 @@ public class RESTOrdenRestaurante
 		productos.add(tm.darProductoPorId(m.getIdPostre()));
 
 		productos = reemplazarConEquivalencias(productos, equivalencias);
-	
-		
+
+
 
 		Long idMenuTemp =  (long) (Math.random()* Long.MAX_VALUE - m.getIdMenu());
 
-		
-	
+
+
 		Menu menuTemp = new Menu(idMenuTemp, m.getCosto(), m.getPrecio(), m.getNombreRestaurante(), productos.get(0).getIdProducto(), productos.get(1).getIdProducto(), productos.get(2).getIdProducto(), productos.get(3).getIdProducto(), productos.get(4).getIdProducto());
 		tm.crearMenu(menuTemp);
 
-	
+
 
 		ordenRestaurante.setIdMenu(idMenuTemp);
 		boolean	verificar=verificarProductos(productos);
@@ -139,7 +139,7 @@ public class RESTOrdenRestaurante
 			} catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();
 			}
-	
+
 			Menu x = tm.darMenuPorId(idMenuTemp);
 			return Response.status(200).entity(x).build();
 		}
@@ -176,18 +176,18 @@ public class RESTOrdenRestaurante
 		{
 			return true;
 		}
-//		ArrayList<EquivalenciaProductos> equivalencias = tm.darEquivalenciasProductos();
-//
-//		for(EquivalenciaProductos equiv:equivalencias)
-//		{
-//			if(equiv.getIdProducto1() == equivalencia.getIdProducto1() && equiv.getIdProducto2() == equivalencia.getIdProducto2())
-//			{
-//				return true;
-//			}
-//		}
+		//		ArrayList<EquivalenciaProductos> equivalencias = tm.darEquivalenciasProductos();
+		//
+		//		for(EquivalenciaProductos equiv:equivalencias)
+		//		{
+		//			if(equiv.getIdProducto1() == equivalencia.getIdProducto1() && equiv.getIdProducto2() == equivalencia.getIdProducto2())
+		//			{
+		//				return true;
+		//			}
+		//		}
 		else
 		{
-		return false;
+			return false;
 		}
 	}
 
@@ -254,7 +254,7 @@ public class RESTOrdenRestaurante
 		return Response.status(200).entity(ordenRestaurantes).build();
 	}
 
-	
+
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("ordenmesa/{idMesa}")
@@ -270,7 +270,7 @@ public class RESTOrdenRestaurante
 		ordenes = tm.darOrdenRestaurantePorMesa(id);
 		return Response.status(200).entity(ordenes).build();
 	}
-	
+
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -282,7 +282,7 @@ public class RESTOrdenRestaurante
 		{
 			actualizarProductos(ordenRestaurante,tm);
 			try {
-				
+
 				tm.actualizarOrdenRestaurante(ordenRestaurante);
 			} catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();
@@ -339,22 +339,20 @@ public class RESTOrdenRestaurante
 
 
 	@DELETE
-	@Path( "{id: \\d+}" )
-	@Consumes(MediaType.APPLICATION_JSON)	
+	@Path( "{idOrden: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response cancelarOrdenPedido(OrdenRestaurante ordenRestaurante, @PathParam( "id" ) Long id)
+	public Response cancelarOrdenPedido(@PathParam( "idOrden" ) Long id)
 	{
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
-		OrdenRestaurante orden = tm.darOrdenRestaurantePorId(ordenRestaurante.getIdOrdenRestaurante());
+		OrdenRestaurante orden = tm.darOrdenRestaurantePorId(id);
 		if(!orden.isServida())
 		{
 			try {
-				tm.eliminarOrdenRestaurante(ordenRestaurante);
-				restaurarProductosOrden(ordenRestaurante);
+				tm.eliminarOrdenRestaurante(orden);
 			} catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();
 			}
-			return Response.status(200).entity(ordenRestaurante).build();
+			return Response.status(200).entity(orden).build();
 		}
 		else
 		{
@@ -365,16 +363,30 @@ public class RESTOrdenRestaurante
 		}
 	}
 
-	private void restaurarProductosOrden(OrdenRestaurante ordenRestaurante) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());		
+	@DELETE
+	@Path("ordenmesa/{idMesa}")
+	@Produces( { MediaType.APPLICATION_JSON } )
+	public Response cancelarOrdenPedidoMesa( @PathParam( "idMesa" ) String id)
+	{
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		ArrayList<OrdenRestaurante> ordenes = tm.darOrdenRestaurantePorMesa(id);
+		for(OrdenRestaurante orden:ordenes)
+		{
+			if(orden.isServida())
+			{
+				MensajeError ex = new MensajeError("no se logro eliminar la orden");
+				System.out.println("no se logro eliminar");
+				return Response.status(500).entity(ex).build();
+			}
+		}
 
-		Menu m = tm.darMenuPorId(ordenRestaurante.getIdMenu());
-
-		tm.actualizarProducto(tm.darProductoPorId(m.getIdAcompaniamiento()));
-		tm.actualizarProducto(tm.darProductoPorId(m.getIdBebida()));
-		tm.actualizarProducto(tm.darProductoPorId(m.getIdEntrada()));
-		tm.actualizarProducto(tm.darProductoPorId(m.getIdPlatoFuerte()));
-		tm.actualizarProducto(tm.darProductoPorId(m.getIdPostre()));
+		try {
+			tm.eliminarOrdenRestauranteMesa(id);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(ordenes).build();
 	}
+
 
 }
