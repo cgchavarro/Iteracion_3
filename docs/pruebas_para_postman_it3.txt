@@ -55,12 +55,74 @@ POST http://localhost:8080/RotondAndes/rest/ordenRestaurante/equivalencias
 }]
 }
 
+RF15 
+Registrar pedido de productos de una mesa
+
+POST http://localhost:8080/RotondAndes/rest/ordenRestaurante/ordenmesa/{idMesa}
+
+Donde {idMesa} representa a la mesa, ejemplos : a1, vip.
+
+JSON
+[{
+    "idOrdenRestaurante": 1,
+        
+	"fecha": "2017-10-03",
+        
+	"idMenu": 6,
+        
+	"idRotonda": 1,
+        
+	"idCliente": 2020202020,
+	
+	"servida": false,
+	
+	"mesa": "a1"
+}, 
+{
+    "idOrdenRestaurante": 11,
+        
+	"fecha": "2017-10-03",
+        
+	"idMenu": 6,
+        
+	"idRotonda": 1,
+        
+	"idCliente": 2020202020,
+	
+	"servida": false,
+	
+	"mesa": "a1"
+},
+{
+    "idOrdenRestaurante": 21,
+        
+	"fecha": "2017-10-03",
+        
+	"idMenu": 6,
+        
+	"idRotonda": 1,
+        
+	"idCliente": 2020202020,
+	
+	"servida": false,
+	
+	"mesa": "a1"
+}]
 
 RF16
 Servir ordenes en una mesa
+
 PUT http://localhost:8080/RotondAndes/rest/ordenRestaurante/ordenmesa/{idMesa}
 
 Donde {idMesa} representa a la mesa, ejemplos : a1, vip.
+
+RF17
+Cancelar pedido
+
+DELETE http://localhost:8080/RotondAndes/rest/ordenRestaurante/ordenmesa/{idMesa}
+
+Donde {idMesa} representa a la mesa, ejemplos : a1, vip.
+
 
 RFC7
 Obtener la información de pedidos para un cliente.
