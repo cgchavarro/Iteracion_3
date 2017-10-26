@@ -289,5 +289,22 @@ public class RESTAdministradorRestaurante
 	//		NOTA: Respetando la privacidad de los clientes, 
 	//		cuando un restaurante hace esta consulta obtiene la información de sus propias actividades,
 	//		mientras que el administrador obtiene toda la información. Ver RNF1.
+	
 	//	
+	
+	@GET
+	@Path("/consultardedidos/{idRestaurante}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response darPedidosRestaurante(@PathParam( "idRestaurante" ) String id)
+	{
+		
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		List<EquivalenciaIngredientes> clientes;
+		try {
+			clientes = tm.darEquivalenciasIngredientes();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(clientes).build();
+	}
 }

@@ -1,15 +1,19 @@
 package dao;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import vo.Zona;
 
 public class DAOTablaZona 
 {
+	public static final String ARCHIVO = "C:\\Users\\Christian Chavarro\\Desktop\\Iteracion_3\\docs\\bitacora.log";
 	public DAOTablaZona()
 	{
 		
@@ -29,6 +33,8 @@ public class DAOTablaZona
 			preStat.setLong(7, zona.getIdRotonda());
 			preStat.executeQuery();
 			conn.commit();
+			
+			escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -63,8 +69,10 @@ public class DAOTablaZona
 				String condicionesTecnicas = rs.getString("CONDICIONES_TECNICAS");
 				Long idRotonda = rs.getLong("ID_ROTONDA");
 				zona = new Zona(idZona, nombre, esZonaAbierta, capacidad, aptoParaTodos, condicionesTecnicas, idRotonda);
-			}				
+			}	
+	
 			conn.commit();
+			escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -102,7 +110,9 @@ public class DAOTablaZona
 				Long idRotonda = rs.getLong("ID_ROTONDA");
 				zonas.add(new Zona(id, nombreZona, esZonaAbierta, capacidad, aptoParaTodos, condicionesTecnicas, idRotonda));
 			}	
+		
 			conn.commit();
+			escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -138,7 +148,10 @@ public class DAOTablaZona
 				Long idRotonda = rs.getLong("ID_ROTONDA");
 				zonas.add(new Zona(id, nombreZona, esZonaAbierta, capacidad, aptoParaTodos, condicionesTecnicas, idRotonda));
 			}	
+		
 			conn.commit();
+			System.out.print(preStat.toString());
+			escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -168,7 +181,9 @@ public class DAOTablaZona
 			preStat.setLong(6, zona.getIdRotonda());
 			preStat.setLong(7, zona.getIdZona());
 			preStat.executeQuery();
+			
 			conn.commit();
+			escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -192,6 +207,7 @@ public class DAOTablaZona
 			preStat.setLong(1, zona.getIdZona());
 			preStat.executeQuery();
 			conn.commit();
+			escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -224,4 +240,20 @@ public class DAOTablaZona
 		}
 		return true;
 	}
+	
+	 public void escribirLog(String pCausa) 
+		{
+			Date fecha = new Date();
+			PrintWriter log;
+			try 
+			
+			{ log = new PrintWriter(ARCHIVO);
+			log.println ( fecha  +";" + pCausa);
+			log.close();	
+			} catch (FileNotFoundException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 }
