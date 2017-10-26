@@ -63,6 +63,7 @@ public class RESTOrdenRestaurante
 		{
 			try {
 				tm.crearOrdenRestaurante(ordenRestaurante);
+				actualizarProductos(ordenRestaurante, tm);
 			} catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();
 			}
@@ -91,21 +92,12 @@ public class RESTOrdenRestaurante
 				MensajeError ex = new MensajeError("no se logro crear la orden" );
 				System.out.println("no se logro crear");
 				return Response.status(500).entity(ex).build();
-			}
-			//
-			//			productos = new ArrayList<Producto>();
-			//
-			//			productos.add(tm.darProductoPorId(m.getIdAcompaniamiento()));
-			//			productos.add(tm.darProductoPorId(m.getIdBebida()));
-			//			productos.add(tm.darProductoPorId(m.getIdEntrada()));
-			//			productos.add(tm.darProductoPorId(m.getIdPlatoFuerte()));
-			//			productos.add(tm.darProductoPorId(m.getIdPostre()));
-			//
-			//			
+			}	
 		}
 
 		try {
 			tm.crearOrdenRestauranteMesa(ordenesRestaurante);
+			actualizarProductosOrdenes(ordenesRestaurante, tm);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
@@ -166,8 +158,8 @@ public class RESTOrdenRestaurante
 		if(verificar)
 		{
 			try {
-				System.out.println("inicio crear orden");
 				tm.crearOrdenRestaurante(ordenRestaurante);
+				actualizarProductos(ordenRestaurante, tm);
 
 			} catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();
@@ -301,7 +293,6 @@ public class RESTOrdenRestaurante
 		System.out.println("Tiempo 1 " + (System.currentTimeMillis() - start));
 		tm.actualizarOrdenesRestaurante(ordenes);
 		ordenes = tm.darOrdenRestaurantePorMesa(id);
-		actualizarProductosOrdenes(ordenes, tm);
 		return Response.status(200).entity(ordenes).build();
 	}
 
@@ -357,7 +348,7 @@ public class RESTOrdenRestaurante
 
 
 	}
-	private void actualizarProductosOrdenes(ArrayList<OrdenRestaurante> ordenRestaurante, RotondAndesMaster tm) 
+	private void actualizarProductosOrdenes(OrdenRestaurante[] ordenRestaurante, RotondAndesMaster tm) 
 	{
 		// TODO Auto-generated method stub
 		for(OrdenRestaurante orden : ordenRestaurante)
