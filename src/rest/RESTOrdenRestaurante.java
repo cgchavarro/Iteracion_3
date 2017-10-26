@@ -43,39 +43,47 @@ public class RESTOrdenRestaurante
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response crearOrdenRestaurante(OrdenRestaurante ordenRestaurante) {
+	public Response crearOrdenRestaurante(OrdenRestaurante orden) {
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
 
 
-		Menu m = tm.darMenuPorId(ordenRestaurante.getIdMenu());
-
-		ArrayList<Producto> productos = new ArrayList<Producto>();
-
-		productos.add(tm.darProductoPorId(m.getIdAcompaniamiento()));
-		productos.add(tm.darProductoPorId(m.getIdBebida()));
-		productos.add(tm.darProductoPorId(m.getIdEntrada()));
-		productos.add(tm.darProductoPorId(m.getIdPlatoFuerte()));
-		productos.add(tm.darProductoPorId(m.getIdPostre()));
-
-		boolean	verificar=verificarProductos(productos);
-
-		if(verificar)
+		
+		if(tm.darMenuPorIdVerificandoDisponibilidadProductos(orden.getIdMenu()) == null)
 		{
+			MensajeError ex = new MensajeError("no se logro crear la orden" );
+			System.out.println("no se logro crear");
+			return Response.status(500).entity(ex).build();
+		}	
+		
+//		Menu m = tm.darMenuPorId(ordenRestaurante.getIdMenu());
+//
+//		ArrayList<Producto> productos = new ArrayList<Producto>();
+//
+//		productos.add(tm.darProductoPorId(m.getIdAcompaniamiento()));
+//		productos.add(tm.darProductoPorId(m.getIdBebida()));
+//		productos.add(tm.darProductoPorId(m.getIdEntrada()));
+//		productos.add(tm.darProductoPorId(m.getIdPlatoFuerte()));
+//		productos.add(tm.darProductoPorId(m.getIdPostre()));
+//
+//		boolean	verificar=verificarProductos(productos);
+//
+//		if(verificar)
+//		{
 			try {
-				tm.crearOrdenRestaurante(ordenRestaurante);
-				actualizarProductos(ordenRestaurante, tm);
+				tm.crearOrdenRestaurante(orden);
+				actualizarProductos(orden, tm);
 			} catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();
 			}
 
-			return Response.status(200).entity(ordenRestaurante).build();
-		}
-		else
-		{
-			MensajeError ex = new MensajeError("no se logro crear la orden");
-			System.out.println("no se logro crear");
-			return Response.status(500).entity(ex).build();
-		}
+			return Response.status(200).entity(orden).build();
+//		}
+//		else
+//		{
+//			MensajeError ex = new MensajeError("no se logro crear la orden");
+//			System.out.println("no se logro crear");
+//			return Response.status(500).entity(ex).build();
+//		}
 
 	}
 
@@ -305,7 +313,7 @@ public class RESTOrdenRestaurante
 		OrdenRestaurante ordenAModificar = tm.darOrdenRestaurantePorId(ordenRestaurante.getIdOrdenRestaurante());
 		if(ordenAModificar.isServida()==false&&ordenRestaurante.isServida()==true)
 		{
-			actualizarProductos(ordenRestaurante,tm);
+		//	actualizarProductos(ordenRestaurante,tm);
 			try {
 
 				tm.actualizarOrdenRestaurante(ordenRestaurante);
