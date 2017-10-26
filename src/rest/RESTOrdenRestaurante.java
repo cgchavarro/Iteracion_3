@@ -310,20 +310,20 @@ public class RESTOrdenRestaurante
 	public Response actualizarOrdenRestaurante(OrdenRestaurante ordenRestaurante) 
 	{
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
-		OrdenRestaurante ordenAModificar = tm.darOrdenRestaurantePorId(ordenRestaurante.getIdOrdenRestaurante());
-		if(ordenAModificar.isServida()==false&&ordenRestaurante.isServida()==true)
-		{
-		//	actualizarProductos(ordenRestaurante,tm);
-			try {
-
-				tm.actualizarOrdenRestaurante(ordenRestaurante);
-			} catch (Exception e) {
-				return Response.status(500).entity(doErrorMessage(e)).build();
-			}
-			return Response.status(200).entity(ordenRestaurante).build();
-		}
-		else
-		{
+//		OrdenRestaurante ordenAModificar = tm.darOrdenRestaurantePorId(ordenRestaurante.getIdOrdenRestaurante());
+//		if(ordenAModificar.isServida()==false&&ordenRestaurante.isServida()==true)
+//		{
+//		//	actualizarProductos(ordenRestaurante,tm);
+//			try {
+//
+//				tm.actualizarOrdenRestaurante(ordenRestaurante);
+//			} catch (Exception e) {
+//				return Response.status(500).entity(doErrorMessage(e)).build();
+//			}
+//			return Response.status(200).entity(ordenRestaurante).build();
+//		}
+//		else
+//		{
 			try 
 			{
 				tm.actualizarOrdenRestaurante(ordenRestaurante);
@@ -331,7 +331,7 @@ public class RESTOrdenRestaurante
 				return Response.status(500).entity(doErrorMessage(e)).build();
 			}
 			return Response.status(200).entity(ordenRestaurante).build();
-		}
+//		}
 	}
 
 	private void actualizarProductos(OrdenRestaurante ordenRestaurante, RotondAndesMaster tm) 
