@@ -624,6 +624,22 @@ public class RotondAndesMaster
 		}
 		return menu;
 	}
+	
+	public Menu darMenuPorIdVerificandoDisponibilidadProductos(Long id)
+	{
+		Menu menu = null;
+		DAOTablaMenu dao = new DAOTablaMenu();
+		try(Connection conn = darConexion())
+		{
+			menu = dao.darMenuPorIdDisponibilidad(conn, id);
+		} 
+		catch (SQLException e) 
+		{
+
+			e.printStackTrace();
+		}
+		return menu;
+	}
 
 	public ArrayList<Menu> darMenusPorRestaurante(Long idRestaurante)
 	{
@@ -772,6 +788,21 @@ public class RotondAndesMaster
 		try(Connection conn = darConexion())
 		{
 			dao.agregarOrdenRestaurante(conn, ordenRestaurante);
+			conn.commit();
+		}
+		catch(SQLException e)
+		{
+
+			e.printStackTrace();
+		}
+	}
+	
+	public void crearOrdenRestauranteMesa(OrdenRestaurante[] ordenRestaurante)
+	{
+		DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
+		try(Connection conn = darConexion())
+		{
+			dao.agregarOrdenRestauranteMesa(conn, ordenRestaurante);
 			conn.commit();
 		}
 		catch(SQLException e)

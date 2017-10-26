@@ -410,4 +410,49 @@ public class DAOTablaMenu
 		}
 		return menus;
 	}
+
+	public Menu darMenuPorIdDisponibilidad(Connection conn, Long id) {
+		Menu menu = null;
+		String sql = "SELECT DISTINCT PRODUCTO.ID as id FROM MENU, PRODUCTO WHERE MENU.ID = ? AND PRODUCTO.CANTIDAD > 0";
+		try(PreparedStatement preStat = conn.prepareStatement(sql))
+		{
+			preStat.setLong(1, id);
+			ResultSet rs = preStat.executeQuery();
+			ArrayList<Long> ids = new ArrayList<>();
+			
+			while(rs.next())
+			{
+				ids.add(rs.getLong("ID"));
+			}		
+			Menu menuPro = darMenuPorId(conn, id);
+			System.out.println("acom" + menuPro.getIdAcompaniamiento());
+			System.out.println("beb" + menuPro.getIdBebida());
+			System.out.println("ent" + menuPro.getIdEntrada());
+			System.out.println("plf" + menuPro.getIdPlatoFuerte());
+			System.out.println("pos" + menuPro.getIdPostre());
+			if(ids.contains(menuPro.getIdAcompaniamiento()) && ids.contains(menuPro.getIdBebida()) && ids.contains(menuPro.getIdEntrada()) 
+					&& ids.contains(menuPro.getIdPlatoFuerte()) && ids.contains(menuPro.getIdPostre()))
+			{
+				System.out.println("este noooo");
+				conn.commit();
+				return menuPro;
+			}
+			
+			conn.commit();
+			return null;
+		}
+		catch(SQLException e)
+		{
+			try 
+			{
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();
+		}
+		return menu;
+	}
 }

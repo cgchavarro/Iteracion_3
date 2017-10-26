@@ -79,12 +79,46 @@ public class RESTOrdenRestaurante
 	}
 
 	@POST
+	@Path("ordenmesa/{idMesa}")	
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response crearOrdenRestauranteMesa(OrdenRestaurante[] ordenesRestaurante, String idMesa) {
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		for(OrdenRestaurante orden:ordenesRestaurante)
+		{
+			if(tm.darMenuPorIdVerificandoDisponibilidadProductos(orden.getIdMenu()) == null)
+			{
+				MensajeError ex = new MensajeError("no se logro crear la orden" );
+				System.out.println("no se logro crear");
+				return Response.status(500).entity(ex).build();
+			}
+			//
+			//			productos = new ArrayList<Producto>();
+			//
+			//			productos.add(tm.darProductoPorId(m.getIdAcompaniamiento()));
+			//			productos.add(tm.darProductoPorId(m.getIdBebida()));
+			//			productos.add(tm.darProductoPorId(m.getIdEntrada()));
+			//			productos.add(tm.darProductoPorId(m.getIdPlatoFuerte()));
+			//			productos.add(tm.darProductoPorId(m.getIdPostre()));
+			//
+			//			
+		}
+
+		try {
+			tm.crearOrdenRestauranteMesa(ordenesRestaurante);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+
+		return Response.status(200).entity(ordenesRestaurante).build();
+	}
+
+
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("equivalencias")
 	public Response crearOrdenRestauranteConEquivalencias(OrdenRestauranteEquivalencias ordenEquiv) {
-		long start = System.currentTimeMillis();
-		long startTotal = System.currentTimeMillis();
 
 
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
@@ -134,7 +168,6 @@ public class RESTOrdenRestaurante
 			try {
 				System.out.println("inicio crear orden");
 				tm.crearOrdenRestaurante(ordenRestaurante);
-				System.out.println("Tiempo total " + (System.currentTimeMillis() - startTotal));
 
 			} catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();
@@ -268,6 +301,7 @@ public class RESTOrdenRestaurante
 		System.out.println("Tiempo 1 " + (System.currentTimeMillis() - start));
 		tm.actualizarOrdenesRestaurante(ordenes);
 		ordenes = tm.darOrdenRestaurantePorMesa(id);
+		actualizarProductosOrdenes(ordenes, tm);
 		return Response.status(200).entity(ordenes).build();
 	}
 
@@ -319,6 +353,31 @@ public class RESTOrdenRestaurante
 		{
 			p.setCantidad(p.getCantidad()-1);
 			tm.actualizarProducto(p);
+		}
+
+
+	}
+	private void actualizarProductosOrdenes(ArrayList<OrdenRestaurante> ordenRestaurante, RotondAndesMaster tm) 
+	{
+		// TODO Auto-generated method stub
+		for(OrdenRestaurante orden : ordenRestaurante)
+		{
+			Menu m = tm.darMenuPorId(orden.getIdMenu());
+
+			ArrayList<Producto> productos = new ArrayList<Producto>();
+
+			productos.add(tm.darProductoPorId(m.getIdAcompaniamiento()));
+			productos.add(tm.darProductoPorId(m.getIdBebida()));
+			productos.add(tm.darProductoPorId(m.getIdEntrada()));
+			productos.add(tm.darProductoPorId(m.getIdPlatoFuerte()));
+			productos.add(tm.darProductoPorId(m.getIdPostre()));
+
+
+			for(Producto p:productos)
+			{
+				p.setCantidad(p.getCantidad()-1);
+				tm.actualizarProducto(p);
+			}
 		}
 
 

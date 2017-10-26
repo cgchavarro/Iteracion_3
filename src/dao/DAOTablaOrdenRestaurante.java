@@ -45,10 +45,39 @@ public class DAOTablaOrdenRestaurante
 
 			e.printStackTrace();
 		}
-
-
 	}
 
+	public void agregarOrdenRestauranteMesa(Connection conn, OrdenRestaurante[] ordenRestaurante)
+	{
+		for(OrdenRestaurante orden:ordenRestaurante) {
+			String sql = "INSERT INTO ORDEN_RESTAURANTE VALUES (?,?,?,?,?,?,?)";
+			try(PreparedStatement preStat = conn.prepareStatement(sql))
+			{
+				preStat.setLong(1, orden.getIdOrdenRestaurante());
+				preStat.setDate(2, orden.getFecha());
+				preStat.setLong(3, orden.getIdMenu());
+				preStat.setLong(4, orden.getIdRotonda());
+				preStat.setLong(5, orden.getIdCliente());
+				preStat.setString(6, darStringBoolean(orden.isServida()));
+				preStat.setString(7, orden.getMesa());
+
+				preStat.executeQuery();
+				conn.commit();
+			}
+			catch(SQLException e)
+			{
+				try 
+				{
+					conn.rollback();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+				e.printStackTrace();
+			}
+		}
+	}
 
 
 	public OrdenRestaurante darOrdenRestaurantePorId(Connection conn, Long id)
