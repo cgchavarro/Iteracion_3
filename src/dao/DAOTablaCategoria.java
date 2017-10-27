@@ -15,7 +15,7 @@ public class DAOTablaCategoria {
 
 	}
 
-	public void agregarCategoria(Connection conn, Categoria categoria)
+	public void agregarCategoria(Connection conn, Categoria categoria, String log)
 	{
 		String sql = "INSERT INTO CATEGORIA VALUES (?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -38,7 +38,7 @@ public class DAOTablaCategoria {
 		}
 	}
 
-	public Categoria darCategoriaPorId(Connection conn, Long id)
+	public Categoria darCategoriaPorId(Connection conn, Long id, String log)
 	{
 		Categoria categoria = null;
 		String sql = "SELECT * FROM CATEGORIA WHERE ID = ?";
@@ -68,7 +68,7 @@ public class DAOTablaCategoria {
 		return categoria;
 	}
 
-	public ArrayList<Categoria> darCategoriasPorNombre(Connection conn, String nombre)
+	public ArrayList<Categoria> darCategoriasPorNombre(Connection conn, String nombre, String log)
 	{
 		ArrayList<Categoria> categorias = new ArrayList<>();
 		String sql = "SELECT * FROM CATEGORIA WHERE NOMBRE = ?";
@@ -98,7 +98,7 @@ public class DAOTablaCategoria {
 		return categorias;
 	}
 
-	public ArrayList<Categoria> darCategorias(Connection conn) throws SQLException
+	public ArrayList<Categoria> darCategorias(Connection conn, String log) throws SQLException
 	{
 		ArrayList<Categoria> categorias = new ArrayList<>();
 		String sql = "SELECT * FROM ISIS2304A331720.CATEGORIA";
@@ -130,7 +130,7 @@ public class DAOTablaCategoria {
 		return categorias;
 	}
 
-	public void actualizarCategoria(Connection conn, Categoria categoria)
+	public void actualizarCategoria(Connection conn, Categoria categoria, String log)
 	{
 		String sql = "UPDATE CATEGORIA SET NOMBRE = ? WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -154,7 +154,7 @@ public class DAOTablaCategoria {
 		}
 	}
 
-	public void eliminarCategoria(Connection conn, Categoria categoria)
+	public void eliminarCategoria(Connection conn, Categoria categoria, String log)
 	{
 		String sql = "DELETE FROM CATEGORIA WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))

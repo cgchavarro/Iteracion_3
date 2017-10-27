@@ -17,7 +17,7 @@ public class DAOTablaEquivalenciasProductos
 
 	}
 
-	public void agregarEquivalenciaProductos(Connection conn, EquivalenciaProductos eq)
+	public void agregarEquivalenciaProductos(Connection conn, EquivalenciaProductos eq, String log)
 	{
 		String sql = "INSERT INTO EQUIVALENCIASPRODUCTOS VALUES (?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -42,7 +42,7 @@ public class DAOTablaEquivalenciasProductos
 	}
 
 	
-	public ArrayList<EquivalenciaProductos> darEquivalencias(Connection conn)
+	public ArrayList<EquivalenciaProductos> darEquivalencias(Connection conn, String log)
 	{
 		ArrayList<EquivalenciaProductos> tiposProductos = new ArrayList<>();
 		String sql = "SELECT * FROM EQUIVALENCIASPRODUCTOS";
@@ -102,7 +102,7 @@ public class DAOTablaEquivalenciasProductos
 	
 	
 
-	public void eliminarEquivalencia(Connection conn, EquivalenciaProductos tipoProducto)
+	public void eliminarEquivalencia(Connection conn, EquivalenciaProductos tipoProducto, String log)
 	{
 		String sql = "DELETE FROM EQUIVALENCIASPRODUCTOS WHERE IDPRODUCTO1 = ? AND IDPRODUCTO2 = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -125,7 +125,7 @@ public class DAOTablaEquivalenciasProductos
 		}
 	}
 
-	public EquivalenciaProductos darEquivalencia(Connection conn, EquivalenciaProductos eq) 
+	public EquivalenciaProductos darEquivalencia(Connection conn, EquivalenciaProductos eq, String log) 
 	{
 		EquivalenciaProductos tiposProductos = null;
 		String sql = "SELECT * FROM EQUIVALENCIASPRODUCTOS WHERE  IDPRODUCTO1 = ? AND IDPRODUCTO2 = ?";

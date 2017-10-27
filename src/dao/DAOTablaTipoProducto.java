@@ -15,7 +15,7 @@ public class DAOTablaTipoProducto
 
 	}
 
-	public void agregarTipoProducto(Connection conn, TipoProducto tipoProducto)
+	public void agregarTipoProducto(Connection conn, TipoProducto tipoProducto, String log)
 	{
 		String sql = "INSERT INTO TIPO_PRODUCTO VALUES (?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -39,7 +39,7 @@ public class DAOTablaTipoProducto
 		}
 	}
 
-	public ArrayList<TipoProducto> darTiposProductosPorIdTipo(Connection conn, Long idTipo)
+	public ArrayList<TipoProducto> darTiposProductosPorIdTipo(Connection conn, Long idTipo, String log)
 	{
 		ArrayList<TipoProducto> tiposProductos = new ArrayList<>();
 		String sql = "SELECT * FROM TIPO_PRODUCTO WHERE ID_TIPO = ?";
@@ -71,7 +71,7 @@ public class DAOTablaTipoProducto
 		return tiposProductos;
 	}
 	
-	public ArrayList<TipoProducto> darTiposProductosPorIdProducto(Connection conn, Long idProducto)
+	public ArrayList<TipoProducto> darTiposProductosPorIdProducto(Connection conn, Long idProducto, String log)
 	{
 		ArrayList<TipoProducto> tiposProductos = new ArrayList<>();
 		String sql = "SELECT * FROM TIPO_PRODUCTO WHERE ID_PRODUCTO = ?";
@@ -103,7 +103,7 @@ public class DAOTablaTipoProducto
 		return tiposProductos;
 	}
 
-	public ArrayList<TipoProducto> darTiposProductos(Connection conn)
+	public ArrayList<TipoProducto> darTiposProductos(Connection conn, String log)
 	{
 		ArrayList<TipoProducto> tiposProductos = new ArrayList<>();
 		String sql = "SELECT * FROM TIPO_PRODUCTO";
@@ -134,7 +134,7 @@ public class DAOTablaTipoProducto
 		return tiposProductos;
 	}
 
-	public void actualizarTipoTipoProducto(Connection conn, TipoProducto tipoProducto)
+	public void actualizarTipoTipoProducto(Connection conn, TipoProducto tipoProducto, String log)
 	{
 		String sql = "UPDATE TIPO_PRODUCTO SET ID_TIPO = ? WHERE ID_PRODUCTO = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -158,7 +158,7 @@ public class DAOTablaTipoProducto
 		}
 	}
 	
-	public void actualizarProductoTipoProducto(Connection conn, TipoProducto tipoProducto)
+	public void actualizarProductoTipoProducto(Connection conn, TipoProducto tipoProducto, String log)
 	{
 		String sql = "UPDATE TIPO_PRODUCTO SET ID_PRODUCTO = ? WHERE ID_TIPO = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -182,7 +182,7 @@ public class DAOTablaTipoProducto
 		}
 	}
 
-	public void eliminarTipoProducto(Connection conn, TipoProducto tipoProducto)
+	public void eliminarTipoProducto(Connection conn, TipoProducto tipoProducto, String log)
 	{
 		String sql = "DELETE FROM TIPO_PRODUCTO WHERE ID_PRODUCTO = ? AND ID_TIPO = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))

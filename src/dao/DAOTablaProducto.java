@@ -17,7 +17,7 @@ public class DAOTablaProducto {
 
 
 
-	public void agregarProducto(Connection conn, Producto producto)
+	public void agregarProducto(Connection conn, Producto producto, String log)
 	{
 		String sql = "INSERT INTO PRODUCTO VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -50,7 +50,7 @@ public class DAOTablaProducto {
 		}				
 	}
 
-	public Producto darProductoPorId(Connection conn, Long id)
+	public Producto darProductoPorId(Connection conn, Long id, String log)
 	{
 		Producto producto = null;
 		String sql = "SELECT * FROM PRODUCTO WHERE ID = ?";
@@ -91,7 +91,7 @@ public class DAOTablaProducto {
 		return producto;
 	}
 
-	public ArrayList<Producto> darProductosPorNombre(Connection conn, String nombre)
+	public ArrayList<Producto> darProductosPorNombre(Connection conn, String nombre, String log)
 	{
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 
@@ -126,7 +126,7 @@ public class DAOTablaProducto {
 	}
 	
 
-	public ArrayList<Producto> darProductosPorNombreRestaurante(Connection conn, String name) {
+	public ArrayList<Producto> darProductosPorNombreRestaurante(Connection conn, String name, String log) {
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 
 		String sql = "SELECT * FROM PRODUCTO WHERE NOMBRE_RESTAURANTE = ?";
@@ -160,7 +160,7 @@ public class DAOTablaProducto {
 	}
 	
 
-	public ArrayList<Producto> darProductosPorCategoria(Connection conn, Long id) {
+	public ArrayList<Producto> darProductosPorCategoria(Connection conn, Long id, String log) {
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 
 		String sql = "SELECT * FROM PRODUCTO WHERE ID_CATEGORIA = ?";
@@ -192,7 +192,7 @@ public class DAOTablaProducto {
 
 		return productos;
 	}
-	public ArrayList<Producto> darProductosPorRangoPrecio(Connection conn, double min, double max) {
+	public ArrayList<Producto> darProductosPorRangoPrecio(Connection conn, double min, double max, String log) {
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 
 		String sql = "SELECT * FROM PRODUCTO WHERE PRECIO > ? AND PRECIO < ?";
@@ -226,7 +226,7 @@ public class DAOTablaProducto {
 		return productos;
 	}
 
-	public ArrayList<Producto> darProductos(Connection conn) throws SQLException, Exception {
+	public ArrayList<Producto> darProductos(Connection conn, String log) throws SQLException, Exception {
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 
 		String sql = "SELECT * FROM PRODUCTO";
@@ -258,7 +258,7 @@ public class DAOTablaProducto {
 		return productos;
 	}	
 
-	public void actualizarProducto(Connection conn, Producto producto)
+	public void actualizarProducto(Connection conn, Producto producto, String log)
 	{
 		String sql = "UPDATE PRODUCTO SET NOMBRE = ?, ID_CATEGORIA = ?, DESCRIPCION_ESP = ?, DESCRIPCION_ING = ?, TIEMPO = ?, COSTO = ?, PRECIO = ?, CANTIDAD = ?, NOMBRE_RESTAURANTE =?, CANTIDAD_MAXIMA =? WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -283,7 +283,7 @@ public class DAOTablaProducto {
 		}
 	}
 
-	public void eliminarProducto(Connection conn, Producto producto)
+	public void eliminarProducto(Connection conn, Producto producto, String log)
 	{
 		String sql = "DELETE FROM PRODUCTO WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -297,7 +297,7 @@ public class DAOTablaProducto {
 			e.printStackTrace();
 		}
 	}
-	public void surtirProductosRestaurante(Connection conn, String nombreRestaurante)
+	public void surtirProductosRestaurante(Connection conn, String nombreRestaurante, String log)
 	{
 		String sql = "UPDATE PRODUCTO SET CANTIDAD = CANTIDAD_MAXIMA WHERE NOMBRE_RESTAURANTE =?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))

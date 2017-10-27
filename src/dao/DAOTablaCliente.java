@@ -15,7 +15,7 @@ public class DAOTablaCliente
 		
 	}
 	
-	public void agregarCliente(Connection conn, Cliente cliente)
+	public void agregarCliente(Connection conn, Cliente cliente, String log)
 	{
 		String sql = "INSERT INTO CLIENTE VALUES (?,?,?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -41,7 +41,7 @@ public class DAOTablaCliente
 		}
 	}
 	
-	public Cliente darClientePorCedula(Connection conn, Long cedula)
+	public Cliente darClientePorCedula(Connection conn, Long cedula, String log)
 	{
 		Cliente cliente = null;
 		String sql = "SELECT * FROM CLIENTE WHERE CEDULA = ?";
@@ -76,7 +76,7 @@ public class DAOTablaCliente
 	}
 	
 	
-	public Cliente darClientePorCorreo(Connection conn, String correo)
+	public Cliente darClientePorCorreo(Connection conn, String correo, String log)
 	{
 		Cliente cliente = null;
 		String sql = "SELECT * FROM CLIENTE WHERE CORREO = ?";
@@ -111,7 +111,7 @@ public class DAOTablaCliente
 	}
 	
 	
-	public ArrayList<Cliente> darClientesPorNombre(Connection conn, String nombre)
+	public ArrayList<Cliente> darClientesPorNombre(Connection conn, String nombre, String log)
 	{
 		ArrayList<Cliente> clientes = new ArrayList<>();
 		String sql = "SELECT * FROM CLIENTE WHERE NOMBRE = ?";
@@ -145,7 +145,7 @@ public class DAOTablaCliente
 		return clientes;
 	}
 	
-	public ArrayList<Cliente> darClientes(Connection conn)
+	public ArrayList<Cliente> darClientes(Connection conn, String log)
 	{
 		ArrayList<Cliente> clientes = new ArrayList<>();
 		String sql = "SELECT * FROM CLIENTE";
@@ -178,7 +178,7 @@ public class DAOTablaCliente
 		return clientes;
 	}
 	
-	public void actualizarCliente(Connection conn, Cliente cliente)
+	public void actualizarCliente(Connection conn, Cliente cliente, String log)
 	{
 		String sql = "UPDATE CLIENTE SET NOMBRE = ?, CORREO = ?, ID_ROTONDA = ? WHERE CEDULA = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -204,7 +204,7 @@ public class DAOTablaCliente
 		}
 	}
 	
-	public void eliminarCliente(Connection conn, Cliente cliente)
+	public void eliminarCliente(Connection conn, Cliente cliente, String log)
 	{
 		String sql = "DELETE FROM CLIENTE WHERE CEDULA = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))

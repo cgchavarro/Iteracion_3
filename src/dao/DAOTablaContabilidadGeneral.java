@@ -17,7 +17,7 @@ public class DAOTablaContabilidadGeneral
 		
 	}
 	
-	public void agregarContabilidadGeneral(Connection conn, ContabilidadGeneral c)
+	public void agregarContabilidadGeneral(Connection conn, ContabilidadGeneral c, String log)
 	{
 		String sql = "INSERT INTO CONTABILIDADGENERAL VALUES (?,?,?,?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -82,7 +82,7 @@ public class DAOTablaContabilidadGeneral
 //		return restaurante;
 //	}
 //	
-	public ArrayList<ContabilidadGeneral> darContabilidadesPorFecha(Connection conn, Date nombre)
+	public ArrayList<ContabilidadGeneral> darContabilidadesPorFecha(Connection conn, Date nombre, String log)
 		{
 	ArrayList<ContabilidadGeneral> restaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM CONTABILIDADGENERAL WHERE FECHA = ?";
@@ -118,7 +118,7 @@ public class DAOTablaContabilidadGeneral
 		return restaurantes;
 	}
 	
-	public ArrayList<ContabilidadGeneral> darContabilidades(Connection conn)
+	public ArrayList<ContabilidadGeneral> darContabilidades(Connection conn, String log)
 	{
 		ArrayList<ContabilidadGeneral> restaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM CONTABILIDADGENERAL";
@@ -154,7 +154,7 @@ public class DAOTablaContabilidadGeneral
 		return restaurantes;
 	}
 	
-	public void actualizarContabilidadGeneral(Connection conn, ContabilidadGeneral restaurante)
+	public void actualizarContabilidadGeneral(Connection conn, ContabilidadGeneral restaurante, String log)
 	{
 		String sql = "UPDATE CONTABILIDADGENERAL SET VALOR_COSTOS= ?, VALOR_VENTAS = ? "
 				+ "WHERE NOMBRE_RESTAURANTE = ? AND FECHA =? AND ID_ROTONDA =? ";
@@ -182,7 +182,7 @@ public class DAOTablaContabilidadGeneral
 		}
 	}
 
-	public void eliminarContabilidadGeneral(Connection conn, ContabilidadGeneral restaurante)
+	public void eliminarContabilidadGeneral(Connection conn, ContabilidadGeneral restaurante, String log)
 	{
 		String sql = "DELETE FROM CONTABILIDADGENERAL WHERE NOMBRE_RESTAURANTE = ? AND FECHA =? AND ID_ROTONDA =?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))

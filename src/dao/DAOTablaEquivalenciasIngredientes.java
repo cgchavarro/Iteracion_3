@@ -17,7 +17,7 @@ public class DAOTablaEquivalenciasIngredientes
 
 	}
 
-	public void agregarEquivalenciaIngredientes(Connection conn, EquivalenciaIngredientes eq)
+	public void agregarEquivalenciaIngredientes(Connection conn, EquivalenciaIngredientes eq, String log)
 	{
 		String sql = "INSERT INTO EQUIVALENCIASINGREDIENTES VALUES (?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -42,7 +42,7 @@ public class DAOTablaEquivalenciasIngredientes
 	}
 
 	
-	public ArrayList<EquivalenciaIngredientes> darEquivalencias(Connection conn)
+	public ArrayList<EquivalenciaIngredientes> darEquivalencias(Connection conn, String log)
 	{
 		ArrayList<EquivalenciaIngredientes> tiposINGREDIENTES = new ArrayList<>();
 		String sql = "SELECT * FROM EQUIVALENCIASINGREDIENTES";
@@ -102,9 +102,9 @@ public class DAOTablaEquivalenciasIngredientes
 	
 	
 
-	public void eliminarEquivalencia(Connection conn, EquivalenciaIngredientes tipoProducto)
+	public void eliminarEquivalencia(Connection conn, EquivalenciaIngredientes tipoProducto, String log)
 	{
-		String sql = "DELETE FROM EQUIVALENCIASINGREDIENTES WHERE IDINGREDIENTE1 = ? AND IDINGREDIENTE2 = ?";
+		String sql = "DELETE FROM EQUIVALENCIASINGREDIENTES WHERE IDINGREDIENTE1 =? AND IDINGREDIENTE2=?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, tipoProducto.getIdIngrediente1());

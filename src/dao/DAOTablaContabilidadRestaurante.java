@@ -18,7 +18,7 @@ public class DAOTablaContabilidadRestaurante
 		
 	}
 	
-	public void agregarContabilidadRestaurante(Connection conn, ContabilidadRestaurante restaurante)
+	public void agregarContabilidadRestaurante(Connection conn, ContabilidadRestaurante restaurante, String log)
 	{
 		String sql = "INSERT INTO CONTABILIDADRESTAURANTE VALUES (?,?,?,?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -46,7 +46,7 @@ public class DAOTablaContabilidadRestaurante
 		}
 	}
 	
-	public ContabilidadRestaurante darContabilidadRestaurantePorId(Connection conn,Long idVenta)
+	public ContabilidadRestaurante darContabilidadRestaurantePorId(Connection conn,Long idVenta, String log)
 	{
 		ContabilidadRestaurante restaurante = null;
 		String sql = "SELECT * FROM CONTABILIDADRESTAURANTE WHERE ID_ORDEN = ?";
@@ -83,7 +83,7 @@ public class DAOTablaContabilidadRestaurante
 		return restaurante;
 	}
 	
-	public ArrayList<ContabilidadRestaurante> darContabilidadesPorFecha(Connection conn, Date nombre)
+	public ArrayList<ContabilidadRestaurante> darContabilidadesPorFecha(Connection conn, Date nombre, String log)
 	{
 		ArrayList<ContabilidadRestaurante> restaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM CONTABILIDADRESTAURANTE WHERE FECHA_VENTA = ?";
@@ -119,7 +119,7 @@ public class DAOTablaContabilidadRestaurante
 		return restaurantes;
 	}
 	
-	public ArrayList<ContabilidadRestaurante> darContabilidades(Connection conn)
+	public ArrayList<ContabilidadRestaurante> darContabilidades(Connection conn, String log)
 	{
 		ArrayList<ContabilidadRestaurante> restaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM CONTABILIDADRESTAURANTE";
@@ -155,7 +155,7 @@ public class DAOTablaContabilidadRestaurante
 		return restaurantes;
 	}
 	
-	public void actualizarContabilidadRestaurante(Connection conn, ContabilidadRestaurante restaurante)
+	public void actualizarContabilidadRestaurante(Connection conn, ContabilidadRestaurante restaurante, String log)
 	{
 		String sql = "UPDATE CONTABILIDADRESTAURANTE SET COSTO_VENTA= ?, PRECIO_VENTA = ?, NOMBRE_RESTAURANTE = ?, FECHA_VENTA =? WHERE ID_ORDEN = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -182,7 +182,7 @@ public class DAOTablaContabilidadRestaurante
 		}
 	}
 
-	public void eliminarContabilidadRestaurante(Connection conn, ContabilidadRestaurante restaurante)
+	public void eliminarContabilidadRestaurante(Connection conn, ContabilidadRestaurante restaurante, String log)
 	{
 		String sql = "DELETE FROM CONTABILIDADRESTAURANTE WHERE ID_ORDEN = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))

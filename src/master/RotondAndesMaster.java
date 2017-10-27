@@ -9,6 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import java.util.Properties;
+import java.util.logging.FileHandler;
+import java.util.logging.SimpleFormatter;
+
+import javax.servlet.ServletContext;
 
 import dao.DAOTablaAdministradorRestaurante;
 import dao.DAOTablaAdministradorRotonda;
@@ -102,6 +106,8 @@ public class RotondAndesMaster
 	 * Path relativo del archivo con los datos de la conexión
 	 */
 	private static final String CONNECTION_DATA_FILE_NAME_REMOTE = "/conexion.properties";
+	
+	public static final String ARCHIVO = "/bitacora.log";
 
 	/**
 	 * Path absoluto de la conexión
@@ -123,6 +129,9 @@ public class RotondAndesMaster
 	 * Driver que se va a utilizar para conectarse a la BD
 	 */
 	private String driver;
+	
+	
+	private String log;
 	/**
 	 * Conexión a la BD
 	 */
@@ -135,9 +144,16 @@ public class RotondAndesMaster
 	 */
 	public RotondAndesMaster(String contextPathP) {
 		connectionDataPath = contextPathP + CONNECTION_DATA_FILE_NAME_REMOTE;
+		log= contextPathP+ARCHIVO;
 		initConnectionData();
+		
+		
 	}
 
+	public String getLogRuta()
+	{
+		return log;
+	}
 	/**
 	 * Inicializa la conexión a la BD leyendo el archivo con las propiedades
 	 */
@@ -177,7 +193,7 @@ public class RotondAndesMaster
 		DAOTablaCategoria dao = new DAOTablaCategoria();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarCategoria(conn, categoria);
+			dao.agregarCategoria(conn, categoria, log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -193,7 +209,7 @@ public class RotondAndesMaster
 		DAOTablaCategoria dao = new DAOTablaCategoria();
 		try(Connection conn = darConexion())
 		{
-			categoria = dao.darCategoriaPorId(conn, id);
+			categoria = dao.darCategoriaPorId(conn, id,log);
 		}
 		catch(SQLException e)
 		{
@@ -209,7 +225,7 @@ public class RotondAndesMaster
 		DAOTablaCategoria dao = new DAOTablaCategoria();
 		try(Connection conn = darConexion())
 		{
-			categorias = dao.darCategoriasPorNombre(conn, nombre);
+			categorias = dao.darCategoriasPorNombre(conn, nombre,log);
 		}
 		catch(SQLException e)
 		{
@@ -225,7 +241,7 @@ public class RotondAndesMaster
 		DAOTablaCategoria dao = new DAOTablaCategoria();
 		try(Connection conn = darConexion())
 		{
-			categorias = dao.darCategorias(conn);
+			categorias = dao.darCategorias(conn,log);
 		}
 		catch(SQLException e)
 		{
@@ -240,7 +256,7 @@ public class RotondAndesMaster
 		DAOTablaCategoria dao = new DAOTablaCategoria();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarCategoria(conn, categoria);
+			dao.actualizarCategoria(conn, categoria,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -255,7 +271,7 @@ public class RotondAndesMaster
 		DAOTablaCategoria dao = new DAOTablaCategoria();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarCategoria(conn, categoria);
+			dao.eliminarCategoria(conn, categoria,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -276,7 +292,7 @@ public class RotondAndesMaster
 		DAOTablaCliente dao = new DAOTablaCliente();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarCliente(conn, cliente);
+			dao.agregarCliente(conn, cliente,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -292,7 +308,7 @@ public class RotondAndesMaster
 		DAOTablaCliente dao = new DAOTablaCliente();
 		try(Connection conn = darConexion())
 		{
-			cliente = dao.darClientePorCedula(conn, cedula);
+			cliente = dao.darClientePorCedula(conn, cedula,log);
 		}
 		catch(SQLException e)
 		{
@@ -308,7 +324,7 @@ public class RotondAndesMaster
 		DAOTablaCliente dao = new DAOTablaCliente();
 		try(Connection conn = darConexion())
 		{
-			cliente = dao.darClientePorCorreo(conn, correo);
+			cliente = dao.darClientePorCorreo(conn, correo,log);
 		}
 		catch(SQLException e)
 		{
@@ -324,7 +340,7 @@ public class RotondAndesMaster
 		DAOTablaCliente dao = new DAOTablaCliente();
 		try(Connection conn = darConexion())
 		{
-			cliente = dao.darClientesPorNombre(conn, nombre);
+			cliente = dao.darClientesPorNombre(conn, nombre,log);
 		}
 		catch(SQLException e)
 		{
@@ -340,7 +356,7 @@ public class RotondAndesMaster
 		DAOTablaCliente dao = new DAOTablaCliente();
 		try(Connection conn = darConexion())
 		{
-			cliente = dao.darClientes(conn);
+			cliente = dao.darClientes(conn,log);
 		}
 		catch(SQLException e)
 		{
@@ -355,7 +371,7 @@ public class RotondAndesMaster
 		DAOTablaCliente dao = new DAOTablaCliente();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarCliente(conn, cliente);
+			dao.actualizarCliente(conn, cliente,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -370,7 +386,7 @@ public class RotondAndesMaster
 		DAOTablaCliente dao = new DAOTablaCliente();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarCliente(conn, cliente);
+			dao.eliminarCliente(conn, cliente,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -389,7 +405,7 @@ public class RotondAndesMaster
 		DAOTablaIngrediente dao = new DAOTablaIngrediente();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarIngrediente(conn, ingrediente);
+			dao.agregarIngrediente(conn, ingrediente, log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -405,7 +421,7 @@ public class RotondAndesMaster
 		DAOTablaIngrediente dao = new DAOTablaIngrediente();
 		try(Connection conn = darConexion())
 		{
-			ingrediente = dao.darIngredientePorId(conn, id);
+			ingrediente = dao.darIngredientePorId(conn, id,log);
 		}
 		catch(SQLException e)
 		{
@@ -421,7 +437,7 @@ public class RotondAndesMaster
 		DAOTablaIngrediente dao = new DAOTablaIngrediente();
 		try(Connection conn = darConexion())
 		{
-			ingredientes = dao.darIngredientesPorNombre(conn, nombre);
+			ingredientes = dao.darIngredientesPorNombre(conn, nombre,log);
 		}
 		catch(SQLException e)
 		{
@@ -437,7 +453,7 @@ public class RotondAndesMaster
 		DAOTablaIngrediente dao = new DAOTablaIngrediente();
 		try(Connection conn = darConexion())
 		{
-			ingredientes = dao.darIngredientes(conn);
+			ingredientes = dao.darIngredientes(conn,log);
 		}
 		catch(SQLException e)
 		{
@@ -452,7 +468,7 @@ public class RotondAndesMaster
 		DAOTablaIngrediente dao = new DAOTablaIngrediente();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarIngrediente(conn, ingrediente);
+			dao.actualizarIngrediente(conn, ingrediente,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -467,7 +483,7 @@ public class RotondAndesMaster
 		DAOTablaIngrediente dao = new DAOTablaIngrediente();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarIngrediente(conn, ingrediente);
+			dao.eliminarIngrediente(conn, ingrediente,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -487,7 +503,7 @@ public class RotondAndesMaster
 		DAOTablaIngredienteProducto dao = new DAOTablaIngredienteProducto();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarIngredienteProducto(conn, ingredienteProducto);
+			dao.agregarIngredienteProducto(conn, ingredienteProducto,log);
 			conn.commit();
 		} 
 		catch (SQLException e) 
@@ -503,7 +519,7 @@ public class RotondAndesMaster
 		DAOTablaIngredienteProducto dao = new DAOTablaIngredienteProducto();
 		try(Connection conn = darConexion())
 		{
-			ingredientesProductos = dao.darIngredientesProductosPorIdIngrediente(conn, idIngrediente);
+			ingredientesProductos = dao.darIngredientesProductosPorIdIngrediente(conn, idIngrediente,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -519,7 +535,7 @@ public class RotondAndesMaster
 		DAOTablaIngredienteProducto dao = new DAOTablaIngredienteProducto();
 		try(Connection conn = darConexion())
 		{
-			ingredientesProductos = dao.darIngredientesProductosPorIdProducto(conn, idProducto);
+			ingredientesProductos = dao.darIngredientesProductosPorIdProducto(conn, idProducto,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -535,7 +551,7 @@ public class RotondAndesMaster
 		DAOTablaIngredienteProducto dao = new DAOTablaIngredienteProducto();
 		try(Connection conn = darConexion())
 		{
-			ingredientesProductos = dao.darIngredientesProductos(conn);
+			ingredientesProductos = dao.darIngredientesProductos(conn,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -550,7 +566,7 @@ public class RotondAndesMaster
 		DAOTablaIngredienteProducto dao = new DAOTablaIngredienteProducto();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarProductoDeIngredienteProducto(conn, ingredienteProducto);
+			dao.actualizarProductoDeIngredienteProducto(conn, ingredienteProducto,log);
 			conn.commit();
 		} 
 		catch (SQLException e) 
@@ -565,7 +581,7 @@ public class RotondAndesMaster
 		DAOTablaIngredienteProducto dao = new DAOTablaIngredienteProducto();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarIngredienteDeIngredienteProducto(conn, ingredienteProducto);
+			dao.actualizarIngredienteDeIngredienteProducto(conn, ingredienteProducto,log);
 			conn.commit();
 		} 
 		catch (SQLException e) 
@@ -580,7 +596,7 @@ public class RotondAndesMaster
 		DAOTablaIngredienteProducto dao = new DAOTablaIngredienteProducto();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarIngredienteProducto(conn, ingredienteProducto);
+			dao.eliminarIngredienteProducto(conn, ingredienteProducto,log);
 			conn.commit();
 		} 
 		catch (SQLException e) 
@@ -599,7 +615,7 @@ public class RotondAndesMaster
 		DAOTablaMenu dao = new DAOTablaMenu();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarMenu(conn, menu);
+			dao.agregarMenu(conn, menu,log);
 			conn.commit();
 		} 
 		catch (SQLException e) 
@@ -615,7 +631,7 @@ public class RotondAndesMaster
 		DAOTablaMenu dao = new DAOTablaMenu();
 		try(Connection conn = darConexion())
 		{
-			menu = dao.darMenuPorId(conn, id);
+			menu = dao.darMenuPorId(conn, id,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -631,7 +647,7 @@ public class RotondAndesMaster
 		DAOTablaMenu dao = new DAOTablaMenu();
 		try(Connection conn = darConexion())
 		{
-			menu = dao.darMenuPorIdDisponibilidad(conn, id);
+			menu = dao.darMenuPorIdDisponibilidad(conn, id,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -647,7 +663,7 @@ public class RotondAndesMaster
 		DAOTablaMenu dao = new DAOTablaMenu();
 		try(Connection conn = darConexion())
 		{
-			menus = dao.darMenusPorRestaurante(conn, idRestaurante);
+			menus = dao.darMenusPorRestaurante(conn, idRestaurante,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -663,7 +679,7 @@ public class RotondAndesMaster
 		DAOTablaMenu dao = new DAOTablaMenu();
 		try(Connection conn = darConexion())
 		{
-			menus = dao.darMenusPorPostre(conn, idRestaurante);
+			menus = dao.darMenusPorPostre(conn, idRestaurante,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -679,7 +695,7 @@ public class RotondAndesMaster
 		DAOTablaMenu dao = new DAOTablaMenu();
 		try(Connection conn = darConexion())
 		{
-			menus = dao.darMenusPorEntrada(conn, idRestaurante);
+			menus = dao.darMenusPorEntrada(conn, idRestaurante,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -695,7 +711,7 @@ public class RotondAndesMaster
 		DAOTablaMenu dao = new DAOTablaMenu();
 		try(Connection conn = darConexion())
 		{
-			menus = dao.darMenusPorPlatoFuerte(conn, idRestaurante);
+			menus = dao.darMenusPorPlatoFuerte(conn, idRestaurante,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -710,7 +726,7 @@ public class RotondAndesMaster
 		DAOTablaMenu dao = new DAOTablaMenu();
 		try(Connection conn = darConexion())
 		{
-			menus = dao.darMenusPorAcompaniamiento(conn, idRestaurante);
+			menus = dao.darMenusPorAcompaniamiento(conn, idRestaurante,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -725,7 +741,7 @@ public class RotondAndesMaster
 		DAOTablaMenu dao = new DAOTablaMenu();
 		try(Connection conn = darConexion())
 		{
-			menus = dao.darMenusPorBebida(conn, idRestaurante);
+			menus = dao.darMenusPorBebida(conn, idRestaurante,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -740,7 +756,7 @@ public class RotondAndesMaster
 		DAOTablaMenu dao = new DAOTablaMenu();
 		try(Connection conn = darConexion())
 		{
-			menus = dao.darMenus(conn);
+			menus = dao.darMenus(conn,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -755,7 +771,7 @@ public class RotondAndesMaster
 		DAOTablaMenu dao = new DAOTablaMenu();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarMenu(conn, menu);
+			dao.actualizarMenu(conn, menu,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -769,7 +785,7 @@ public class RotondAndesMaster
 		DAOTablaMenu dao = new DAOTablaMenu();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarMenu(conn, menu);
+			dao.eliminarMenu(conn, menu,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -787,7 +803,7 @@ public class RotondAndesMaster
 		DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarOrdenRestaurante(conn, ordenRestaurante);
+			dao.agregarOrdenRestaurante(conn, ordenRestaurante,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -802,7 +818,7 @@ public class RotondAndesMaster
 		DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarOrdenRestauranteMesa(conn, ordenRestaurante);
+			dao.agregarOrdenRestauranteMesa(conn, ordenRestaurante,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -818,7 +834,7 @@ public class RotondAndesMaster
 		DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
 		try(Connection conn = darConexion())
 		{
-			ordenRestaurante = dao.darOrdenRestaurantePorId(conn, id);
+			ordenRestaurante = dao.darOrdenRestaurantePorId(conn, id,log);
 		}
 		catch(SQLException e)
 		{
@@ -834,7 +850,7 @@ public class RotondAndesMaster
 		DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
 		try(Connection conn = darConexion())
 		{
-			ordenRestaurantes = dao.darOrdenRestaurantesPorIdCliente(conn, idMenu);
+			ordenRestaurantes = dao.darOrdenRestaurantesPorIdCliente(conn, idMenu,log);
 		}
 		catch(SQLException e)
 		{
@@ -849,7 +865,7 @@ public class RotondAndesMaster
 		DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
 		try(Connection conn = darConexion())
 		{
-			ordenRestaurantes = dao.darOrdenRestaurantesPorMenu(conn, idMenu);
+			ordenRestaurantes = dao.darOrdenRestaurantesPorMenu(conn, idMenu,log);
 		}
 		catch(SQLException e)
 		{
@@ -865,7 +881,7 @@ public class RotondAndesMaster
 		DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
 		try(Connection conn = darConexion())
 		{
-			ordenRestaurantes = dao.darOrdenRestaurantesPorMesa(conn, idMenu);
+			ordenRestaurantes = dao.darOrdenRestaurantesPorMesa(conn, idMenu,log);
 		}
 		catch(SQLException e)
 		{
@@ -883,7 +899,7 @@ public class RotondAndesMaster
 		DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
 		try(Connection conn = darConexion())
 		{
-			ordenRestaurantes = dao.darOrdenRestaurantes(conn);
+			ordenRestaurantes = dao.darOrdenRestaurantes(conn,log);
 		}
 		catch(SQLException e)
 		{
@@ -898,7 +914,7 @@ public class RotondAndesMaster
 		DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarOrdenRestaurante(conn, ordenRestaurante);
+			dao.actualizarOrdenRestaurante(conn, ordenRestaurante,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -913,7 +929,7 @@ public class RotondAndesMaster
 		DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarOrdenRestaurante(conn, ordenRestaurante);
+			dao.eliminarOrdenRestaurante(conn, ordenRestaurante,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -928,7 +944,7 @@ public class RotondAndesMaster
 		DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarOrdenRestauranteMesa(conn, idMesa);
+			dao.eliminarOrdenRestauranteMesa(conn, idMesa,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -947,7 +963,7 @@ public class RotondAndesMaster
 		DAOTablaReserva dao = new DAOTablaReserva();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarReserva(conn, reserva);
+			dao.agregarReserva(conn, reserva,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -963,7 +979,7 @@ public class RotondAndesMaster
 		DAOTablaReserva dao = new DAOTablaReserva();
 		try(Connection conn = darConexion())
 		{
-			reserva = dao.darReservaPorId(conn, id);
+			reserva = dao.darReservaPorId(conn, id,log);
 		}
 		catch(SQLException e)
 		{
@@ -979,7 +995,7 @@ public class RotondAndesMaster
 		DAOTablaReserva dao = new DAOTablaReserva();
 		try(Connection conn = darConexion())
 		{
-			reservas = dao.darReservasPorCliente(conn, idCliente);
+			reservas = dao.darReservasPorCliente(conn, idCliente,log);
 		}
 		catch(SQLException e)
 		{
@@ -995,7 +1011,7 @@ public class RotondAndesMaster
 		DAOTablaReserva dao = new DAOTablaReserva();
 		try(Connection conn = darConexion())
 		{
-			reserva = dao.darReservasPorZona(conn, idZona);
+			reserva = dao.darReservasPorZona(conn, idZona,log);
 		}
 		catch(SQLException e)
 		{
@@ -1011,7 +1027,7 @@ public class RotondAndesMaster
 		DAOTablaReserva dao = new DAOTablaReserva();
 		try(Connection conn = darConexion())
 		{
-			reserva = dao.darReservas(conn);
+			reserva = dao.darReservas(conn,log);
 		}
 		catch(SQLException e)
 		{
@@ -1026,7 +1042,7 @@ public class RotondAndesMaster
 		DAOTablaReserva dao = new DAOTablaReserva();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarReserva(conn, reserva);
+			dao.actualizarReserva(conn, reserva,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1041,7 +1057,7 @@ public class RotondAndesMaster
 		DAOTablaReserva dao = new DAOTablaReserva();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarReserva(conn, reserva);
+			dao.eliminarReserva(conn, reserva,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1061,7 +1077,7 @@ public class RotondAndesMaster
 		DAOTablaRestaurante dao = new DAOTablaRestaurante();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarRestaurante(conn, restaurante);
+			dao.agregarRestaurante(conn, restaurante,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1077,7 +1093,7 @@ public class RotondAndesMaster
 		DAOTablaRestaurante dao = new DAOTablaRestaurante();
 		try(Connection conn = darConexion())
 		{
-			restaurante = dao.darRestaurantePorNombre(conn, nombre);
+			restaurante = dao.darRestaurantePorNombre(conn, nombre,log);
 		}
 		catch(SQLException e)
 		{
@@ -1110,7 +1126,7 @@ public class RotondAndesMaster
 		DAOTablaRestaurante dao = new DAOTablaRestaurante();
 		try(Connection conn = darConexion())
 		{
-			restaurantes = dao.darRestaurantes(conn);
+			restaurantes = dao.darRestaurantes(conn,log);
 		}
 		catch(SQLException e)
 		{
@@ -1129,7 +1145,7 @@ public class RotondAndesMaster
 		DAOTablaRestaurante dao = new DAOTablaRestaurante();
 		try(Connection conn = darConexion())
 		{
-			restaurantes = dao.darRestaurantesPorZona(conn, id);
+			restaurantes = dao.darRestaurantesPorZona(conn, id,log);
 		}
 		catch(SQLException e)
 		{
@@ -1148,7 +1164,7 @@ public class RotondAndesMaster
 		DAOTablaRestaurante dao = new DAOTablaRestaurante();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarRestaurante(conn, restaurante);
+			dao.actualizarRestaurante(conn, restaurante,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1163,7 +1179,7 @@ public class RotondAndesMaster
 		DAOTablaRestaurante dao = new DAOTablaRestaurante();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarRestaurante(conn, restaurante);
+			dao.eliminarRestaurante(conn, restaurante,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1182,7 +1198,7 @@ public class RotondAndesMaster
 		DAOTablaTipo dao = new DAOTablaTipo();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarTipo(conn, tipo);
+			dao.agregarTipo(conn, tipo,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1198,7 +1214,7 @@ public class RotondAndesMaster
 		DAOTablaTipo dao = new DAOTablaTipo();
 		try(Connection conn = darConexion())
 		{
-			tipo = dao.darTipoPorId(conn, id);
+			tipo = dao.darTipoPorId(conn, id,log);
 		}
 		catch(SQLException e)
 		{
@@ -1214,7 +1230,7 @@ public class RotondAndesMaster
 		DAOTablaTipo dao = new DAOTablaTipo();
 		try(Connection conn = darConexion())
 		{
-			tipos = dao.darTiposPorNombre(conn, nombre);
+			tipos = dao.darTiposPorNombre(conn, nombre,log);
 		}
 		catch(SQLException e)
 		{
@@ -1230,7 +1246,7 @@ public class RotondAndesMaster
 		DAOTablaTipo dao = new DAOTablaTipo();
 		try(Connection conn = darConexion())
 		{
-			tipos = dao.darTipos(conn);
+			tipos = dao.darTipos(conn,log);
 		}
 		catch(SQLException e)
 		{
@@ -1249,7 +1265,7 @@ public class RotondAndesMaster
 		DAOTablaTipo dao = new DAOTablaTipo();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarTipo(conn, tipo);
+			dao.actualizarTipo(conn, tipo,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1264,7 +1280,7 @@ public class RotondAndesMaster
 		DAOTablaTipo dao = new DAOTablaTipo();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarTipo(conn, tipo);
+			dao.eliminarTipo(conn, tipo,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1283,7 +1299,7 @@ public class RotondAndesMaster
 		DAOTablaTipoProducto dao = new DAOTablaTipoProducto();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarTipoProducto(conn, tipoProducto);
+			dao.agregarTipoProducto(conn, tipoProducto,log);
 			conn.commit();
 		} 
 		catch (SQLException e) 
@@ -1299,7 +1315,7 @@ public class RotondAndesMaster
 		DAOTablaTipoProducto dao = new DAOTablaTipoProducto();
 		try(Connection conn = darConexion())
 		{
-			tiposProductos = dao.darTiposProductosPorIdTipo(conn, idTipo);
+			tiposProductos = dao.darTiposProductosPorIdTipo(conn, idTipo,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -1315,7 +1331,7 @@ public class RotondAndesMaster
 		DAOTablaTipoProducto dao = new DAOTablaTipoProducto();
 		try(Connection conn = darConexion())
 		{
-			tiposProductos = dao.darTiposProductosPorIdProducto(conn, idProducto);
+			tiposProductos = dao.darTiposProductosPorIdProducto(conn, idProducto,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -1331,7 +1347,7 @@ public class RotondAndesMaster
 		DAOTablaTipoProducto dao = new DAOTablaTipoProducto();
 		try(Connection conn = darConexion())
 		{
-			tiposProductos = dao.darTiposProductos(conn);
+			tiposProductos = dao.darTiposProductos(conn,log);
 		} 
 		catch (SQLException e) 
 		{
@@ -1346,7 +1362,7 @@ public class RotondAndesMaster
 		DAOTablaTipoProducto dao = new DAOTablaTipoProducto();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarProductoTipoProducto(conn, tipoProducto);
+			dao.actualizarProductoTipoProducto(conn, tipoProducto,log);
 			conn.commit();
 		} 
 		catch (SQLException e) 
@@ -1361,7 +1377,7 @@ public class RotondAndesMaster
 		DAOTablaTipoProducto dao = new DAOTablaTipoProducto();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarTipoTipoProducto(conn, tipoProducto);
+			dao.actualizarTipoTipoProducto(conn, tipoProducto,log);
 			conn.commit();
 		} 
 		catch (SQLException e) 
@@ -1376,7 +1392,7 @@ public class RotondAndesMaster
 		DAOTablaTipoProducto dao = new DAOTablaTipoProducto();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarTipoProducto(conn, tipoProducto);
+			dao.eliminarTipoProducto(conn, tipoProducto,log);
 			conn.commit();
 		} 
 		catch (SQLException e) 
@@ -1395,7 +1411,7 @@ public class RotondAndesMaster
 		DAOTablaZona dao = new DAOTablaZona();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarZona(conn, zona);
+			dao.agregarZona(conn, zona, log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1411,7 +1427,7 @@ public class RotondAndesMaster
 		DAOTablaZona dao = new DAOTablaZona();
 		try(Connection conn = darConexion())
 		{
-			zona = dao.darZonaPorId(conn, id);
+			zona = dao.darZonaPorId(conn, id,log);
 		}
 		catch(SQLException e)
 		{
@@ -1427,7 +1443,7 @@ public class RotondAndesMaster
 		DAOTablaZona dao = new DAOTablaZona();
 		try(Connection conn = darConexion())
 		{
-			zonas = dao.darZonasPorNombre(conn, nombre);
+			zonas = dao.darZonasPorNombre(conn, nombre,log);
 		}
 		catch(SQLException e)
 		{
@@ -1443,7 +1459,7 @@ public class RotondAndesMaster
 		DAOTablaZona dao = new DAOTablaZona();
 		try(Connection conn = darConexion())
 		{
-			zonas = dao.darZonas(conn);
+			zonas = dao.darZonas(conn, log);
 		}
 		catch(SQLException e)
 		{
@@ -1462,7 +1478,7 @@ public class RotondAndesMaster
 		DAOTablaZona dao = new DAOTablaZona();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarZona(conn, zona);
+			dao.actualizarZona(conn, zona, log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1477,7 +1493,7 @@ public class RotondAndesMaster
 		DAOTablaZona dao = new DAOTablaZona();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarZona(conn, zona);
+			dao.eliminarZona(conn, zona,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1497,7 +1513,7 @@ public class RotondAndesMaster
 		DAOTablaRotonda dao = new DAOTablaRotonda();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarRotonda(conn, rotonda);
+			dao.agregarRotonda(conn, rotonda,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1513,7 +1529,7 @@ public class RotondAndesMaster
 		DAOTablaRotonda dao = new DAOTablaRotonda();
 		try(Connection conn = darConexion())
 		{
-			rotonda = dao.darRotondaPorId(conn, id);
+			rotonda = dao.darRotondaPorId(conn, id,log);
 		}
 		catch(SQLException e)
 		{
@@ -1529,7 +1545,7 @@ public class RotondAndesMaster
 		DAOTablaRotonda dao = new DAOTablaRotonda();
 		try(Connection conn = darConexion())
 		{
-			rotondas = dao.darRotondasPorNombre(conn, nombre);
+			rotondas = dao.darRotondasPorNombre(conn, nombre,log);
 		}
 		catch(SQLException e)
 		{
@@ -1545,7 +1561,7 @@ public class RotondAndesMaster
 		DAOTablaRotonda dao = new DAOTablaRotonda();
 		try(Connection conn = darConexion())
 		{
-			rotondas = dao.darRotondas(conn);
+			rotondas = dao.darRotondas(conn,log);
 		}
 		catch(SQLException e)
 		{
@@ -1564,7 +1580,7 @@ public class RotondAndesMaster
 		DAOTablaRotonda dao = new DAOTablaRotonda();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarRotonda(conn, rotonda);
+			dao.actualizarRotonda(conn, rotonda,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1579,7 +1595,7 @@ public class RotondAndesMaster
 		DAOTablaRotonda dao = new DAOTablaRotonda();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarRotonda(conn, rotonda);
+			dao.eliminarRotonda(conn, rotonda,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1599,7 +1615,7 @@ public class RotondAndesMaster
 		DAOTablaProducto dao = new DAOTablaProducto();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarProducto(conn, producto);
+			dao.agregarProducto(conn, producto,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1615,7 +1631,7 @@ public class RotondAndesMaster
 		DAOTablaProducto dao = new DAOTablaProducto();
 		try(Connection conn = darConexion())
 		{
-			producto = dao.darProductoPorId(conn, id);
+			producto = dao.darProductoPorId(conn, id,log);
 		}
 		catch(SQLException e)
 		{
@@ -1631,7 +1647,7 @@ public class RotondAndesMaster
 		DAOTablaProducto dao = new DAOTablaProducto();
 		try(Connection conn = darConexion())
 		{
-			productos = dao.darProductosPorNombre(conn, nombre);
+			productos = dao.darProductosPorNombre(conn, nombre,log);
 		}
 		catch(SQLException e)
 		{
@@ -1647,7 +1663,7 @@ public class RotondAndesMaster
 		DAOTablaProducto dao = new DAOTablaProducto();
 		try(Connection conn = darConexion())
 		{
-			productos = dao.darProductosPorCategoria(conn, id);
+			productos = dao.darProductosPorCategoria(conn, id,log);
 		}
 		catch(SQLException e)
 		{
@@ -1661,7 +1677,7 @@ public class RotondAndesMaster
 		DAOTablaProducto dao = new DAOTablaProducto();
 		try(Connection conn = darConexion())
 		{
-			productos = dao.darProductosPorRangoPrecio(conn, min,max);
+			productos = dao.darProductosPorRangoPrecio(conn, min,max,log);
 		}
 		catch(SQLException e)
 		{
@@ -1679,7 +1695,7 @@ public class RotondAndesMaster
 		DAOTablaProducto dao = new DAOTablaProducto();
 		try(Connection conn = darConexion())
 		{
-			productos = dao.darProductosPorNombreRestaurante(conn, name);
+			productos = dao.darProductosPorNombreRestaurante(conn, name,log);
 		}
 		catch(SQLException e)
 		{
@@ -1694,7 +1710,7 @@ public class RotondAndesMaster
 		DAOTablaProducto dao = new DAOTablaProducto();
 		try(Connection conn = darConexion())
 		{
-			productos = dao.darProductos(conn);
+			productos = dao.darProductos(conn,log);
 		}
 		catch(SQLException e)
 		{
@@ -1713,7 +1729,7 @@ public class RotondAndesMaster
 		DAOTablaProducto dao = new DAOTablaProducto();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarProducto(conn, producto);
+			dao.actualizarProducto(conn, producto,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1728,7 +1744,7 @@ public class RotondAndesMaster
 		DAOTablaProducto dao = new DAOTablaProducto();
 		try(Connection conn = darConexion())
 		{
-			dao.surtirProductosRestaurante(conn, res);
+			dao.surtirProductosRestaurante(conn, res,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1742,7 +1758,7 @@ public class RotondAndesMaster
 		DAOTablaProducto dao = new DAOTablaProducto();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarProducto(conn, producto);
+			dao.eliminarProducto(conn, producto,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1760,7 +1776,7 @@ public class RotondAndesMaster
 		DAOTablaAdministradorRotonda dao = new DAOTablaAdministradorRotonda();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarAdministradorRotonda(conn, cliente);
+			dao.agregarAdministradorRotonda(conn, cliente,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1776,7 +1792,7 @@ public class RotondAndesMaster
 		DAOTablaAdministradorRotonda dao = new DAOTablaAdministradorRotonda();
 		try(Connection conn = darConexion())
 		{
-			cliente = dao.darAdministradorRotondaPorCedula(conn, cedula);
+			cliente = dao.darAdministradorRotondaPorCedula(conn, cedula,log);
 		}
 		catch(SQLException e)
 		{
@@ -1792,7 +1808,7 @@ public class RotondAndesMaster
 		DAOTablaAdministradorRotonda dao = new DAOTablaAdministradorRotonda();
 		try(Connection conn = darConexion())
 		{
-			cliente = dao.darAdministradorRotondaPorCorreo(conn, correo);
+			cliente = dao.darAdministradorRotondaPorCorreo(conn, correo,log);
 		}
 		catch(SQLException e)
 		{
@@ -1808,7 +1824,7 @@ public class RotondAndesMaster
 		DAOTablaAdministradorRotonda dao = new DAOTablaAdministradorRotonda();
 		try(Connection conn = darConexion())
 		{
-			cliente = dao.darAdministradorRotondasPorNombre(conn, nombre);
+			cliente = dao.darAdministradorRotondasPorNombre(conn, nombre,log);
 		}
 		catch(SQLException e)
 		{
@@ -1824,7 +1840,7 @@ public class RotondAndesMaster
 		DAOTablaAdministradorRotonda dao = new DAOTablaAdministradorRotonda();
 		try(Connection conn = darConexion())
 		{
-			cliente = dao.darAdministradorRotondas(conn);
+			cliente = dao.darAdministradorRotondas(conn,log);
 		}
 		catch(SQLException e)
 		{
@@ -1839,7 +1855,7 @@ public class RotondAndesMaster
 		DAOTablaAdministradorRotonda dao = new DAOTablaAdministradorRotonda();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarAdministradorRotonda(conn, cliente);
+			dao.actualizarAdministradorRotonda(conn, cliente,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1854,7 +1870,7 @@ public class RotondAndesMaster
 		DAOTablaAdministradorRotonda dao = new DAOTablaAdministradorRotonda();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarAdministradorRotonda(conn, cliente);
+			dao.eliminarAdministradorRotonda(conn, cliente,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1872,7 +1888,7 @@ public class RotondAndesMaster
 		DAOTablaAdministradorRestaurante dao = new DAOTablaAdministradorRestaurante();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarAdministradorRestaurante(conn, cliente);
+			dao.agregarAdministradorRestaurante(conn, cliente,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1888,7 +1904,7 @@ public class RotondAndesMaster
 		DAOTablaAdministradorRestaurante dao = new DAOTablaAdministradorRestaurante();
 		try(Connection conn = darConexion())
 		{
-			cliente = dao.darAdministradorRestaurantePorCedula(conn, cedula);
+			cliente = dao.darAdministradorRestaurantePorCedula(conn, cedula,log);
 		}
 		catch(SQLException e)
 		{
@@ -1904,7 +1920,7 @@ public class RotondAndesMaster
 		DAOTablaAdministradorRestaurante dao = new DAOTablaAdministradorRestaurante();
 		try(Connection conn = darConexion())
 		{
-			cliente = dao.darAdministradorRestaurantePorCorreo(conn, correo);
+			cliente = dao.darAdministradorRestaurantePorCorreo(conn, correo,log);
 		}
 		catch(SQLException e)
 		{
@@ -1920,7 +1936,7 @@ public class RotondAndesMaster
 		DAOTablaAdministradorRestaurante dao = new DAOTablaAdministradorRestaurante();
 		try(Connection conn = darConexion())
 		{
-			cliente = dao.darAdministradorRestaurantesPorNombre(conn, nombre);
+			cliente = dao.darAdministradorRestaurantesPorNombre(conn, nombre,log);
 		}
 		catch(SQLException e)
 		{
@@ -1936,7 +1952,7 @@ public class RotondAndesMaster
 		DAOTablaAdministradorRestaurante dao = new DAOTablaAdministradorRestaurante();
 		try(Connection conn = darConexion())
 		{
-			cliente = dao.darAdministradorRestaurantes(conn);
+			cliente = dao.darAdministradorRestaurantes(conn,log);
 		}
 		catch(SQLException e)
 		{
@@ -1951,7 +1967,7 @@ public class RotondAndesMaster
 		DAOTablaAdministradorRestaurante dao = new DAOTablaAdministradorRestaurante();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarAdministradorRestaurante(conn, cliente);
+			dao.actualizarAdministradorRestaurante(conn, cliente,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1966,7 +1982,7 @@ public class RotondAndesMaster
 		DAOTablaAdministradorRestaurante dao = new DAOTablaAdministradorRestaurante();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarAdministradorRestaurante(conn, cliente);
+			dao.eliminarAdministradorRestaurante(conn, cliente,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1984,7 +2000,7 @@ public class RotondAndesMaster
 		DAOTablaContabilidadRestaurante dao = new DAOTablaContabilidadRestaurante();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarContabilidadRestaurante(conn, re);
+			dao.agregarContabilidadRestaurante(conn, re,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -1999,7 +2015,7 @@ public class RotondAndesMaster
 		DAOTablaContabilidadRestaurante dao = new DAOTablaContabilidadRestaurante();
 		try(Connection conn = darConexion())
 		{
-			contabilidadRestaurante = dao.darContabilidadRestaurantePorId(conn, id);
+			contabilidadRestaurante = dao.darContabilidadRestaurantePorId(conn, id,log);
 		}
 		catch(SQLException e)
 		{
@@ -2014,7 +2030,7 @@ public class RotondAndesMaster
 		DAOTablaContabilidadRestaurante dao = new DAOTablaContabilidadRestaurante();
 		try(Connection conn = darConexion())
 		{
-			reserva = dao.darContabilidadesPorFecha(conn, fecha);
+			reserva = dao.darContabilidadesPorFecha(conn, fecha,log);
 		}
 		catch(SQLException e)
 		{
@@ -2030,7 +2046,7 @@ public class RotondAndesMaster
 		DAOTablaContabilidadRestaurante dao = new DAOTablaContabilidadRestaurante();
 		try(Connection conn = darConexion())
 		{
-			reserva = dao.darContabilidades(conn);
+			reserva = dao.darContabilidades(conn,log);
 		}
 		catch(SQLException e)
 		{
@@ -2045,7 +2061,7 @@ public class RotondAndesMaster
 		DAOTablaContabilidadRestaurante dao = new DAOTablaContabilidadRestaurante();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarContabilidadRestaurante(conn, re);
+			dao.actualizarContabilidadRestaurante(conn, re,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -2060,7 +2076,7 @@ public class RotondAndesMaster
 		DAOTablaContabilidadRestaurante dao = new DAOTablaContabilidadRestaurante();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarContabilidadRestaurante(conn, re);
+			dao.eliminarContabilidadRestaurante(conn, re,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -2080,7 +2096,7 @@ public class RotondAndesMaster
 		DAOTablaContabilidadGeneral dao = new DAOTablaContabilidadGeneral();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarContabilidadGeneral(conn, re);
+			dao.agregarContabilidadGeneral(conn, re,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -2096,7 +2112,7 @@ public class RotondAndesMaster
 		DAOTablaContabilidadGeneral dao = new DAOTablaContabilidadGeneral();
 		try(Connection conn = darConexion())
 		{
-			reserva = dao.darContabilidadesPorFecha(conn, fecha);
+			reserva = dao.darContabilidadesPorFecha(conn, fecha,log);
 		}
 		catch(SQLException e)
 		{
@@ -2112,7 +2128,7 @@ public class RotondAndesMaster
 		DAOTablaContabilidadGeneral dao = new DAOTablaContabilidadGeneral();
 		try(Connection conn = darConexion())
 		{
-			reserva = dao.darContabilidades(conn);
+			reserva = dao.darContabilidades(conn,log);
 		}
 		catch(SQLException e)
 		{
@@ -2127,7 +2143,7 @@ public class RotondAndesMaster
 		DAOTablaContabilidadGeneral dao = new DAOTablaContabilidadGeneral();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarContabilidadGeneral(conn, re);
+			dao.actualizarContabilidadGeneral(conn, re,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -2142,7 +2158,7 @@ public class RotondAndesMaster
 		DAOTablaContabilidadGeneral dao = new DAOTablaContabilidadGeneral();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarContabilidadGeneral(conn, re);
+			dao.eliminarContabilidadGeneral(conn, re,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -2168,7 +2184,7 @@ public class RotondAndesMaster
 		DAOTablaPreferenciaCliente dao = new DAOTablaPreferenciaCliente();
 		try(Connection conn = darConexion())
 		{
-			dao.agregarPreferenciaCliente(conn, categoria);
+			dao.agregarPreferenciaCliente(conn, categoria,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -2184,7 +2200,7 @@ public class RotondAndesMaster
 		DAOTablaPreferenciaCliente dao = new DAOTablaPreferenciaCliente();
 		try(Connection conn = darConexion())
 		{
-			categoria = dao.darPreferenciaClientePorId(conn, id);
+			categoria = dao.darPreferenciaClientePorId(conn, id,log);
 		}
 		catch(SQLException e)
 		{
@@ -2200,7 +2216,7 @@ public class RotondAndesMaster
 		DAOTablaPreferenciaCliente dao = new DAOTablaPreferenciaCliente();
 		try(Connection conn = darConexion())
 		{
-			categorias = dao.darPreferenciasPorNombre(conn, nombre);
+			categorias = dao.darPreferenciasPorNombre(conn, nombre,log);
 		}
 		catch(SQLException e)
 		{
@@ -2216,7 +2232,7 @@ public class RotondAndesMaster
 		DAOTablaPreferenciaCliente dao = new DAOTablaPreferenciaCliente();
 		try(Connection conn = darConexion())
 		{
-			categorias = dao.darPreferenciaCliente(conn);
+			categorias = dao.darPreferenciaCliente(conn,log);
 		}
 		catch(SQLException e)
 		{
@@ -2231,7 +2247,7 @@ public class RotondAndesMaster
 		DAOTablaPreferenciaCliente dao = new DAOTablaPreferenciaCliente();
 		try(Connection conn = darConexion())
 		{
-			dao.actualizarPreferencia(conn, categoria);
+			dao.actualizarPreferencia(conn, categoria,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -2246,7 +2262,7 @@ public class RotondAndesMaster
 		DAOTablaPreferenciaCliente dao = new DAOTablaPreferenciaCliente();
 		try(Connection conn = darConexion())
 		{
-			dao.eliminarPreferencia(conn, categoria);
+			dao.eliminarPreferencia(conn, categoria,log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -2270,7 +2286,7 @@ public class RotondAndesMaster
 			DAOTablaEquivalenciasProductos dao = new DAOTablaEquivalenciasProductos();
 			try(Connection conn = darConexion())
 			{
-				dao.agregarEquivalenciaProductos(conn, tipoProducto);
+				dao.agregarEquivalenciaProductos(conn, tipoProducto,log);
 				conn.commit();
 			} 
 			catch (SQLException e) 
@@ -2289,7 +2305,7 @@ public class RotondAndesMaster
 			DAOTablaEquivalenciasProductos dao = new DAOTablaEquivalenciasProductos();
 			try(Connection conn = darConexion())
 			{
-				tiposProductos = dao.darEquivalencias(conn);
+				tiposProductos = dao.darEquivalencias(conn,log);
 			} 
 			catch (SQLException e) 
 			{
@@ -2305,7 +2321,7 @@ public class RotondAndesMaster
 			DAOTablaEquivalenciasProductos dao = new DAOTablaEquivalenciasProductos();
 			try(Connection conn = darConexion())
 			{
-				n = dao.darEquivalencia(conn, eq);
+				n = dao.darEquivalencia(conn, eq,log);
 			} 
 			catch (SQLException e) 
 			{
@@ -2350,7 +2366,7 @@ public class RotondAndesMaster
 			DAOTablaEquivalenciasProductos dao = new DAOTablaEquivalenciasProductos();
 			try(Connection conn = darConexion())
 			{
-				dao.eliminarEquivalencia(conn, tipoProducto);
+				dao.eliminarEquivalencia(conn, tipoProducto,log);
 				conn.commit();
 			} 
 			catch (SQLException e) 
@@ -2369,7 +2385,7 @@ public class RotondAndesMaster
 					DAOTablaEquivalenciasIngredientes dao = new DAOTablaEquivalenciasIngredientes();
 					try(Connection conn = darConexion())
 					{
-						dao.agregarEquivalenciaIngredientes(conn, tipoProducto);
+						dao.agregarEquivalenciaIngredientes(conn, tipoProducto,log);
 						conn.commit();
 					} 
 					catch (SQLException e) 
@@ -2388,7 +2404,7 @@ public class RotondAndesMaster
 					DAOTablaEquivalenciasIngredientes dao = new DAOTablaEquivalenciasIngredientes();
 					try(Connection conn = darConexion())
 					{
-						tiposProductos = dao.darEquivalencias(conn);
+						tiposProductos = dao.darEquivalencias(conn,log);
 					} 
 					catch (SQLException e) 
 					{
@@ -2433,7 +2449,7 @@ public class RotondAndesMaster
 					DAOTablaEquivalenciasIngredientes dao = new DAOTablaEquivalenciasIngredientes();
 					try(Connection conn = darConexion())
 					{
-						dao.eliminarEquivalencia(conn, tipoProducto);
+						dao.eliminarEquivalencia(conn, tipoProducto,log);
 						conn.commit();
 					} 
 					catch (SQLException e) 
@@ -2449,7 +2465,7 @@ public class RotondAndesMaster
 					ArrayList<OrdenRestaurante> retornar = new ArrayList<>();
 					try(Connection conn = darConexion())
 					{
-						retornar = dao.actualizarOrdenesRestauranteComoServidas(conn, ordenes);
+						retornar = dao.actualizarOrdenesRestauranteComoServidas(conn, ordenes,log);
 						conn.commit();
 					}
 					catch(SQLException e)

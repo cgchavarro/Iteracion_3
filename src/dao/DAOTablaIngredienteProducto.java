@@ -15,7 +15,7 @@ public class DAOTablaIngredienteProducto
 
 	}
 
-	public void agregarIngredienteProducto(Connection conn, IngredienteProducto ingredienteProducto)
+	public void agregarIngredienteProducto(Connection conn, IngredienteProducto ingredienteProducto, String log)
 	{
 		String sql = "INSERT INTO INGREDIENTE_PRODUCTO VALUES (?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -39,7 +39,7 @@ public class DAOTablaIngredienteProducto
 		}
 	}
 
-	public ArrayList<IngredienteProducto> darIngredientesProductosPorIdIngrediente(Connection conn, Long idIngrediente)
+	public ArrayList<IngredienteProducto> darIngredientesProductosPorIdIngrediente(Connection conn, Long idIngrediente, String log)
 	{
 		ArrayList<IngredienteProducto> ingredientesProductos = new ArrayList<>();
 		String sql = "SELECT * FROM INGREDIENTE_PRODUCTO WHERE ID_INGREDIENTE = ?";
@@ -71,7 +71,7 @@ public class DAOTablaIngredienteProducto
 		return ingredientesProductos;
 	}
 	
-	public ArrayList<IngredienteProducto> darIngredientesProductosPorIdProducto(Connection conn, Long idProducto)
+	public ArrayList<IngredienteProducto> darIngredientesProductosPorIdProducto(Connection conn, Long idProducto, String log)
 	{
 		ArrayList<IngredienteProducto> ingredientesProductos = new ArrayList<>();
 		String sql = "SELECT * FROM INGREDIENTE_PRODUCTO WHERE ID_PRODUCTO = ?";
@@ -103,7 +103,7 @@ public class DAOTablaIngredienteProducto
 		return ingredientesProductos;
 	}
 
-	public ArrayList<IngredienteProducto> darIngredientesProductos(Connection conn)
+	public ArrayList<IngredienteProducto> darIngredientesProductos(Connection conn, String log)
 	{
 		ArrayList<IngredienteProducto> ingredientesProductos = new ArrayList<>();
 		String sql = "SELECT * FROM INGREDIENTE_PRODUCTO";
@@ -134,7 +134,7 @@ public class DAOTablaIngredienteProducto
 		return ingredientesProductos;
 	}
 
-	public void actualizarIngredienteDeIngredienteProducto(Connection conn, IngredienteProducto ingredienteProducto)
+	public void actualizarIngredienteDeIngredienteProducto(Connection conn, IngredienteProducto ingredienteProducto, String log)
 	{
 		String sql = "UPDATE INGREDIENTE_PRODUCTO SET ID_INGREDIENTE = ? WHERE ID_PRODUCTO = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -158,7 +158,7 @@ public class DAOTablaIngredienteProducto
 		}
 	}
 	
-	public void actualizarProductoDeIngredienteProducto(Connection conn, IngredienteProducto ingredienteProducto)
+	public void actualizarProductoDeIngredienteProducto(Connection conn, IngredienteProducto ingredienteProducto, String log)
 	{
 		String sql = "UPDATE INGREDIENTE_PRODUCTO SET ID_PRODUCTO = ? WHERE ID_INGREDIENTE = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -182,7 +182,7 @@ public class DAOTablaIngredienteProducto
 		}
 	}
 
-	public void eliminarIngredienteProducto(Connection conn, IngredienteProducto ingredienteProducto)
+	public void eliminarIngredienteProducto(Connection conn, IngredienteProducto ingredienteProducto, String log)
 	{
 		String sql = "DELETE FROM INGREDIENTE_PRODUCTO WHERE ID_PRODUCTO = ? AND ID_INGREDIENTE = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))

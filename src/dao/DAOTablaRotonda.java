@@ -15,7 +15,7 @@ public class DAOTablaRotonda
 
 	}
 
-	public void agregarRotonda(Connection conn, Rotonda rotonda)
+	public void agregarRotonda(Connection conn, Rotonda rotonda, String log)
 	{
 		String sql = "INSERT INTO ROTONDANDES VALUES (?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -39,7 +39,7 @@ public class DAOTablaRotonda
 		}
 	}
 
-	public Rotonda darRotondaPorId(Connection conn, Long id)
+	public Rotonda darRotondaPorId(Connection conn, Long id, String log)
 	{
 		Rotonda rotonda = null;
 		String sql = "SELECT * FROM ROTONDANDES WHERE ID = ?";
@@ -70,7 +70,7 @@ public class DAOTablaRotonda
 		return rotonda;
 	}
 
-	public ArrayList<Rotonda> darRotondasPorNombre(Connection conn, String nombre)
+	public ArrayList<Rotonda> darRotondasPorNombre(Connection conn, String nombre, String log)
 	{
 		ArrayList<Rotonda> rotondas = new ArrayList<>();
 		String sql = "SELECT * FROM ROTONDANDES WHERE NOMBRE = ?";
@@ -101,7 +101,7 @@ public class DAOTablaRotonda
 		return rotondas;
 	}
 
-	public ArrayList<Rotonda> darRotondas(Connection conn)
+	public ArrayList<Rotonda> darRotondas(Connection conn, String log)
 	{
 		ArrayList<Rotonda> rotondas = new ArrayList<>();
 		String sql = "SELECT * FROM ROTONDANDES";
@@ -131,7 +131,7 @@ public class DAOTablaRotonda
 		return rotondas;
 	}
 
-	public void actualizarRotonda(Connection conn, Rotonda rotonda)
+	public void actualizarRotonda(Connection conn, Rotonda rotonda, String log)
 	{
 		String sql = "UPDATE ROTONDANDES SET NOMBRE = ? WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -155,7 +155,7 @@ public class DAOTablaRotonda
 		}
 	}
 	
-	public void eliminarRotonda(Connection conn, Rotonda rotonda)
+	public void eliminarRotonda(Connection conn, Rotonda rotonda, String log)
 	{
 		String sql = "DELETE FROM ROTONDANDES WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))

@@ -15,7 +15,7 @@ public class DAOTablaMenu
 		
 	}
 	
-	public void agregarMenu(Connection conn, Menu menu)
+	public void agregarMenu(Connection conn, Menu menu, String log)
 	{
 		String sql = "INSERT INTO MENU VALUES (?,?,?,?,?,?,?,?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -46,7 +46,7 @@ public class DAOTablaMenu
 		}
 	}
 	
-	public Menu darMenuPorId(Connection conn, Long id)
+	public Menu darMenuPorId(Connection conn, Long id, String log)
 	{
 		Menu menu = null;
 		String sql = "SELECT * FROM MENU WHERE ID = ?";
@@ -85,7 +85,7 @@ public class DAOTablaMenu
 		return menu;
 	}
 	
-	public ArrayList<Menu> darMenusPorRestaurante(Connection conn, Long idRestaurante)
+	public ArrayList<Menu> darMenusPorRestaurante(Connection conn, Long idRestaurante, String log)
 	{
 		ArrayList<Menu> menus = new ArrayList<>();
 		String sql = "SELECT * FROM MENU WHERE NOMBRE_RESTAURANTE = ?";
@@ -124,7 +124,7 @@ public class DAOTablaMenu
 		return menus;
 	}
 	
-	public ArrayList<Menu> darMenus(Connection conn)
+	public ArrayList<Menu> darMenus(Connection conn, String log)
 	{
 		ArrayList<Menu> menus = new ArrayList<>();
 		String sql = "SELECT * FROM MENU";
@@ -162,7 +162,7 @@ public class DAOTablaMenu
 		return menus;
 	}
 	
-	public void actualizarMenu(Connection conn, Menu menu)
+	public void actualizarMenu(Connection conn, Menu menu, String log)
 	{
 		String sql = "UPDATE MENU SET COSTO = ?, PRECIO = ?, NOMBRE_RESTAURANTE = ?, POSTRE = ?, ENTRADA =?, PLATOFUERTE =?, ACOMPANIAMIENTO =?, BEBIDA = ? WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -193,7 +193,7 @@ public class DAOTablaMenu
 		}
 	}
 	
-	public void eliminarMenu(Connection conn, Menu menu)
+	public void eliminarMenu(Connection conn, Menu menu, String log)
 	{
 		String sql = "DELETE FROM MENU WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -217,7 +217,7 @@ public class DAOTablaMenu
 	}
 
 	
-	public ArrayList<Menu> darMenusPorBebida(Connection conn, Long id)
+	public ArrayList<Menu> darMenusPorBebida(Connection conn, Long id, String log)
 	{
 		ArrayList<Menu> menus = new ArrayList<>();
 		String sql = "SELECT * FROM MENU WHERE BEBIDA = ?";
@@ -255,7 +255,7 @@ public class DAOTablaMenu
 		}
 		return menus;
 	}
-	public ArrayList<Menu> darMenusPorAcompaniamiento(Connection conn, Long id)
+	public ArrayList<Menu> darMenusPorAcompaniamiento(Connection conn, Long id, String log)
 	{
 		ArrayList<Menu> menus = new ArrayList<>();
 		String sql = "SELECT * FROM MENU WHERE ACOMPANIAMIENTO = ?";
@@ -294,7 +294,7 @@ public class DAOTablaMenu
 		return menus;
 	}
 	
-	public ArrayList<Menu> darMenusPorPlatoFuerte(Connection conn, Long id)
+	public ArrayList<Menu> darMenusPorPlatoFuerte(Connection conn, Long id, String log)
 	{
 		ArrayList<Menu> menus = new ArrayList<>();
 		String sql = "SELECT * FROM MENU WHERE PLATOFUERTE = ?";
@@ -333,7 +333,7 @@ public class DAOTablaMenu
 		return menus;
 	}
 	
-	public ArrayList<Menu> darMenusPorEntrada(Connection conn, Long id)
+	public ArrayList<Menu> darMenusPorEntrada(Connection conn, Long id, String log)
 	{
 		ArrayList<Menu> menus = new ArrayList<>();
 		String sql = "SELECT * FROM MENU WHERE ENTRADA = ?";
@@ -372,7 +372,7 @@ public class DAOTablaMenu
 		return menus;
 	}
 	
-	public ArrayList<Menu> darMenusPorPostre(Connection conn, Long id)
+	public ArrayList<Menu> darMenusPorPostre(Connection conn, Long id, String log)
 	{
 		ArrayList<Menu> menus = new ArrayList<>();
 		String sql = "SELECT * FROM MENU WHERE POSTRE = ?";
@@ -411,7 +411,7 @@ public class DAOTablaMenu
 		return menus;
 	}
 
-	public Menu darMenuPorIdDisponibilidad(Connection conn, Long id) {
+	public Menu darMenuPorIdDisponibilidad(Connection conn, Long id, String log) {
 		Menu menu = null;
 		String sql = "SELECT DISTINCT PRODUCTO.ID as id FROM MENU, PRODUCTO WHERE MENU.ID = ? AND PRODUCTO.CANTIDAD > 0";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -424,7 +424,7 @@ public class DAOTablaMenu
 			{
 				ids.add(rs.getLong("ID"));
 			}		
-			Menu menuPro = darMenuPorId(conn, id);
+			Menu menuPro = darMenuPorId(conn, id,log);
 			System.out.println("acom" + menuPro.getIdAcompaniamiento());
 			System.out.println("beb" + menuPro.getIdBebida());
 			System.out.println("ent" + menuPro.getIdEntrada());

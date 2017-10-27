@@ -15,7 +15,7 @@ public class DAOTablaIngrediente
 		
 	}
 	
-	public void agregarIngrediente(Connection conn, Ingrediente ingrediente)
+	public void agregarIngrediente(Connection conn, Ingrediente ingrediente, String log)
 	{
 		String sql = "INSERT INTO INGREDIENTE VALUES (?,?,?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -41,7 +41,7 @@ public class DAOTablaIngrediente
 		}
 	}
 	
-	public Ingrediente darIngredientePorId(Connection conn, Long id)
+	public Ingrediente darIngredientePorId(Connection conn, Long id, String log)
 	{
 		Ingrediente ingrediente = null;
 		String sql = "SELECT * FROM INGREDIENTE WHERE ID = ?";
@@ -76,7 +76,7 @@ public class DAOTablaIngrediente
 	}
 	
 	
-	public ArrayList<Ingrediente> darIngredientesPorNombre(Connection conn, String nombre)
+	public ArrayList<Ingrediente> darIngredientesPorNombre(Connection conn, String nombre, String log)
 	{
 		ArrayList<Ingrediente> ingredientes = new ArrayList<>();
 		String sql = "SELECT * FROM INGREDIENTE WHERE NOMBRE = ?";
@@ -110,7 +110,7 @@ public class DAOTablaIngrediente
 		return ingredientes;
 	}
 	
-	public ArrayList<Ingrediente> darIngredientes(Connection conn)
+	public ArrayList<Ingrediente> darIngredientes(Connection conn, String log)
 	{
 		ArrayList<Ingrediente> ingredientes = new ArrayList<>();
 		String sql = "SELECT * FROM INGREDIENTE";
@@ -143,7 +143,7 @@ public class DAOTablaIngrediente
 		return ingredientes;
 	}
 	
-	public void actualizarIngrediente(Connection conn, Ingrediente ingrediente)
+	public void actualizarIngrediente(Connection conn, Ingrediente ingrediente, String log)
 	{
 		String sql = "UPDATE INGREDIENTE SET NOMBRE = ?, DESCRIPCION_ESP = ?, DESCRIPCION_ING = ? WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -169,7 +169,7 @@ public class DAOTablaIngrediente
 		}
 	}
 	
-	public void eliminarIngrediente(Connection conn, Ingrediente ingrediente)
+	public void eliminarIngrediente(Connection conn, Ingrediente ingrediente, String log)
 	{
 		String sql = "DELETE FROM INGREDIENTE WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))

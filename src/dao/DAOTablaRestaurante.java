@@ -15,7 +15,7 @@ public class DAOTablaRestaurante
 		
 	}
 	
-	public void agregarRestaurante(Connection conn, Restaurante restaurante)
+	public void agregarRestaurante(Connection conn, Restaurante restaurante, String log)
 	{
 		String sql = "INSERT INTO RESTAURANTE VALUES (?,?,?,?,?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -44,7 +44,7 @@ public class DAOTablaRestaurante
 		}
 	}
 	
-	public Restaurante darRestaurantePorNombre(Connection conn, String nombre)
+	public Restaurante darRestaurantePorNombre(Connection conn, String nombre, String log)
 	{
 		Restaurante restaurante = null;
 		String sql = "SELECT * FROM RESTAURANTE WHERE NOMBRE = ?";
@@ -81,7 +81,7 @@ public class DAOTablaRestaurante
 		return restaurante;
 	}
 	
-	public ArrayList<Restaurante> darRestaurantesPorZona(Connection conn, Long nombre)
+	public ArrayList<Restaurante> darRestaurantesPorZona(Connection conn, Long nombre, String log)
 	{
 		ArrayList<Restaurante> restaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM RESTAURANTE WHERE ID_ZONA = ?";
@@ -117,7 +117,7 @@ public class DAOTablaRestaurante
 		return restaurantes;
 	}
 	
-	public ArrayList<Restaurante> darRestaurantes(Connection conn)
+	public ArrayList<Restaurante> darRestaurantes(Connection conn, String log)
 	{
 		ArrayList<Restaurante> restaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM RESTAURANTE";
@@ -153,7 +153,7 @@ public class DAOTablaRestaurante
 		return restaurantes;
 	}
 	
-	public void actualizarRestaurante(Connection conn, Restaurante restaurante)
+	public void actualizarRestaurante(Connection conn, Restaurante restaurante, String log)
 	{
 		String sql = "UPDATE RESTAURANTE SET PAGINA_WEB= ?, ID_ZONA = ?, ID_ROTONDA = ? WHERE NOMBRE = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -179,7 +179,7 @@ public class DAOTablaRestaurante
 		}
 	}
 	
-	public void eliminarRestaurante(Connection conn, Restaurante restaurante)
+	public void eliminarRestaurante(Connection conn, Restaurante restaurante, String log)
 	{
 		String sql = "DELETE FROM RESTAURANTE WHERE Nombre = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))

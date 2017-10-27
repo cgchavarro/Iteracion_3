@@ -16,7 +16,7 @@ public class DAOTablaPreferenciaCliente {
 
 	}
 
-	public void agregarPreferenciaCliente(Connection conn, PreferenciaCliente categoria)
+	public void agregarPreferenciaCliente(Connection conn, PreferenciaCliente categoria, String log)
 	{
 		String sql = "INSERT INTO PREFERENCIACLIENTE VALUES (?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -39,7 +39,7 @@ public class DAOTablaPreferenciaCliente {
 		}
 	}
 
-	public PreferenciaCliente darPreferenciaClientePorId(Connection conn, Long id)
+	public PreferenciaCliente darPreferenciaClientePorId(Connection conn, Long id, String log)
 	{
 		PreferenciaCliente categoria = null;
 		String sql = "SELECT * FROM PREFERENCIACLIENTE WHERE ID_CLIENTE = ?";
@@ -69,7 +69,7 @@ public class DAOTablaPreferenciaCliente {
 		return categoria;
 	}
 
-	public ArrayList<PreferenciaCliente> darPreferenciasPorNombre(Connection conn, String nombre)
+	public ArrayList<PreferenciaCliente> darPreferenciasPorNombre(Connection conn, String nombre, String log)
 	{
 		ArrayList<PreferenciaCliente> categorias = new ArrayList<>();
 		String sql = "SELECT * FROM PREFERENCIACLIENTE WHERE PREFERENCIA = ?";
@@ -99,7 +99,7 @@ public class DAOTablaPreferenciaCliente {
 		return categorias;
 	}
 
-	public ArrayList<PreferenciaCliente> darPreferenciaCliente(Connection conn)
+	public ArrayList<PreferenciaCliente> darPreferenciaCliente(Connection conn, String log)
 	{
 		ArrayList<PreferenciaCliente> categorias = new ArrayList<>();
 		String sql = "SELECT * FROM PREFERENCIACLIENTE";
@@ -128,7 +128,7 @@ public class DAOTablaPreferenciaCliente {
 		return categorias;
 	}
 
-	public void actualizarPreferencia(Connection conn, PreferenciaCliente categoria)
+	public void actualizarPreferencia(Connection conn, PreferenciaCliente categoria, String log)
 	{
 		String sql = "UPDATE PREFERENCIACLIENTE SET PREFERENCIA = ? WHERE ID_CLIENTE = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -152,7 +152,7 @@ public class DAOTablaPreferenciaCliente {
 		}
 	}
 
-	public void eliminarPreferencia(Connection conn,PreferenciaCliente categoria)
+	public void eliminarPreferencia(Connection conn,PreferenciaCliente categoria, String log)
 	{
 		String sql = "DELETE FROM PREFERENCIACLIENTE WHERE ID_CLIENTE = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))

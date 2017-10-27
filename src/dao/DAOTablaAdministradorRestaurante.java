@@ -16,7 +16,7 @@ public class DAOTablaAdministradorRestaurante
 		
 	}
 	
-	public void agregarAdministradorRestaurante(Connection conn, AdministradorRestaurante cliente)
+	public void agregarAdministradorRestaurante(Connection conn, AdministradorRestaurante cliente, String log)
 	{
 		String sql = "INSERT INTO ADMINISTRADORRESTAURANTE VALUES (?,?,?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -42,7 +42,7 @@ public class DAOTablaAdministradorRestaurante
 		}
 	}
 	
-	public AdministradorRestaurante darAdministradorRestaurantePorCedula(Connection conn, Long cedula)
+	public AdministradorRestaurante darAdministradorRestaurantePorCedula(Connection conn, Long cedula, String log)
 	{
 		AdministradorRestaurante cliente = null;
 		String sql = "SELECT * FROM ADMINISTRADORRESTAURANTE WHERE CEDULA = ?";
@@ -77,7 +77,7 @@ public class DAOTablaAdministradorRestaurante
 	}
 	
 	
-	public AdministradorRestaurante darAdministradorRestaurantePorCorreo(Connection conn, String correo)
+	public AdministradorRestaurante darAdministradorRestaurantePorCorreo(Connection conn, String correo, String log)
 	{
 		AdministradorRestaurante cliente = null;
 		String sql = "SELECT * FROM ADMINISTRADORRESTAURANTE WHERE CORREO = ?";
@@ -112,7 +112,7 @@ public class DAOTablaAdministradorRestaurante
 	}
 	
 	
-	public ArrayList<AdministradorRestaurante> darAdministradorRestaurantesPorNombre(Connection conn, String nombre)
+	public ArrayList<AdministradorRestaurante> darAdministradorRestaurantesPorNombre(Connection conn, String nombre, String log)
 	{
 		ArrayList<AdministradorRestaurante> clientes = new ArrayList<>();
 		String sql = "SELECT * FROM ADMINISTRADORRESTAURANTE WHERE NOMBRE = ?";
@@ -146,7 +146,7 @@ public class DAOTablaAdministradorRestaurante
 		return clientes;
 	}
 	
-	public ArrayList<AdministradorRestaurante> darAdministradorRestaurantes(Connection conn)
+	public ArrayList<AdministradorRestaurante> darAdministradorRestaurantes(Connection conn, String log)
 	{
 		ArrayList<AdministradorRestaurante> clientes = new ArrayList<>();
 		String sql = "SELECT * FROM ADMINISTRADORRESTAURANTE";
@@ -179,7 +179,7 @@ public class DAOTablaAdministradorRestaurante
 		return clientes;
 	}
 	
-	public void actualizarAdministradorRestaurante(Connection conn, AdministradorRestaurante cliente)
+	public void actualizarAdministradorRestaurante(Connection conn, AdministradorRestaurante cliente, String log)
 	{
 		String sql = "UPDATE ADMINISTRADORRESTAURANTE SET NOMBRE = ?, CORREO = ?, NOMBRE_RESTAURANTE = ? WHERE CEDULA = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -205,7 +205,7 @@ public class DAOTablaAdministradorRestaurante
 		}
 	}
 	
-	public void eliminarAdministradorRestaurante(Connection conn, AdministradorRestaurante cliente)
+	public void eliminarAdministradorRestaurante(Connection conn, AdministradorRestaurante cliente, String log)
 	{
 		String sql = "DELETE FROM ADMINISTRADORRESTAURANTE WHERE CEDULA = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))

@@ -13,13 +13,13 @@ import vo.Zona;
 
 public class DAOTablaZona 
 {
-	public static final String ARCHIVO = "/docs/bitacora.log";
+	
 	public DAOTablaZona()
 	{
 		
 	}
 	
-	public void agregarZona(Connection conn, Zona zona)
+	public void agregarZona(Connection conn, Zona zona, String log)
 	{
 		String sql = "INSERT INTO ZONA VALUES (?,?,?,?,?,?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -34,7 +34,7 @@ public class DAOTablaZona
 			preStat.executeQuery();
 			conn.commit();
 			
-			escribirLog(preStat.toString());
+		//	escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -50,7 +50,7 @@ public class DAOTablaZona
 		}
 	}
 	
-	public Zona darZonaPorId(Connection conn, Long id)
+	public Zona darZonaPorId(Connection conn, Long id, String log)
 	{
 		Zona zona = null;
 		String sql = "SELECT * FROM ZONA WHERE ID = ?";
@@ -72,7 +72,7 @@ public class DAOTablaZona
 			}	
 	
 			conn.commit();
-			escribirLog(preStat.toString());
+		//	escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -90,10 +90,11 @@ public class DAOTablaZona
 	}
 	
 	
-	public ArrayList<Zona> darZonasPorNombre(Connection conn, String nombre)
+	public ArrayList<Zona> darZonasPorNombre(Connection conn, String nombre, String log)
 	{
 		ArrayList<Zona> zonas = new ArrayList<>();
 		String sql = "SELECT * FROM ZONA WHERE NOMBRE = ?";
+		String query = "SELECT * FROM ZONA WHERE NOMBRE = '"+nombre+"'";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, nombre);
@@ -112,7 +113,8 @@ public class DAOTablaZona
 			}	
 		
 			conn.commit();
-			escribirLog(preStat.toString());
+			escribirLog(sql, log);
+		//	escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -129,7 +131,7 @@ public class DAOTablaZona
 		return zonas;
 	}
 	
-	public ArrayList<Zona> darZonas(Connection conn)
+	public ArrayList<Zona> darZonas(Connection conn, String log)
 	{
 		ArrayList<Zona> zonas = new ArrayList<>();
 		String sql = "SELECT * FROM ZONA";
@@ -151,7 +153,7 @@ public class DAOTablaZona
 		
 			conn.commit();
 			System.out.print(preStat.toString());
-			escribirLog(preStat.toString());
+			escribirLog(sql, log);
 		}
 		catch(SQLException e)
 		{
@@ -168,7 +170,7 @@ public class DAOTablaZona
 		return zonas;
 	}
 	
-	public void actualizarZona(Connection conn, Zona zona)
+	public void actualizarZona(Connection conn, Zona zona, String log)
 	{
 		String sql = "UPDATE ZONA SET NOMBRE = ?, ES_ZONA_ABIERTA = ?, CAPACIDAD = ?, APTO_PARA_TODOS = ?, CONDICIONES_TECNICAS = ?, ID_ROTONDA = ? WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -183,7 +185,7 @@ public class DAOTablaZona
 			preStat.executeQuery();
 			
 			conn.commit();
-			escribirLog(preStat.toString());
+		//	escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -199,7 +201,7 @@ public class DAOTablaZona
 		}
 	}
 	
-	public void eliminarZona(Connection conn, Zona zona)
+	public void eliminarZona(Connection conn, Zona zona, String log)
 	{
 		String sql = "DELETE FROM ZONA WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -207,7 +209,7 @@ public class DAOTablaZona
 			preStat.setLong(1, zona.getIdZona());
 			preStat.executeQuery();
 			conn.commit();
-			escribirLog(preStat.toString());
+		//	escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -241,13 +243,13 @@ public class DAOTablaZona
 		return true;
 	}
 	
-	 public void escribirLog(String pCausa) 
+	 public void escribirLog(String pCausa, String ruta) 
 		{
 			Date fecha = new Date();
 			PrintWriter log;
 			try 
 			
-			{ log = new PrintWriter(ARCHIVO);
+			{ log = new PrintWriter(ruta);
 			log.println ( fecha  +";" + pCausa);
 			log.close();	
 			} catch (FileNotFoundException e) 

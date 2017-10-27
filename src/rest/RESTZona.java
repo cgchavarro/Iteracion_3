@@ -114,6 +114,7 @@ public class RESTZona
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darZonas() {
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		System.out.println(getPath());
 		List<Zona> zonas;
 		try {
 			zonas = tm.darZonas();

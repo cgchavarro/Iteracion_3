@@ -15,7 +15,7 @@ public class DAOTablaTipo
 		
 	}
 	
-	public void agregarTipo(Connection conn, Tipo tipo)
+	public void agregarTipo(Connection conn, Tipo tipo, String log)
 	{
 		String sql = "INSERT INTO TIPO VALUES (?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -39,7 +39,7 @@ public class DAOTablaTipo
 		}
 	}
 	
-	public Tipo darTipoPorId(Connection conn, Long id)
+	public Tipo darTipoPorId(Connection conn, Long id, String log)
 	{
 		Tipo tipo = null;
 		String sql = "SELECT * FROM TIPO WHERE ID = ?";
@@ -72,7 +72,7 @@ public class DAOTablaTipo
 	}
 	
 	
-	public ArrayList<Tipo> darTiposPorNombre(Connection conn, String nombre)
+	public ArrayList<Tipo> darTiposPorNombre(Connection conn, String nombre, String log)
 	{
 		ArrayList<Tipo> tipos = new ArrayList<>();
 		String sql = "SELECT * FROM TIPO WHERE NOMBRE = ?";
@@ -104,7 +104,7 @@ public class DAOTablaTipo
 		return tipos;
 	}
 	
-	public ArrayList<Tipo> darTipos(Connection conn)
+	public ArrayList<Tipo> darTipos(Connection conn, String log)
 	{
 		ArrayList<Tipo> tipos = new ArrayList<>();
 		String sql = "SELECT * FROM TIPO";
@@ -135,7 +135,7 @@ public class DAOTablaTipo
 		return tipos;
 	}
 	
-	public void actualizarTipo(Connection conn, Tipo tipo)
+	public void actualizarTipo(Connection conn, Tipo tipo, String log)
 	{
 		String sql = "UPDATE TIPO SET NOMBRE = ? WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -159,7 +159,7 @@ public class DAOTablaTipo
 		}
 	}
 	
-	public void eliminarTipo(Connection conn, Tipo tipo)
+	public void eliminarTipo(Connection conn, Tipo tipo, String log)
 	{
 		String sql = "DELETE FROM TIPO WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))

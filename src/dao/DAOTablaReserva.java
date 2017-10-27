@@ -17,7 +17,7 @@ public class DAOTablaReserva
 		
 	}
 	
-	public void agregarReserva(Connection conn, Reserva reserva)
+	public void agregarReserva(Connection conn, Reserva reserva, String log)
 	{
 		String sql = "INSERT INTO RESERVA VALUES (?,?,?,?,?)";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -44,7 +44,7 @@ public class DAOTablaReserva
 		}
 	}
 	
-	public Reserva darReservaPorId(Connection conn, Long id)
+	public Reserva darReservaPorId(Connection conn, Long id, String log)
 	{
 		Reserva reserva = null;
 		String sql = "SELECT * FROM RESERVA WHERE ID = ?";
@@ -79,7 +79,7 @@ public class DAOTablaReserva
 		return reserva;
 	}
 	
-	public ArrayList<Reserva> darReservasPorCliente(Connection conn, Long idCliente)
+	public ArrayList<Reserva> darReservasPorCliente(Connection conn, Long idCliente, String log)
 	{
 		ArrayList<Reserva> reservas = new ArrayList<>();
 		String sql = "SELECT * FROM RESERVA WHERE ID_CLIENTE = ?";
@@ -114,7 +114,7 @@ public class DAOTablaReserva
 		return reservas;
 	}
 	
-	public ArrayList<Reserva> darReservasPorZona(Connection conn, Long idZona)
+	public ArrayList<Reserva> darReservasPorZona(Connection conn, Long idZona, String log)
 	{
 		ArrayList<Reserva> reservas = new ArrayList<>();
 		String sql = "SELECT * FROM RESERVA WHERE ID_ZONA = ?";
@@ -149,7 +149,7 @@ public class DAOTablaReserva
 		return reservas;
 	}
 	
-	public ArrayList<Reserva> darReservas(Connection conn)
+	public ArrayList<Reserva> darReservas(Connection conn, String log)
 	{
 		ArrayList<Reserva> reservas = new ArrayList<>();
 		String sql = "SELECT * FROM RESERVA";
@@ -183,7 +183,7 @@ public class DAOTablaReserva
 		return reservas;
 	}
 	
-	public void actualizarReserva(Connection conn, Reserva reserva)
+	public void actualizarReserva(Connection conn, Reserva reserva, String log)
 	{
 		String sql = "UPDATE RESERVA SET FECHA = ?, NUM_COMENSALES = ?, ID_CLIENTE = ?, ID_ZONA = ? WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -210,7 +210,7 @@ public class DAOTablaReserva
 		}
 	}
 	
-	public void eliminarReserva(Connection conn, Reserva reserva)
+	public void eliminarReserva(Connection conn, Reserva reserva, String log)
 	{
 		String sql = "DELETE FROM RESERVA WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
