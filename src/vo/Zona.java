@@ -7,34 +7,34 @@ public class Zona
 
 	@JsonProperty(value="idZona")
 	private Long idZona;
-	
+
 	@JsonProperty(value="nombre")
 	private String nombre;
-	
+
 	@JsonProperty(value="esZonaAbierta")
 	private boolean esZonaAbierta;
-	
+
 	@JsonProperty(value="capacidad")
 	private int capacidad;
-	
+
 	@JsonProperty(value="aptoParaTodos")
 	private boolean aptoParaTodos;
-	
+
 	@JsonProperty(value="condicionesTecnicas")
 	private String condicionesTecnicas;
 
 	@JsonProperty(value="idRotonda")
 	private Long idRotonda;
-	
+
 	//TODO completar atributos
 
 	public Zona(@JsonProperty(value="idZona")Long idZona, 
-				@JsonProperty(value="nombre")String nombre, 
-				@JsonProperty(value="esZonaAbierta")boolean esZonaAbierta, 
-				@JsonProperty(value="capacidad")int capacidad, 
-				@JsonProperty(value="aptoParaTodos")boolean aptoParaTodos, 
-				@JsonProperty(value="condicionesTecnicas")String condicionesTecnicas, 
-				@JsonProperty(value="idRotonda")Long idRotonda) {
+			@JsonProperty(value="nombre")String nombre, 
+			@JsonProperty(value="esZonaAbierta")boolean esZonaAbierta, 
+			@JsonProperty(value="capacidad")int capacidad, 
+			@JsonProperty(value="aptoParaTodos")boolean aptoParaTodos, 
+			@JsonProperty(value="condicionesTecnicas")String condicionesTecnicas, 
+			@JsonProperty(value="idRotonda")Long idRotonda) {
 		this.idZona = idZona;
 		this.nombre = nombre;
 		this.esZonaAbierta = esZonaAbierta;
@@ -59,7 +59,7 @@ public class Zona
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}	
-	
+
 	public Long getIdRotonda() {
 		return idRotonda;
 	}
@@ -99,6 +99,26 @@ public class Zona
 	public void setCondicionesTecnicas(String condicionesTecnicas) {
 		this.condicionesTecnicas = condicionesTecnicas;
 	}
-	
-	
+
+	private String darStringBoolean(boolean bool)
+	{
+		if(bool)
+		{
+			return "t";
+		}
+		return "f";
+	}
+
+	public String toParametros()
+	{
+		return 	Long.class.getName() + ":" + idZona + "," + 
+				String.class.getName()+ ":" + nombre + "," +
+				String.class.getName() + ":" + darStringBoolean(esZonaAbierta) + "," + 
+				Integer.class.getName() + ":" + capacidad + "," + 
+				String.class.getName() + ":" + darStringBoolean(aptoParaTodos) + "," + 
+				String.class.getName() + ":" + condicionesTecnicas + "," + 
+				Long.class.getName() + ":" + idRotonda;
+	}
+
+
 }

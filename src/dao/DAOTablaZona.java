@@ -13,12 +13,14 @@ import vo.Zona;
 
 public class DAOTablaZona 
 {
-	
+
+	private DAOInterpretacionLog daoPrueba;
+
 	public DAOTablaZona()
 	{
-		
+		daoPrueba = new DAOInterpretacionLog();
 	}
-	
+
 	public void agregarZona(Connection conn, Zona zona, String log)
 	{
 		String sql = "INSERT INTO ZONA VALUES (?,?,?,?,?,?,?)";
@@ -31,10 +33,11 @@ public class DAOTablaZona
 			preStat.setString(5, darStringBoolean(zona.isAptoParaTodos()));
 			preStat.setString(6, zona.getCondicionesTecnicas());
 			preStat.setLong(7, zona.getIdRotonda());
-			preStat.executeQuery();
+			//preStat.executeQuery();
+			String mensajeLog =sql+"&"+zona.toParametros();
+			daoPrueba.ejecutarInstruccionLog(mensajeLog, conn);
+			escribirLog(mensajeLog, log);
 			conn.commit();
-			
-		//	escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -49,7 +52,7 @@ public class DAOTablaZona
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Zona darZonaPorId(Connection conn, Long id, String log)
 	{
 		Zona zona = null;
@@ -58,7 +61,7 @@ public class DAOTablaZona
 		{
 			preStat.setLong(1, id);
 			ResultSet rs = preStat.executeQuery();
-			
+
 			while(rs.next())
 			{
 				Long idZona = rs.getLong("ID");
@@ -70,9 +73,9 @@ public class DAOTablaZona
 				Long idRotonda = rs.getLong("ID_ROTONDA");
 				zona = new Zona(idZona, nombre, esZonaAbierta, capacidad, aptoParaTodos, condicionesTecnicas, idRotonda);
 			}	
-	
+
 			conn.commit();
-		//	escribirLog(preStat.toString());
+			//	escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -88,8 +91,8 @@ public class DAOTablaZona
 		}
 		return zona;
 	}
-	
-	
+
+
 	public ArrayList<Zona> darZonasPorNombre(Connection conn, String nombre, String log)
 	{
 		ArrayList<Zona> zonas = new ArrayList<>();
@@ -99,7 +102,7 @@ public class DAOTablaZona
 		{
 			preStat.setString(1, nombre);
 			ResultSet rs = preStat.executeQuery();
-			
+
 			while(rs.next())
 			{
 				Long id = rs.getLong("ID");
@@ -111,10 +114,10 @@ public class DAOTablaZona
 				Long idRotonda = rs.getLong("ID_ROTONDA");
 				zonas.add(new Zona(id, nombreZona, esZonaAbierta, capacidad, aptoParaTodos, condicionesTecnicas, idRotonda));
 			}	
-		
+
 			conn.commit();
-			escribirLog(sql, log);
-		//	escribirLog(preStat.toString());
+			escribirLog(query, log);
+			//	escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -130,7 +133,7 @@ public class DAOTablaZona
 		}
 		return zonas;
 	}
-	
+
 	public ArrayList<Zona> darZonas(Connection conn, String log)
 	{
 		ArrayList<Zona> zonas = new ArrayList<>();
@@ -138,7 +141,7 @@ public class DAOTablaZona
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
-			
+
 			while(rs.next())
 			{
 				Long id = rs.getLong("ID");
@@ -150,7 +153,7 @@ public class DAOTablaZona
 				Long idRotonda = rs.getLong("ID_ROTONDA");
 				zonas.add(new Zona(id, nombreZona, esZonaAbierta, capacidad, aptoParaTodos, condicionesTecnicas, idRotonda));
 			}	
-		
+
 			conn.commit();
 			System.out.print(preStat.toString());
 			escribirLog(sql, log);
@@ -169,7 +172,7 @@ public class DAOTablaZona
 		}
 		return zonas;
 	}
-	
+
 	public void actualizarZona(Connection conn, Zona zona, String log)
 	{
 		String sql = "UPDATE ZONA SET NOMBRE = ?, ES_ZONA_ABIERTA = ?, CAPACIDAD = ?, APTO_PARA_TODOS = ?, CONDICIONES_TECNICAS = ?, ID_ROTONDA = ? WHERE ID = ?";
@@ -183,9 +186,9 @@ public class DAOTablaZona
 			preStat.setLong(6, zona.getIdRotonda());
 			preStat.setLong(7, zona.getIdZona());
 			preStat.executeQuery();
-			
+
 			conn.commit();
-		//	escribirLog(preStat.toString());
+			//	escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -200,7 +203,7 @@ public class DAOTablaZona
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void eliminarZona(Connection conn, Zona zona, String log)
 	{
 		String sql = "DELETE FROM ZONA WHERE ID = ?";
@@ -209,7 +212,7 @@ public class DAOTablaZona
 			preStat.setLong(1, zona.getIdZona());
 			preStat.executeQuery();
 			conn.commit();
-		//	escribirLog(preStat.toString());
+			//	escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{
@@ -224,7 +227,7 @@ public class DAOTablaZona
 			e.printStackTrace();
 		}
 	}
-	
+
 	private String darStringBoolean(boolean bool)
 	{
 		if(bool)
@@ -242,20 +245,21 @@ public class DAOTablaZona
 		}
 		return true;
 	}
-	
-	 public void escribirLog(String pCausa, String ruta) 
-		{
-			Date fecha = new Date();
-			PrintWriter log;
-			try 
-			
-			{ log = new PrintWriter(ruta);
+
+	public void escribirLog(String pCausa, String ruta) 
+	{
+		Date fecha = new Date();
+		PrintWriter log;
+		try 
+
+		{ 
+			log = new PrintWriter(ruta);
 			log.println ( fecha  +";" + pCausa);
 			log.close();	
-			} catch (FileNotFoundException e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		} catch (FileNotFoundException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
 }
