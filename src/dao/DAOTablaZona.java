@@ -13,7 +13,7 @@ import vo.Zona;
 
 public class DAOTablaZona 
 {
-	public static final String ARCHIVO = "C:\\Users\\Christian Chavarro\\Desktop\\Iteracion_3\\docs\\bitacora.log";
+	public static final String ARCHIVO = "/docs/bitacora.log";
 	public DAOTablaZona()
 	{
 		
