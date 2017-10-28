@@ -19,7 +19,7 @@ POST http://localhost:8080/RotondAndes/rest/administradorrestaurante/equivalenci
 
 {
     "idProducto1": 1010,
-    "idProducto2": 697
+    "idProducto2": 69
 }
 
 POST

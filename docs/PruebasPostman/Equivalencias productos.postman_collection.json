@@ -29,7 +29,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"idProducto1\": 1010,\r\n    \"idProducto2\": 697\r\n}"
+					"raw": "{\r\n    \"idProducto1\": 1010,\r\n    \"idProducto2\": 69\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/RotondAndes/rest/administradorrestaurante/equivalenciaproductos",
@@ -107,7 +107,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"idProducto1\": 1010,\r\n    \"idProducto2\": 697\r\n}"
+					"raw": "{\r\n    \"idProducto1\": 1010,\r\n    \"idProducto2\": 69\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/RotondAndes/rest/administradorrestaurante/equivalenciaproductos",
