@@ -133,7 +133,7 @@ o bien
 
 GET http://localhost:8080/RotondAndes/rest/administradorrotonda/consumocliente/{idCliente}
 
-Donde {idCliente}, corresponde a una zona ya existente.
+Donde {idCliente}, corresponde a un cliente ya existente.
 
 Algunos id de cliente son: 1010054402 y 2020202020.
 

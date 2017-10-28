@@ -1,0 +1,139 @@
+{
+	"info": {
+		"name": "EquivalenciaIngredientes",
+		"_postman_id": "3049a3ba-bf74-68b4-7e58-df7418330cc5",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Agregar equivalencia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"idIngrediente1\": 1,\r\n        \"idIngrediente2\": 11\r\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/RotondAndes/rest/administradorrestaurante/equivalenciaingredientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"administradorrestaurante",
+						"equivalenciaingredientes"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar equivalencias",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"idIngrediente1\": 1,\r\n        \"idIngrediente2\": 11\r\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/RotondAndes/rest/administradorrestaurante/equivalenciaingredientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"administradorrestaurante",
+						"equivalenciaingredientes"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar equivalencia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"idIngrediente1\": 1,\r\n        \"idIngrediente2\": 11\r\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/RotondAndes/rest/administradorrestaurante/equivalenciaingredientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"administradorrestaurante",
+						"equivalenciaingredientes"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

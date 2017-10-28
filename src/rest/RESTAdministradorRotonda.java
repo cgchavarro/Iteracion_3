@@ -20,6 +20,7 @@ import master.RotondAndesMaster;
 import vo.AdministradorRestaurante;
 import vo.AdministradorRotonda;
 import vo.Cliente;
+import vo.MensajeError;
 import vo.Menu;
 import vo.OrdenRestaurante;
 import vo.PreferenciaCliente;
@@ -191,6 +192,10 @@ public class RESTAdministradorRotonda
 		try
 		{
 			Cliente cliente = tm.darClientePorCedula(id);
+			if(cliente==null)
+			{
+				return Response.status(500).entity(new MensajeError("No existe este cliente")).build();
+			}
 			ArrayList<OrdenRestaurante> orden =tm.darOrdenRestaurantePorIdCliente(id);
 			ArrayList<Menu> menus = new ArrayList<Menu>();
 			ArrayList<Producto> productos = new ArrayList<Producto>();

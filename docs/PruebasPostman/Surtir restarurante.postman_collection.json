@@ -1,0 +1,82 @@
+{
+	"info": {
+		"name": "Surtir restarurante",
+		"_postman_id": "21b7a339-3d4b-a825-8c1b-f4d250115292",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Exito",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/RotondAndes/rest/administradorrestaurante/surtirrestaurante/HH",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"administradorrestaurante",
+						"surtirrestaurante",
+						"HH"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Con fallo, el status es 500",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 500\"]=responseCode.code==500;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/RotondAndes/rest/administradorrestaurante/surtirrestaurante/HH  g",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"administradorrestaurante",
+						"surtirrestaurante",
+						"HH  g"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

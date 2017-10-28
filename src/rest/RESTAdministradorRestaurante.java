@@ -21,6 +21,7 @@ import vo.AdministradorRestaurante;
 import vo.EquivalenciaIngredientes;
 import vo.EquivalenciaProductos;
 import vo.Ingrediente;
+import vo.MensajeError;
 import vo.Menu;
 import vo.Producto;
 
@@ -146,7 +147,11 @@ public class RESTAdministradorRestaurante
 			tm.surtirProductosRestaurante(nombre);
 			cliente = tm.darProductosRestaurante(nombre);
 		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
+			return Response.status(500).entity(new MensajeError("No actualizo")).build();
+		}
+		if(cliente.size()==0)
+		{
+			return Response.status(500).entity(new MensajeError("No actualizo")).build();
 		}
 		return Response.status(200).entity(cliente).build();
 	}

@@ -1,0 +1,131 @@
+{
+	"info": {
+		"name": "Equivalencias productos",
+		"_postman_id": "cff9a50a-3ad8-e40f-68b4-83d70a396f66",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Agregar equivalencia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idProducto1\": 1010,\r\n    \"idProducto2\": 697\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/RotondAndes/rest/administradorrestaurante/equivalenciaproductos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"administradorrestaurante",
+						"equivalenciaproductos"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener equivalencias.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/RotondAndes/rest/administradorrestaurante/equivalenciaproductos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"administradorrestaurante",
+						"equivalenciaproductos"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar equivalencia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idProducto1\": 1010,\r\n    \"idProducto2\": 697\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/RotondAndes/rest/administradorrestaurante/equivalenciaproductos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"RotondAndes",
+						"rest",
+						"administradorrestaurante",
+						"equivalenciaproductos"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

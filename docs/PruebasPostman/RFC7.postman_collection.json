@@ -1,0 +1,64 @@
+{
+	"variables": [],
+	"info": {
+		"name": "RFC7",
+		"_postman_id": "1bd3a65f-7e22-49a8-4626-8a558ddc2a53",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Exito",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": " http://localhost:8080/RotondAndes/rest/administradorrotonda/consumocliente/1010054402",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n      \"idOrdenRestaurante\": 11,\r\n        \r\n\t\"fecha\": \"2017-10-03\",\r\n        \r\n\t\"idMenu\": 10100,\r\n        \r\n\t\"idRotonda\": 1,\r\n        \r\n\t\"idCliente\": 2020202020,\r\n\t\"servida\": true   }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "fracaso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 500\"]=responseCode.code==500;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": " http://localhost:8080/RotondAndes/rest/administradorrotonda/consumocliente/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
