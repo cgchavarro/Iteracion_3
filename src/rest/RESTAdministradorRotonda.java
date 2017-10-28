@@ -180,6 +180,7 @@ public class RESTAdministradorRotonda
 		return Response.status(200).entity(clientes).build();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@GET
 	@Path( "/consumocliente/{idcliente}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
@@ -210,6 +211,7 @@ public class RESTAdministradorRotonda
 			}
 			PreferenciaCliente p = tm.darPreferenciaClientePorId(id);
 			productos = eliminarRepetidos(productos);
+			@SuppressWarnings("rawtypes")
 			ArrayList c = new ArrayList();
 			c.add(cliente); c.addAll(orden); c.add(menus); c.add(productos); c.add(p);
 			long endTime = System.currentTimeMillis();

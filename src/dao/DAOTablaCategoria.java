@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import vo.Categoria;
 
-public class DAOTablaCategoria {
+public class DAOTablaCategoria extends DAO {
 
 	public DAOTablaCategoria()
 	{
@@ -18,6 +18,8 @@ public class DAOTablaCategoria {
 	public void agregarCategoria(Connection conn, Categoria categoria, String log)
 	{
 		String sql = "INSERT INTO CATEGORIA VALUES (?,?)";
+		String mensajeLog =sql+"&"+categoria.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, categoria.getId());
@@ -42,6 +44,8 @@ public class DAOTablaCategoria {
 	{
 		Categoria categoria = null;
 		String sql = "SELECT * FROM CATEGORIA WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
@@ -72,6 +76,8 @@ public class DAOTablaCategoria {
 	{
 		ArrayList<Categoria> categorias = new ArrayList<>();
 		String sql = "SELECT * FROM CATEGORIA WHERE NOMBRE = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+nombre;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, nombre);
@@ -102,37 +108,24 @@ public class DAOTablaCategoria {
 	{
 		ArrayList<Categoria> categorias = new ArrayList<>();
 		String sql = "SELECT * FROM ISIS2304A331720.CATEGORIA";
-//		try(PreparedStatement preStat = conn.prepareStatement(sql))
-//		{
-//			
-//		}
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		PreparedStatement preStat = conn.prepareStatement(sql);
-			ResultSet rs = preStat.executeQuery();
-			while(rs.next())
-			{
-				Long id = rs.getLong("ID");
-				String nombre = rs.getString("NOMBRE");
-				categorias.add(new Categoria(id, nombre));
-			}
-//			conn.commit();
-//		}
-//		catch(SQLException e)
-//		{
-//			try {
-//				conn.rollback();
-//			} catch (SQLException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//
-//			e.printStackTrace();
-//		}
+		ResultSet rs = preStat.executeQuery();
+		while(rs.next())
+		{
+			Long id = rs.getLong("ID");
+			String nombre = rs.getString("NOMBRE");
+			categorias.add(new Categoria(id, nombre));
+		}
 		return categorias;
 	}
 
 	public void actualizarCategoria(Connection conn, Categoria categoria, String log)
 	{
 		String sql = "UPDATE CATEGORIA SET NOMBRE = ? WHERE ID = ?";
+		String mensajeLog =sql+"&"+categoria.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, categoria.getNombre());
@@ -157,6 +150,8 @@ public class DAOTablaCategoria {
 	public void eliminarCategoria(Connection conn, Categoria categoria, String log)
 	{
 		String sql = "DELETE FROM CATEGORIA WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+categoria.getId();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, categoria.getId());

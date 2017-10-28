@@ -16,10 +16,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.sun.jmx.snmp.Timestamp;
 
 import master.RotondAndesMaster;
-import oracle.net.aso.p;
 import vo.Cliente;
 import vo.OrdenRestaurante;
 import vo.PreferenciaCliente;
@@ -85,6 +83,7 @@ public class RESTCliente
 //		}
 //	}
 	
+	@SuppressWarnings("unchecked")
 	@GET
 	@Path( "{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
@@ -97,6 +96,7 @@ public class RESTCliente
 			ArrayList<OrdenRestaurante> orden =tm.darOrdenRestaurantePorIdCliente(id);
 			PreferenciaCliente p = tm.darPreferenciaClientePorId(id);
 			
+			@SuppressWarnings("rawtypes")
 			ArrayList c = new ArrayList();
 			c.add(cliente); c.addAll(orden); c.add(p);
 			return Response.status( 200 ).entity( c ).build( );			
@@ -114,6 +114,7 @@ public class RESTCliente
 //	NOTA: Respetando la privacidad de los clientes, cuando un cliente registrado hace esta consulta obtiene la información
 //	de su propia actividad, mientras que el administrador obtiene toda la información de cualquiera de los clientes. Ver RNF1.
 	
+	@SuppressWarnings("unchecked")
 	@GET
 	@Path( "/consumocliente/{idcliente}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
@@ -144,6 +145,7 @@ public class RESTCliente
 			}
 			PreferenciaCliente p = tm.darPreferenciaClientePorId(id);
 			productos = eliminarRepetidos(productos);
+			@SuppressWarnings("rawtypes")
 			ArrayList c = new ArrayList();
 			c.add(cliente); c.addAll(orden); c.add(menus); c.add(productos); c.add(p);
 			long endTime = System.currentTimeMillis();

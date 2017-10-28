@@ -127,6 +127,17 @@ public class Menu {
 		this.idBebida = idBebida;
 	}	
 	
-	
+	public String toParametros()
+	{
+		return 	Long.class.getName() + ":" + idMenu + "," + 
+				Double.class.getName() + ":" + costo + "," +
+				Double.class.getName() + ":" + precio + "," + 
+				String.class.getName() + ":" + nombreRestaurante + "," + 
+				Long.class.getName() + ":" + idPostre + "," + 
+				Long.class.getName() + ":" + idEntrada + "," + 
+				Long.class.getName() + ":" + idPlatoFuerte + "," + 
+				Long.class.getName() + ":" + idAcompaniamiento + "," + 
+				Long.class.getName() + ":" + idBebida;
+	}
 	
 }

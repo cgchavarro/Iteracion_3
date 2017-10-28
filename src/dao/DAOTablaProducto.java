@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import vo.Producto;
 
-public class DAOTablaProducto {
+public class DAOTablaProducto  extends DAO{
 
 	public DAOTablaProducto()
 	{

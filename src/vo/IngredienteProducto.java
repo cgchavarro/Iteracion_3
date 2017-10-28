@@ -31,5 +31,10 @@ public class IngredienteProducto {
 	public void setIdProducto(Long idProducto) {
 		this.idProducto = idProducto;
 	}	
-
+	
+	public String toParametros()
+	{
+		return 	Long.class.getName() + ":" + idIngrediente + "," + 
+				Long.class.getName() + ":" + idProducto;
+	}
 }

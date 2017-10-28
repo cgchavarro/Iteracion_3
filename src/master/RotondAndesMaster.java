@@ -9,11 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import java.util.Properties;
-import java.util.logging.FileHandler;
-import java.util.logging.SimpleFormatter;
-
-import javax.servlet.ServletContext;
-
 import dao.DAOTablaAdministradorRestaurante;
 import dao.DAOTablaAdministradorRotonda;
 import dao.DAOTablaCategoria;

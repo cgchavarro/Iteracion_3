@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import vo.OrdenRestaurante;
 
-public class DAOTablaOrdenRestaurante 
+public class DAOTablaOrdenRestaurante  extends DAO
 {
 	public DAOTablaOrdenRestaurante()
 	{

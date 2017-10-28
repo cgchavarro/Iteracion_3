@@ -62,6 +62,12 @@ public class Ingrediente
 		this.descripcionIng = descripcionIng;
 	}
 	
-	
+	public String toParametros()
+	{
+		return 	Long.class.getName() + ":" + idIngrediente + "," + 
+				String.class.getName()+ ":" + nombre + "," +
+				String.class.getName() + ":" + descripcionEsp + "," + 
+				String.class.getName() + ":" + descripcionIng;
+	}
 
 }

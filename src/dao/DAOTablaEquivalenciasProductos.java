@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import vo.EquivalenciaProductos;
 
-public class DAOTablaEquivalenciasProductos 
+public class DAOTablaEquivalenciasProductos  extends DAO
 {
 
 	public DAOTablaEquivalenciasProductos()

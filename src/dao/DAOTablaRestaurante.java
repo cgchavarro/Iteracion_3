@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import vo.Restaurante;
 
-public class DAOTablaRestaurante 
+public class DAOTablaRestaurante  extends DAO
 {
 	public DAOTablaRestaurante()
 	{

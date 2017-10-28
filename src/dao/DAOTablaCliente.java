@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import vo.Cliente;
 
-public class DAOTablaCliente 
+public class DAOTablaCliente  extends DAO
 {
 	public DAOTablaCliente()
 	{
@@ -18,6 +18,8 @@ public class DAOTablaCliente
 	public void agregarCliente(Connection conn, Cliente cliente, String log)
 	{
 		String sql = "INSERT INTO CLIENTE VALUES (?,?,?,?)";
+		String mensajeLog =sql+"&"+cliente.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, cliente.getCedula());
@@ -45,6 +47,8 @@ public class DAOTablaCliente
 	{
 		Cliente cliente = null;
 		String sql = "SELECT * FROM CLIENTE WHERE CEDULA = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+cedula;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, cedula);
@@ -80,6 +84,8 @@ public class DAOTablaCliente
 	{
 		Cliente cliente = null;
 		String sql = "SELECT * FROM CLIENTE WHERE CORREO = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+correo;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, correo);
@@ -115,6 +121,8 @@ public class DAOTablaCliente
 	{
 		ArrayList<Cliente> clientes = new ArrayList<>();
 		String sql = "SELECT * FROM CLIENTE WHERE NOMBRE = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+nombre;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, nombre);
@@ -149,6 +157,8 @@ public class DAOTablaCliente
 	{
 		ArrayList<Cliente> clientes = new ArrayList<>();
 		String sql = "SELECT * FROM CLIENTE";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
@@ -181,6 +191,8 @@ public class DAOTablaCliente
 	public void actualizarCliente(Connection conn, Cliente cliente, String log)
 	{
 		String sql = "UPDATE CLIENTE SET NOMBRE = ?, CORREO = ?, ID_ROTONDA = ? WHERE CEDULA = ?";
+		String mensajeLog =sql+"&"+cliente.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1,  cliente.getNombre());
@@ -207,6 +219,8 @@ public class DAOTablaCliente
 	public void eliminarCliente(Connection conn, Cliente cliente, String log)
 	{
 		String sql = "DELETE FROM CLIENTE WHERE CEDULA = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+cliente.getCedula();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, cliente.getCedula());

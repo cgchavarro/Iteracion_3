@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vo.IngredienteProducto;
-public class DAOTablaIngredienteProducto 
+public class DAOTablaIngredienteProducto  extends DAO
 {
 
 	public DAOTablaIngredienteProducto()

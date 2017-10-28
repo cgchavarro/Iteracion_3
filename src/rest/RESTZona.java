@@ -7,7 +7,6 @@ import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -37,6 +36,7 @@ public class RESTZona
 	}
 
 		
+	@SuppressWarnings("unchecked")
 	@GET
 	@Path( "{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
@@ -50,6 +50,7 @@ public class RESTZona
 	
 			ArrayList<Producto> productos = tm.darProductos();
 	ArrayList<Producto> productosZona = darProductosZona(restaurantes, productos);
+			@SuppressWarnings("rawtypes")
 			ArrayList c= new ArrayList<>();
 			c.add(zona); 
 			c.addAll(restaurantes);  

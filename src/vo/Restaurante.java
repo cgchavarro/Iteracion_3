@@ -89,4 +89,13 @@ public class Restaurante
 		this.encargado = encargado;
 	}	
 	
+	public String toParametros()
+	{
+		return 	String.class.getName() + ":" + nombre + "," + 
+				String.class.getName()+ ":" + tipoComida + "," +
+				String.class.getName()+ ":" + pagWeb + "," +
+				String.class.getName() + ":" + encargado + "," + 
+				Long.class.getName() + ":" + idZona + "," + 
+				Long.class.getName() + ":" + idRotonda;
+	}
 }

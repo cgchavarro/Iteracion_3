@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import vo.Menu;
 
-public class DAOTablaMenu 
+public class DAOTablaMenu  extends DAO
 {
 	public DAOTablaMenu()
 	{

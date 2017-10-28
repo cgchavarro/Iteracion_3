@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import vo.Reserva;
 
-public class DAOTablaReserva 
+public class DAOTablaReserva  extends DAO
 {
 	//TODO completar con los atributos
 	public DAOTablaReserva()

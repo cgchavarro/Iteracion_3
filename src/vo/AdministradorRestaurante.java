@@ -59,6 +59,22 @@ public class AdministradorRestaurante {
 		this.nombreRestaurante = nombreRestaurante;
 	}
 	
+	public String toParametros()
+	{
+		return 	Long.class.getName() + ":" + cedula + "," + 
+				String.class.getName()+ ":" + nombre + "," +
+				String.class.getName() + ":" + correo + "," + 
+				String.class.getName() + ":" + nombreRestaurante;
+	}
+	
+	public String toParametrosUpdate()
+	{
+		return 	String.class.getName()+ ":" + nombre + "," +
+				String.class.getName() + ":" + correo + "," + 
+				String.class.getName() + ":" + nombreRestaurante + "," +
+				Long.class.getName() + ":" + cedula;
+	}
+	
 	
 }
 

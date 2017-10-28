@@ -31,6 +31,12 @@ public class EquivalenciaIngredientes
 	public void setIdIngrediente2(Long idIngrediente2) {
 		this.idIngrediente2 = idIngrediente2;
 	}
+	
+	public String toParametros()
+	{
+		return 	Long.class.getName() + ":" + idIngrediente1 + "," + 
+				Long.class.getName() + ":" + idIngrediente2;
+	}
 
 	
 	

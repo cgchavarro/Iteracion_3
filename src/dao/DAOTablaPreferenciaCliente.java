@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import vo.PreferenciaCliente;
 
-public class DAOTablaPreferenciaCliente {
+public class DAOTablaPreferenciaCliente  extends DAO{
 
 	public DAOTablaPreferenciaCliente()
 	{

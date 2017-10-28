@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import vo.AdministradorRotonda;
 
 
-public class DAOTablaAdministradorRotonda
+public class DAOTablaAdministradorRotonda extends DAO
 {
 	public DAOTablaAdministradorRotonda()
 	{
@@ -19,6 +19,8 @@ public class DAOTablaAdministradorRotonda
 	public void agregarAdministradorRotonda(Connection conn, AdministradorRotonda cliente, String log)
 	{
 		String sql = "INSERT INTO ADMINISTRADORROTONDA VALUES (?,?,?,?)";
+		String mensajeLog =sql+"&"+cliente.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, cliente.getCedula());
@@ -27,6 +29,7 @@ public class DAOTablaAdministradorRotonda
 			preStat.setLong(4, cliente.getIdRotonda());
 			preStat.executeQuery();
 			conn.commit();
+			escribirLog("COMMIT", log);
 		}
 		catch(SQLException e)
 		{
@@ -46,6 +49,8 @@ public class DAOTablaAdministradorRotonda
 	{
 		AdministradorRotonda cliente = null;
 		String sql = "SELECT * FROM ADMINISTRADORROTONDA WHERE CEDULA = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+cedula;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, cedula);
@@ -60,6 +65,7 @@ public class DAOTablaAdministradorRotonda
 				cliente = new AdministradorRotonda(cedula1, nombre, correo, idRotonda);
 			}		
 			conn.commit();
+			escribirLog("COMMIT", log);
 		}
 		catch(SQLException e)
 		{
@@ -82,6 +88,8 @@ public class DAOTablaAdministradorRotonda
 
 AdministradorRotonda cliente = null;
 		String sql = "SELECT * FROM ADMINISTRADORROTONDA WHERE CORREO = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+correo;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, correo);
@@ -96,6 +104,7 @@ AdministradorRotonda cliente = null;
 				cliente = new AdministradorRotonda(cedula1, nombre, correo1, idRotonda);
 			}
 			conn.commit();
+			escribirLog("COMMIT", log);
 		}
 		catch(SQLException e)
 		{
@@ -117,6 +126,8 @@ AdministradorRotonda cliente = null;
 	{
 		ArrayList<AdministradorRotonda> clientes = new ArrayList<>();
 		String sql = "SELECT * FROM ADMINISTRADORROTONDA WHERE NOMBRE = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+nombre;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, nombre);
@@ -131,6 +142,7 @@ AdministradorRotonda cliente = null;
 				clientes.add(new AdministradorRotonda(cedula, nombre1, correo, idRotonda));
 			}
 			conn.commit();
+			escribirLog("COMMIT", log);
 		}
 		catch(SQLException e)
 		{
@@ -151,6 +163,8 @@ AdministradorRotonda cliente = null;
 	{
 		ArrayList<AdministradorRotonda> clientes = new ArrayList<>();
 		String sql = "SELECT * FROM ADMINISTRADORROTONDA";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
@@ -164,6 +178,7 @@ AdministradorRotonda cliente = null;
 				clientes.add(new AdministradorRotonda(cedula, nombre1, correo, idRotonda));
 			}
 			conn.commit();
+			escribirLog("COMMIT", log);
 		}
 		catch(SQLException e)
 		{
@@ -183,6 +198,8 @@ AdministradorRotonda cliente = null;
 	public void actualizarAdministradorRotonda(Connection conn, AdministradorRotonda cliente, String log)
 	{
 		String sql = "UPDATE ADMINISTRADORROTONDA SET NOMBRE = ?, CORREO = ?, ID_ROTONDA = ? WHERE CEDULA = ?";
+		String mensajeLog =sql+"&"+cliente.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1,  cliente.getNombre());
@@ -191,6 +208,7 @@ AdministradorRotonda cliente = null;
 			preStat.setLong(4, cliente.getCedula());
 			preStat.executeQuery();
 			conn.commit();
+			escribirLog("COMMIT", log);
 		}
 		catch(SQLException e)
 		{
@@ -209,11 +227,14 @@ AdministradorRotonda cliente = null;
 	public void eliminarAdministradorRotonda(Connection conn, AdministradorRotonda cliente, String log)
 	{
 		String sql = "DELETE FROM ADMINISTRADORROTONDA WHERE CEDULA = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+cliente.getCedula();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, cliente.getCedula());
 			preStat.executeQuery();
 			conn.commit();
+			escribirLog("COMMIT", log);
 		}
 		catch(SQLException e)
 		{

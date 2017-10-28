@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import vo.ContabilidadRestaurante;
 
 
-public class DAOTablaContabilidadRestaurante 
+public class DAOTablaContabilidadRestaurante  extends DAO
 {
 	public DAOTablaContabilidadRestaurante()
 	{

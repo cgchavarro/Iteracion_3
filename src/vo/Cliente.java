@@ -58,4 +58,12 @@ public class Cliente {
 	public void setIdRotonda(Long idRotonda) {
 		this.idRotonda = idRotonda;
 	}
+	
+	public String toParametros()
+	{
+		return 	Long.class.getName() + ":" + cedula + "," + 
+				String.class.getName()+ ":" + nombre + "," +
+				String.class.getName() + ":" + correo + "," + 
+				Long.class.getName() + ":" + idRotonda;
+	}
 }

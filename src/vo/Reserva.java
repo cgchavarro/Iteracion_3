@@ -8,27 +8,27 @@ public class Reserva
 {
 	@JsonProperty(value="idReserva")
 	private Long idReserva;
-	
+
 	@JsonProperty(value="fecha")
 	private Date fecha;
-	
+
 	@JsonProperty(value="numComensales")
 	private int numComensales;
-	
+
 	@JsonProperty(value="idCliente")
 	private Long idCliente;
-	
+
 	@JsonProperty(value="idZona")
 	private Long idZona;
-	
+
 	//TODO completar atributos
 
 
 	public Reserva(@JsonProperty(value="idReserva")Long idReserva, 
-				   @JsonProperty(value="fecha")Date fecha, 
-				   @JsonProperty(value="numComensales")int numComensales, 
-				   @JsonProperty(value="idCliente")Long idCliente, 
-				   @JsonProperty(value="idZona")Long idZona) {
+			@JsonProperty(value="fecha")Date fecha, 
+			@JsonProperty(value="numComensales")int numComensales, 
+			@JsonProperty(value="idCliente")Long idCliente, 
+			@JsonProperty(value="idZona")Long idZona) {
 		this.idReserva = idReserva;
 		this.fecha = fecha;
 		this.numComensales = numComensales;
@@ -75,7 +75,14 @@ public class Reserva
 	public void setNumComensales(int numComensales) {
 		this.numComensales = numComensales;
 	}
-	
-	
-	
+
+	public String toParametros()
+	{
+		return 	Long.class.getName() + ":" + idReserva + "," + 
+				Date.class.getName()+ ":" + fecha + "," +
+				Integer.class.getName() + ":" + numComensales + "," + 
+				Long.class.getName() + ":" + idCliente + "," + 
+				Long.class.getName() + ":" + idZona;
+	}
+
 }

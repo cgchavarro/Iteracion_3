@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import vo.AdministradorRestaurante;
 
 
-public class DAOTablaAdministradorRestaurante
+public class DAOTablaAdministradorRestaurante extends DAO
 {
 	public DAOTablaAdministradorRestaurante()
 	{
@@ -19,6 +19,8 @@ public class DAOTablaAdministradorRestaurante
 	public void agregarAdministradorRestaurante(Connection conn, AdministradorRestaurante cliente, String log)
 	{
 		String sql = "INSERT INTO ADMINISTRADORRESTAURANTE VALUES (?,?,?,?)";
+		String mensajeLog =sql+"&"+cliente.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, cliente.getCedula());
@@ -46,6 +48,8 @@ public class DAOTablaAdministradorRestaurante
 	{
 		AdministradorRestaurante cliente = null;
 		String sql = "SELECT * FROM ADMINISTRADORRESTAURANTE WHERE CEDULA = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+cedula;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, cedula);
@@ -58,7 +62,7 @@ public class DAOTablaAdministradorRestaurante
 				String correo = rs.getString("CORREO");
 				String idRotonda = rs.getString("NOMBRE_RESTAURANTE");
 				cliente = new AdministradorRestaurante(cedula1, nombre, correo, idRotonda);
-			}		
+			}
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -81,6 +85,8 @@ public class DAOTablaAdministradorRestaurante
 	{
 		AdministradorRestaurante cliente = null;
 		String sql = "SELECT * FROM ADMINISTRADORRESTAURANTE WHERE CORREO = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+correo;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, correo);
@@ -116,6 +122,8 @@ public class DAOTablaAdministradorRestaurante
 	{
 		ArrayList<AdministradorRestaurante> clientes = new ArrayList<>();
 		String sql = "SELECT * FROM ADMINISTRADORRESTAURANTE WHERE NOMBRE = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+nombre;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, nombre);
@@ -150,6 +158,8 @@ public class DAOTablaAdministradorRestaurante
 	{
 		ArrayList<AdministradorRestaurante> clientes = new ArrayList<>();
 		String sql = "SELECT * FROM ADMINISTRADORRESTAURANTE";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
@@ -182,6 +192,8 @@ public class DAOTablaAdministradorRestaurante
 	public void actualizarAdministradorRestaurante(Connection conn, AdministradorRestaurante cliente, String log)
 	{
 		String sql = "UPDATE ADMINISTRADORRESTAURANTE SET NOMBRE = ?, CORREO = ?, NOMBRE_RESTAURANTE = ? WHERE CEDULA = ?";
+		String mensajeLog =sql+"&"+cliente.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1,  cliente.getNombre());
@@ -208,6 +220,8 @@ public class DAOTablaAdministradorRestaurante
 	public void eliminarAdministradorRestaurante(Connection conn, AdministradorRestaurante cliente, String log)
 	{
 		String sql = "DELETE FROM ADMINISTRADORRESTAURANTE WHERE CEDULA = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+cliente.getCedula();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, cliente.getCedula());

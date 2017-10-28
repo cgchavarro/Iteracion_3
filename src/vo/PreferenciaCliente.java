@@ -33,5 +33,9 @@ public class PreferenciaCliente
 		this.preferencia = preferencia;
 	}
 
-		
+	public String toParametros()
+	{
+		return 	Long.class.getName() + ":" + idCliente + "," + 
+				String.class.getName()+ ":" + preferencia;
+	}
 }

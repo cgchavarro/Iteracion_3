@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import vo.Tipo;
 
-public class DAOTablaTipo 
+public class DAOTablaTipo  extends DAO
 {
 	public DAOTablaTipo()
 	{

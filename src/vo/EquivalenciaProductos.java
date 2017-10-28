@@ -32,7 +32,9 @@ public class EquivalenciaProductos
 		this.idProducto2 = idProducto2;
 	}
 
-	
-	
-	
+	public String toParametros()
+	{
+		return 	Long.class.getName() + ":" + idProducto1 + "," + 
+				Long.class.getName() + ":" + idProducto2;
+	}	
 }

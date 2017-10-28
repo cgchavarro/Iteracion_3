@@ -5,30 +5,36 @@ import java.sql.Date;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class ContabilidadGeneral
-{  	@JsonProperty(value="nombreRestaurante")
+{  	
+	@JsonProperty(value="nombreRestaurante")
 	private String nombreRestaurante;
-	 @JsonProperty(value="fechaContabilidad")
+
+	@JsonProperty(value="fechaContabilidad")
 	private Date fechaContabilidad;
-	private double valorVentas;
+	
 	@JsonProperty(value="valorCostos")
 	private double valorCostos;
+
+	@JsonProperty(value="valorVentas")
+	private double valorVentas;
+	
 	@JsonProperty(value="idRotonda")
 	private Long idRotonda;
-	
-	 public ContabilidadGeneral(@JsonProperty(value="nombreRestaurante")String nombreRestaurante, 
-			   @JsonProperty(value="fechaContabilidad")Date fechaContabilidad,
-			   @JsonProperty(value="valorCostos")double valorCostos, 
-			   @JsonProperty(value="valorVentas")double valorVentas,
-			   @JsonProperty(value="idRotonda")Long idRotonda)
-{
-	this.valorCostos=valorCostos;
-	this.valorVentas=valorVentas;
-	this.nombreRestaurante=nombreRestaurante;
-	this.fechaContabilidad=fechaContabilidad;
-	this.idRotonda=idRotonda;
-	
-}
-	
+
+	public ContabilidadGeneral(@JsonProperty(value="nombreRestaurante")String nombreRestaurante, 
+			@JsonProperty(value="fechaContabilidad")Date fechaContabilidad,
+			@JsonProperty(value="valorCostos")double valorCostos, 
+			@JsonProperty(value="valorVentas")double valorVentas,
+			@JsonProperty(value="idRotonda")Long idRotonda)
+	{
+		this.valorCostos=valorCostos;
+		this.valorVentas=valorVentas;
+		this.nombreRestaurante=nombreRestaurante;
+		this.fechaContabilidad=fechaContabilidad;
+		this.idRotonda=idRotonda;
+
+	}
+
 	public String getNombreRestaurante() {
 		return nombreRestaurante;
 	}
@@ -59,7 +65,15 @@ public class ContabilidadGeneral
 	public void setIdRotonda(Long idRotonda) {
 		this.idRotonda = idRotonda;
 	}
-	
-	
-	
+
+	public String toParametros()
+	{
+		return 	String.class.getName() + ":" + nombreRestaurante + "," + 
+				Date.class.getName()+ ":" + fechaContabilidad + "," +
+				Double.class.getName() + ":" + valorCostos + "," + 
+				Double.class.getName() + ":" + valorVentas + "," + 
+				Long.class.getName() + ":" + idRotonda;
+	}
+
+
 }

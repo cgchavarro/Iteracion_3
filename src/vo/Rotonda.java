@@ -31,4 +31,10 @@ public class Rotonda {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	public String toParametros()
+	{
+		return 	Long.class.getName() + ":" + id + "," + 
+				String.class.getName()+ ":" + nombre;
+	}
 }

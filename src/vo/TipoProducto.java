@@ -3,12 +3,12 @@ package vo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class TipoProducto 
-{
-	@JsonProperty(value="idProducto")
-	private Long idProducto;
-	
+{	
 	@JsonProperty(value="idTipo")
 	private Long idTipo;
+	
+	@JsonProperty(value="idProducto")
+	private Long idProducto;
 
 	public TipoProducto(@JsonProperty(value="idProducto")Long idProducto, 
 						@JsonProperty(value="idTipo")Long idTipo) {
@@ -32,5 +32,9 @@ public class TipoProducto
 		this.idTipo = idTipo;
 	}
 	
-	
+	public String toParametros()
+	{
+		return 	Long.class.getName() + ":" + idTipo + "," + 
+				String.class.getName()+ ":" + idProducto;
+	}
 }

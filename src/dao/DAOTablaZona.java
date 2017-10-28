@@ -1,24 +1,19 @@
 package dao;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
-
 import vo.Zona;
 
-public class DAOTablaZona 
+public class DAOTablaZona extends DAO
 {
 
-	private DAOInterpretacionLog daoPrueba;
 
 	public DAOTablaZona()
 	{
-		daoPrueba = new DAOInterpretacionLog();
+		
 	}
 
 	public void agregarZona(Connection conn, Zona zona, String log)
@@ -33,9 +28,8 @@ public class DAOTablaZona
 			preStat.setString(5, darStringBoolean(zona.isAptoParaTodos()));
 			preStat.setString(6, zona.getCondicionesTecnicas());
 			preStat.setLong(7, zona.getIdRotonda());
-			//preStat.executeQuery();
+			preStat.executeQuery();
 			String mensajeLog =sql+"&"+zona.toParametros();
-			daoPrueba.ejecutarInstruccionLog(mensajeLog, conn);
 			escribirLog(mensajeLog, log);
 			conn.commit();
 		}
@@ -246,20 +240,5 @@ public class DAOTablaZona
 		return true;
 	}
 
-	public void escribirLog(String pCausa, String ruta) 
-	{
-		Date fecha = new Date();
-		PrintWriter log;
-		try 
-
-		{ 
-			log = new PrintWriter(ruta);
-			log.println ( fecha  +";" + pCausa);
-			log.close();	
-		} catch (FileNotFoundException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 }

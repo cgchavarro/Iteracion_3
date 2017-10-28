@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import vo.Rotonda;
 
-public class DAOTablaRotonda 
+public class DAOTablaRotonda  extends DAO
 {
 	public DAOTablaRotonda()
 	{

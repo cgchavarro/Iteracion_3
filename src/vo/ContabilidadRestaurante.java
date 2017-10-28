@@ -63,5 +63,13 @@ public class ContabilidadRestaurante
 		this.nombreRestaurante = nombreRestaurante;
 	}
     
+	public String toParametros()
+	{
+		return 	Long.class.getName() + ":" + idVenta + "," + 
+				Double.class.getName()+ ":" + costoVenta + "," +
+				Double.class.getName() + ":" + precioVenta + "," + 
+				Date.class.getName() + ":" + fechaVenta + "," + 
+				String.class.getName() + ":" + nombreRestaurante;
+	}
     
 }

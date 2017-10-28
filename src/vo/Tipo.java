@@ -39,4 +39,10 @@ public class Tipo
 	{
 		this.nombre = nombre;
 	}
+	
+	public String toParametros()
+	{
+		return 	Long.class.getName() + ":" + idTipo + "," + 
+				String.class.getName()+ ":" + nombre;
+	}
 }
