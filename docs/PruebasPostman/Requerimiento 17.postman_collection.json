@@ -1,0 +1,60 @@
+{
+	"id": "d734184e-bf7a-cb3c-ae95-d95d8ae3e054",
+	"name": "Requerimiento 17",
+	"description": "",
+	"order": [
+		"1ac27e9d-6c69-9531-f70c-6a19ac610177",
+		"33c35908-70d1-610d-24b6-11cb73a9d06e"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1509292988226,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "1ac27e9d-6c69-9531-f70c-6a19ac610177",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8080/RotondAndes/rest/ordenRestaurante/ordenmesa/a2",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1509293621112,
+			"name": "Cancelar pedidos mesa",
+			"description": "",
+			"collectionId": "d734184e-bf7a-cb3c-ae95-d95d8ae3e054",
+			"responses": []
+		},
+		{
+			"id": "33c35908-70d1-610d-24b6-11cb73a9d06e",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8080/RotondAndes/rest/ordenRestaurante/ordenmesa/a1",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==500;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1509293623630,
+			"name": "Cancelar pedidos mesa servidos",
+			"description": "",
+			"collectionId": "d734184e-bf7a-cb3c-ae95-d95d8ae3e054",
+			"responses": []
+		}
+	]
+}

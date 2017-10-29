@@ -47,28 +47,28 @@ public class RESTOrdenRestaurante
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
 
 
-		
+
 		if(tm.darMenuPorIdVerificandoDisponibilidadProductos(orden.getIdMenu()) == null)
 		{
 			MensajeError ex = new MensajeError("no se logro crear la orden" );
 			System.out.println("no se logro crear");
 			return Response.status(500).entity(ex).build();
 		}	
-		
-//		Menu m = tm.darMenuPorId(ordenRestaurante.getIdMenu());
-//
-//		ArrayList<Producto> productos = new ArrayList<Producto>();
-//
-//		productos.add(tm.darProductoPorId(m.getIdAcompaniamiento()));
-//		productos.add(tm.darProductoPorId(m.getIdBebida()));
-//		productos.add(tm.darProductoPorId(m.getIdEntrada()));
-//		productos.add(tm.darProductoPorId(m.getIdPlatoFuerte()));
-//		productos.add(tm.darProductoPorId(m.getIdPostre()));
-//
-//		boolean	verificar=verificarProductos(productos);
-//
-//		if(verificar)
-//		{
+
+		Menu m = tm.darMenuPorId(orden.getIdMenu());
+
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+
+		productos.add(tm.darProductoPorId(m.getIdAcompaniamiento()));
+		productos.add(tm.darProductoPorId(m.getIdBebida()));
+		productos.add(tm.darProductoPorId(m.getIdEntrada()));
+		productos.add(tm.darProductoPorId(m.getIdPlatoFuerte()));
+		productos.add(tm.darProductoPorId(m.getIdPostre()));
+
+		boolean	verificar=verificarProductos(productos);
+
+		if(verificar)
+		{
 			try {
 				tm.crearOrdenRestaurante(orden);
 				actualizarProductos(orden, tm);
@@ -77,13 +77,14 @@ public class RESTOrdenRestaurante
 			}
 
 			return Response.status(200).entity(orden).build();
-//		}
-//		else
-//		{
-//			MensajeError ex = new MensajeError("no se logro crear la orden");
-//			System.out.println("no se logro crear");
-//			return Response.status(500).entity(ex).build();
-//		}
+
+		}
+		else
+		{
+			MensajeError ex = new MensajeError("no se logro crear la orden");
+			System.out.println("no se logro crear");
+			return Response.status(500).entity(ex).build();
+		}
 
 	}
 
@@ -161,29 +162,30 @@ public class RESTOrdenRestaurante
 
 
 		ordenRestaurante.setIdMenu(idMenuTemp);
-		boolean	verificar=verificarProductos(productos);
 
-		if(verificar)
-		{
-			try {
+
+		try {
+			if(tm.darMenuPorIdVerificandoDisponibilidadProductos(ordenRestaurante.getIdMenu()) == null)
+			{
+				MensajeError ex = new MensajeError("no se logro crear la orden" );
+				System.out.println("no se logro crear");
+				return Response.status(500).entity(ex).build();
+			}	
+			else
+			{
 				tm.crearOrdenRestaurante(ordenRestaurante);
 				actualizarProductos(ordenRestaurante, tm);
-
-			} catch (Exception e) {
-				return Response.status(500).entity(doErrorMessage(e)).build();
 			}
 
-			Menu x = tm.darMenuPorId(idMenuTemp);
-			return Response.status(200).entity(x).build();
-		}
-		else
-		{
-			MensajeError ex = new MensajeError("no se logro crear la orden creando la orden");
-			System.out.println("no se logro crear");
-			return Response.status(500).entity(ex).build();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 
+		Menu x = tm.darMenuPorId(idMenuTemp);
+		return Response.status(200).entity(x).build();
 	}
+
+
 
 	private ArrayList<Producto> reemplazarConEquivalencias(ArrayList<Producto> productos, EquivalenciaProductos[] equivalencias) {
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
@@ -293,12 +295,9 @@ public class RESTOrdenRestaurante
 	@Path("ordenmesa/{idMesa}")
 	public Response servirOrdenMesa (@PathParam( "idMesa" ) String id)
 	{
-		long start = System.currentTimeMillis();
 
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
 		ArrayList<OrdenRestaurante> ordenes = tm.darOrdenRestaurantePorMesa(id);
-		System.out.println("primeroooooo" + id);
-		System.out.println("Tiempo 1 " + (System.currentTimeMillis() - start));
 		tm.actualizarOrdenesRestaurante(ordenes);
 		ordenes = tm.darOrdenRestaurantePorMesa(id);
 		return Response.status(200).entity(ordenes).build();
@@ -310,28 +309,13 @@ public class RESTOrdenRestaurante
 	public Response actualizarOrdenRestaurante(OrdenRestaurante ordenRestaurante) 
 	{
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
-//		OrdenRestaurante ordenAModificar = tm.darOrdenRestaurantePorId(ordenRestaurante.getIdOrdenRestaurante());
-//		if(ordenAModificar.isServida()==false&&ordenRestaurante.isServida()==true)
-//		{
-//		//	actualizarProductos(ordenRestaurante,tm);
-//			try {
-//
-//				tm.actualizarOrdenRestaurante(ordenRestaurante);
-//			} catch (Exception e) {
-//				return Response.status(500).entity(doErrorMessage(e)).build();
-//			}
-//			return Response.status(200).entity(ordenRestaurante).build();
-//		}
-//		else
-//		{
-			try 
-			{
-				tm.actualizarOrdenRestaurante(ordenRestaurante);
-			} catch (Exception e) {
-				return Response.status(500).entity(doErrorMessage(e)).build();
-			}
-			return Response.status(200).entity(ordenRestaurante).build();
-//		}
+		try 
+		{
+			tm.actualizarOrdenRestaurante(ordenRestaurante);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(ordenRestaurante).build();
 	}
 
 	private void actualizarProductos(OrdenRestaurante ordenRestaurante, RotondAndesMaster tm) 

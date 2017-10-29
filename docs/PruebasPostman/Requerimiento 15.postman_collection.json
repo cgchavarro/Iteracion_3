@@ -1,0 +1,45 @@
+{
+	"id": "dd16c613-3323-9b49-6e79-6df0ad40e7a2",
+	"name": "Requerimiento 15",
+	"description": "",
+	"order": [
+		"a3b1ca99-4a21-63e6-6fb2-812cceecc794"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1509291795538,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "a3b1ca99-4a21-63e6-6fb2-812cceecc794",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/RotondAndes/rest/ordenRestaurante/ordenmesa/a1",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1509293603656,
+			"name": "Registrar pedido de productos de una mesa",
+			"description": "",
+			"collectionId": "dd16c613-3323-9b49-6e79-6df0ad40e7a2",
+			"responses": [],
+			"rawModeData": "[{\r\n    \"idOrdenRestaurante\": 1023,\r\n        \r\n\t\"fecha\": \"2017-10-03\",\r\n        \r\n\t\"idMenu\": 6,\r\n        \r\n\t\"idRotonda\": 1,\r\n        \r\n\t\"idCliente\": 2020202020,\r\n\t\r\n\t\"servida\": false\r\n}, \r\n{\r\n    \"idOrdenRestaurante\": 1024,\r\n        \r\n\t\"fecha\": \"2017-10-03\",\r\n        \r\n\t\"idMenu\": 6,\r\n        \r\n\t\"idRotonda\": 1,\r\n        \r\n\t\"idCliente\": 2020202020,\r\n\t\r\n\t\"servida\": false\r\n},\r\n{\r\n    \"idOrdenRestaurante\": 1025,\r\n        \r\n\t\"fecha\": \"2017-10-03\",\r\n        \r\n\t\"idMenu\": 6,\r\n        \r\n\t\"idRotonda\": 1,\r\n        \r\n\t\"idCliente\": 2020202020,\r\n\t\r\n\t\"servida\": false\r\n}]"
+		}
+	]
+}

@@ -1,0 +1,37 @@
+{
+	"id": "1a707d3d-1123-39a9-b7fb-73502b571e9c",
+	"name": "Requerimiento 16",
+	"description": "",
+	"order": [
+		"3a04965c-8d46-0aae-9ce1-e879abff6b6f"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1509292401743,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "3a04965c-8d46-0aae-9ce1-e879abff6b6f",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8080/RotondAndes/rest/ordenRestaurante/ordenmesa/a1",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1509293618985,
+			"name": "Registrar servicio de una mesa",
+			"description": "",
+			"collectionId": "1a707d3d-1123-39a9-b7fb-73502b571e9c",
+			"responses": []
+		}
+	]
+}

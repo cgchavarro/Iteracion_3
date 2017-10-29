@@ -447,15 +447,9 @@ public class DAOTablaMenu  extends DAO
 				ids.add(rs.getLong("ID"));
 			}		
 			Menu menuPro = darMenuPorId(conn, id,log);
-			System.out.println("acom" + menuPro.getIdAcompaniamiento());
-			System.out.println("beb" + menuPro.getIdBebida());
-			System.out.println("ent" + menuPro.getIdEntrada());
-			System.out.println("plf" + menuPro.getIdPlatoFuerte());
-			System.out.println("pos" + menuPro.getIdPostre());
 			if(ids.contains(menuPro.getIdAcompaniamiento()) && ids.contains(menuPro.getIdBebida()) && ids.contains(menuPro.getIdEntrada()) 
 					&& ids.contains(menuPro.getIdPlatoFuerte()) && ids.contains(menuPro.getIdPostre()))
 			{
-				System.out.println("este noooo");
 				conn.commit();
 				return menuPro;
 			}

@@ -1,0 +1,76 @@
+{
+	"id": "450c4a34-ae42-fe2a-5502-7ffec2d0e4e7",
+	"name": "Requerimiento 14",
+	"description": "",
+	"order": [
+		"16555213-d297-1a1c-4428-edbcd1cbe255",
+		"e0e4e17b-e850-8b95-b9a2-c307bf4cb595"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1509291279331,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "16555213-d297-1a1c-4428-edbcd1cbe255",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/RotondAndes/rest/ordenRestaurante/equivalencias",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1509293586226,
+			"name": "Registrar un pedido con equivalencia",
+			"description": "",
+			"collectionId": "450c4a34-ae42-fe2a-5502-7ffec2d0e4e7",
+			"responses": [],
+			"rawModeData": "{\r\n\t\"ordenRestaurante\" : {\r\n\t\t\r\n    \"idOrdenRestaurante\": 156156,\r\n        \r\n\t\"fecha\": \"2017-10-03\",\r\n        \r\n\t\"idMenu\": 2,\r\n        \r\n\t\"idRotonda\": 1,\r\n        \r\n\t\"idCliente\": 2020202020,\r\n        \r\n\t\"servida\": true\r\n    \r\n},  \"equivalencias\" :\r\n[{\r\n    \"idProducto1\": 1,\r\n    \"idProducto2\": 6\r\n}]\r\n}"
+		},
+		{
+			"id": "e0e4e17b-e850-8b95-b9a2-c307bf4cb595",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/RotondAndes/rest/ordenRestaurante/equivalencias",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==500;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1509293589948,
+			"name": "Registrar un pedido con equivalencia inexistente",
+			"description": "",
+			"collectionId": "450c4a34-ae42-fe2a-5502-7ffec2d0e4e7",
+			"responses": [],
+			"rawModeData": "{\r\n\t\"ordenRestaurante\" : {\r\n\t\t\r\n    \"idOrdenRestaurante\": 156156,\r\n        \r\n\t\"fecha\": \"2017-10-03\",\r\n        \r\n\t\"idMenu\": 2,\r\n        \r\n\t\"idRotonda\": 1,\r\n        \r\n\t\"idCliente\": 2020202020,\r\n        \r\n\t\"servida\": true\r\n    \r\n},  \"equivalencias\" :\r\n[{\r\n    \"idProducto1\": 1,\r\n    \"idProducto2\": 20\r\n}]\r\n}"
+		}
+	]
+}
