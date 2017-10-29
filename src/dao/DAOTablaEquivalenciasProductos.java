@@ -20,6 +20,8 @@ public class DAOTablaEquivalenciasProductos  extends DAO
 	public void agregarEquivalenciaProductos(Connection conn, EquivalenciaProductos eq, String log)
 	{
 		String sql = "INSERT INTO EQUIVALENCIASPRODUCTOS VALUES (?,?)";
+		String mensajeLog =sql+"&"+eq.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, eq.getIdProducto1());
@@ -46,6 +48,8 @@ public class DAOTablaEquivalenciasProductos  extends DAO
 	{
 		ArrayList<EquivalenciaProductos> tiposProductos = new ArrayList<>();
 		String sql = "SELECT * FROM EQUIVALENCIASPRODUCTOS";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 
@@ -102,13 +106,15 @@ public class DAOTablaEquivalenciasProductos  extends DAO
 	
 	
 
-	public void eliminarEquivalencia(Connection conn, EquivalenciaProductos tipoProducto, String log)
+	public void eliminarEquivalencia(Connection conn, EquivalenciaProductos eq, String log)
 	{
 		String sql = "DELETE FROM EQUIVALENCIASPRODUCTOS WHERE IDPRODUCTO1 = ? AND IDPRODUCTO2 = ?";
+		String mensajeLog =sql+"&"+eq.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setLong(1, tipoProducto.getIdProducto1());
-			preStat.setLong(2, tipoProducto.getIdProducto2());
+			preStat.setLong(1, eq.getIdProducto1());
+			preStat.setLong(2, eq.getIdProducto2());
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -129,6 +135,8 @@ public class DAOTablaEquivalenciasProductos  extends DAO
 	{
 		EquivalenciaProductos tiposProductos = null;
 		String sql = "SELECT * FROM EQUIVALENCIASPRODUCTOS WHERE  IDPRODUCTO1 = ? AND IDPRODUCTO2 = ?";
+		String mensajeLog =sql+"&"+eq.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, eq.getIdProducto1());

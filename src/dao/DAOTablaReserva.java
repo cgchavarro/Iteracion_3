@@ -20,6 +20,8 @@ public class DAOTablaReserva  extends DAO
 	public void agregarReserva(Connection conn, Reserva reserva, String log)
 	{
 		String sql = "INSERT INTO RESERVA VALUES (?,?,?,?,?)";
+		String mensajeLog =sql+"&"+reserva.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, reserva.getIdReserva());
@@ -48,6 +50,8 @@ public class DAOTablaReserva  extends DAO
 	{
 		Reserva reserva = null;
 		String sql = "SELECT * FROM RESERVA WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
@@ -83,6 +87,8 @@ public class DAOTablaReserva  extends DAO
 	{
 		ArrayList<Reserva> reservas = new ArrayList<>();
 		String sql = "SELECT * FROM RESERVA WHERE ID_CLIENTE = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+idCliente;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, idCliente);
@@ -118,6 +124,8 @@ public class DAOTablaReserva  extends DAO
 	{
 		ArrayList<Reserva> reservas = new ArrayList<>();
 		String sql = "SELECT * FROM RESERVA WHERE ID_ZONA = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+idZona;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, idZona);
@@ -153,6 +161,8 @@ public class DAOTablaReserva  extends DAO
 	{
 		ArrayList<Reserva> reservas = new ArrayList<>();
 		String sql = "SELECT * FROM RESERVA";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
@@ -213,6 +223,8 @@ public class DAOTablaReserva  extends DAO
 	public void eliminarReserva(Connection conn, Reserva reserva, String log)
 	{
 		String sql = "DELETE FROM RESERVA WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+reserva.getIdReserva();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, reserva.getIdReserva());

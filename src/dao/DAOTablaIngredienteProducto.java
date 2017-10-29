@@ -18,6 +18,8 @@ public class DAOTablaIngredienteProducto  extends DAO
 	public void agregarIngredienteProducto(Connection conn, IngredienteProducto ingredienteProducto, String log)
 	{
 		String sql = "INSERT INTO INGREDIENTE_PRODUCTO VALUES (?,?)";
+		String mensajeLog =sql+"&"+ingredienteProducto.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, ingredienteProducto.getIdIngrediente());
@@ -43,6 +45,8 @@ public class DAOTablaIngredienteProducto  extends DAO
 	{
 		ArrayList<IngredienteProducto> ingredientesProductos = new ArrayList<>();
 		String sql = "SELECT * FROM INGREDIENTE_PRODUCTO WHERE ID_INGREDIENTE = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+idIngrediente;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, idIngrediente);
@@ -75,6 +79,8 @@ public class DAOTablaIngredienteProducto  extends DAO
 	{
 		ArrayList<IngredienteProducto> ingredientesProductos = new ArrayList<>();
 		String sql = "SELECT * FROM INGREDIENTE_PRODUCTO WHERE ID_PRODUCTO = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+idProducto;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, idProducto);
@@ -107,6 +113,8 @@ public class DAOTablaIngredienteProducto  extends DAO
 	{
 		ArrayList<IngredienteProducto> ingredientesProductos = new ArrayList<>();
 		String sql = "SELECT * FROM INGREDIENTE_PRODUCTO";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
@@ -184,7 +192,9 @@ public class DAOTablaIngredienteProducto  extends DAO
 
 	public void eliminarIngredienteProducto(Connection conn, IngredienteProducto ingredienteProducto, String log)
 	{
-		String sql = "DELETE FROM INGREDIENTE_PRODUCTO WHERE ID_PRODUCTO = ? AND ID_INGREDIENTE = ?";
+		String sql = "DELETE FROM INGREDIENTE_PRODUCTO WHERE ID_INGREDIENTE = ? AND ID_PRODUCTO = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+ingredienteProducto.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, ingredienteProducto.getIdProducto());

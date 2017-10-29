@@ -20,6 +20,8 @@ public class DAOTablaProducto  extends DAO{
 	public void agregarProducto(Connection conn, Producto producto, String log)
 	{
 		String sql = "INSERT INTO PRODUCTO VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+		String mensajeLog =sql+"&"+producto.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, producto.getIdProducto());
@@ -54,6 +56,8 @@ public class DAOTablaProducto  extends DAO{
 	{
 		Producto producto = null;
 		String sql = "SELECT * FROM PRODUCTO WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
@@ -96,6 +100,8 @@ public class DAOTablaProducto  extends DAO{
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 
 		String sql = "SELECT * FROM PRODUCTO WHERE NOMBRE = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+nombre;
+		escribirLog(mensajeLog, log);
 
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
@@ -130,6 +136,8 @@ public class DAOTablaProducto  extends DAO{
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 
 		String sql = "SELECT * FROM PRODUCTO WHERE NOMBRE_RESTAURANTE = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+name;
+		escribirLog(mensajeLog, log);
 
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
@@ -164,6 +172,8 @@ public class DAOTablaProducto  extends DAO{
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 
 		String sql = "SELECT * FROM PRODUCTO WHERE ID_CATEGORIA = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
@@ -196,6 +206,8 @@ public class DAOTablaProducto  extends DAO{
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 
 		String sql = "SELECT * FROM PRODUCTO WHERE PRECIO > ? AND PRECIO < ?";
+		String mensajeLog =sql+"&"+Double.class.getName()+":"+min+","+Double.class.getName()+":"+max;
+		escribirLog(mensajeLog, log);
 
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
@@ -230,6 +242,8 @@ public class DAOTablaProducto  extends DAO{
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 
 		String sql = "SELECT * FROM PRODUCTO";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
@@ -286,6 +300,8 @@ public class DAOTablaProducto  extends DAO{
 	public void eliminarProducto(Connection conn, Producto producto, String log)
 	{
 		String sql = "DELETE FROM PRODUCTO WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+producto.getIdProducto();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, producto.getIdProducto());
@@ -300,6 +316,8 @@ public class DAOTablaProducto  extends DAO{
 	public void surtirProductosRestaurante(Connection conn, String nombreRestaurante, String log)
 	{
 		String sql = "UPDATE PRODUCTO SET CANTIDAD = CANTIDAD_MAXIMA WHERE NOMBRE_RESTAURANTE =?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+nombreRestaurante;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 		

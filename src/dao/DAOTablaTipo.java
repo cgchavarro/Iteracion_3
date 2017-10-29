@@ -18,6 +18,8 @@ public class DAOTablaTipo  extends DAO
 	public void agregarTipo(Connection conn, Tipo tipo, String log)
 	{
 		String sql = "INSERT INTO TIPO VALUES (?,?)";
+		String mensajeLog =sql+"&"+tipo.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, tipo.getIdTipo());
@@ -43,6 +45,8 @@ public class DAOTablaTipo  extends DAO
 	{
 		Tipo tipo = null;
 		String sql = "SELECT * FROM TIPO WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
@@ -76,6 +80,8 @@ public class DAOTablaTipo  extends DAO
 	{
 		ArrayList<Tipo> tipos = new ArrayList<>();
 		String sql = "SELECT * FROM TIPO WHERE NOMBRE = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+nombre;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, nombre);
@@ -108,6 +114,8 @@ public class DAOTablaTipo  extends DAO
 	{
 		ArrayList<Tipo> tipos = new ArrayList<>();
 		String sql = "SELECT * FROM TIPO";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
@@ -162,6 +170,8 @@ public class DAOTablaTipo  extends DAO
 	public void eliminarTipo(Connection conn, Tipo tipo, String log)
 	{
 		String sql = "DELETE FROM TIPO WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+tipo.getIdTipo();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, tipo.getIdTipo());

@@ -21,6 +21,8 @@ public class DAOTablaContabilidadRestaurante  extends DAO
 	public void agregarContabilidadRestaurante(Connection conn, ContabilidadRestaurante restaurante, String log)
 	{
 		String sql = "INSERT INTO CONTABILIDADRESTAURANTE VALUES (?,?,?,?,?)";
+		String mensajeLog =sql+"&"+restaurante.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 		
@@ -50,6 +52,8 @@ public class DAOTablaContabilidadRestaurante  extends DAO
 	{
 		ContabilidadRestaurante restaurante = null;
 		String sql = "SELECT * FROM CONTABILIDADRESTAURANTE WHERE ID_ORDEN = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+idVenta;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, idVenta);
@@ -87,6 +91,8 @@ public class DAOTablaContabilidadRestaurante  extends DAO
 	{
 		ArrayList<ContabilidadRestaurante> restaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM CONTABILIDADRESTAURANTE WHERE FECHA_VENTA = ?";
+		String mensajeLog =sql+"&"+Date.class.getName()+":"+nombre.getTime();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setDate(1, nombre);
@@ -123,6 +129,8 @@ public class DAOTablaContabilidadRestaurante  extends DAO
 	{
 		ArrayList<ContabilidadRestaurante> restaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM CONTABILIDADRESTAURANTE";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
@@ -185,6 +193,8 @@ public class DAOTablaContabilidadRestaurante  extends DAO
 	public void eliminarContabilidadRestaurante(Connection conn, ContabilidadRestaurante restaurante, String log)
 	{
 		String sql = "DELETE FROM CONTABILIDADRESTAURANTE WHERE ID_ORDEN = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+restaurante.getIdVenta();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, restaurante.getIdVenta());

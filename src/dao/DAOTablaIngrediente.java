@@ -18,6 +18,8 @@ public class DAOTablaIngrediente  extends DAO
 	public void agregarIngrediente(Connection conn, Ingrediente ingrediente, String log)
 	{
 		String sql = "INSERT INTO INGREDIENTE VALUES (?,?,?,?)";
+		String mensajeLog =sql+"&"+ingrediente.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, ingrediente.getIdIngrediente());
@@ -45,6 +47,8 @@ public class DAOTablaIngrediente  extends DAO
 	{
 		Ingrediente ingrediente = null;
 		String sql = "SELECT * FROM INGREDIENTE WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
@@ -80,6 +84,8 @@ public class DAOTablaIngrediente  extends DAO
 	{
 		ArrayList<Ingrediente> ingredientes = new ArrayList<>();
 		String sql = "SELECT * FROM INGREDIENTE WHERE NOMBRE = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+nombre;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, nombre);
@@ -114,6 +120,8 @@ public class DAOTablaIngrediente  extends DAO
 	{
 		ArrayList<Ingrediente> ingredientes = new ArrayList<>();
 		String sql = "SELECT * FROM INGREDIENTE";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
@@ -172,6 +180,8 @@ public class DAOTablaIngrediente  extends DAO
 	public void eliminarIngrediente(Connection conn, Ingrediente ingrediente, String log)
 	{
 		String sql = "DELETE FROM INGREDIENTE WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+ingrediente.getIdIngrediente();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, ingrediente.getIdIngrediente());

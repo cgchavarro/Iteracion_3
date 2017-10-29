@@ -18,6 +18,8 @@ public class DAOTablaRestaurante  extends DAO
 	public void agregarRestaurante(Connection conn, Restaurante restaurante, String log)
 	{
 		String sql = "INSERT INTO RESTAURANTE VALUES (?,?,?,?,?,?)";
+		String mensajeLog =sql+"&"+restaurante.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 		
@@ -48,6 +50,8 @@ public class DAOTablaRestaurante  extends DAO
 	{
 		Restaurante restaurante = null;
 		String sql = "SELECT * FROM RESTAURANTE WHERE NOMBRE = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+nombre;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, nombre);
@@ -85,6 +89,8 @@ public class DAOTablaRestaurante  extends DAO
 	{
 		ArrayList<Restaurante> restaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM RESTAURANTE WHERE ID_ZONA = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+nombre;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, nombre);
@@ -121,6 +127,8 @@ public class DAOTablaRestaurante  extends DAO
 	{
 		ArrayList<Restaurante> restaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM RESTAURANTE";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
@@ -182,6 +190,8 @@ public class DAOTablaRestaurante  extends DAO
 	public void eliminarRestaurante(Connection conn, Restaurante restaurante, String log)
 	{
 		String sql = "DELETE FROM RESTAURANTE WHERE Nombre = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+restaurante.getNombre();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, restaurante.getNombre());

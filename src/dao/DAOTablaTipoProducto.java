@@ -18,6 +18,8 @@ public class DAOTablaTipoProducto  extends DAO
 	public void agregarTipoProducto(Connection conn, TipoProducto tipoProducto, String log)
 	{
 		String sql = "INSERT INTO TIPO_PRODUCTO VALUES (?,?)";
+		String mensajeLog =sql+"&"+tipoProducto.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, tipoProducto.getIdTipo());
@@ -43,6 +45,8 @@ public class DAOTablaTipoProducto  extends DAO
 	{
 		ArrayList<TipoProducto> tiposProductos = new ArrayList<>();
 		String sql = "SELECT * FROM TIPO_PRODUCTO WHERE ID_TIPO = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+idTipo;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, idTipo);
@@ -75,6 +79,8 @@ public class DAOTablaTipoProducto  extends DAO
 	{
 		ArrayList<TipoProducto> tiposProductos = new ArrayList<>();
 		String sql = "SELECT * FROM TIPO_PRODUCTO WHERE ID_PRODUCTO = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+idProducto;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, idProducto);
@@ -107,6 +113,8 @@ public class DAOTablaTipoProducto  extends DAO
 	{
 		ArrayList<TipoProducto> tiposProductos = new ArrayList<>();
 		String sql = "SELECT * FROM TIPO_PRODUCTO";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
@@ -184,7 +192,9 @@ public class DAOTablaTipoProducto  extends DAO
 
 	public void eliminarTipoProducto(Connection conn, TipoProducto tipoProducto, String log)
 	{
-		String sql = "DELETE FROM TIPO_PRODUCTO WHERE ID_PRODUCTO = ? AND ID_TIPO = ?";
+		String sql = "DELETE FROM TIPO_PRODUCTO WHERE ID_TIPO = ? AND ID_PRODUCTO = ?";
+		String mensajeLog =sql+"&"+tipoProducto.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, tipoProducto.getIdProducto());

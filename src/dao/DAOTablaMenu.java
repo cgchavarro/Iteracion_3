@@ -18,6 +18,8 @@ public class DAOTablaMenu  extends DAO
 	public void agregarMenu(Connection conn, Menu menu, String log)
 	{
 		String sql = "INSERT INTO MENU VALUES (?,?,?,?,?,?,?,?,?)";
+		String mensajeLog =sql+"&"+menu.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, menu.getIdMenu());
@@ -50,6 +52,8 @@ public class DAOTablaMenu  extends DAO
 	{
 		Menu menu = null;
 		String sql = "SELECT * FROM MENU WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
@@ -89,6 +93,8 @@ public class DAOTablaMenu  extends DAO
 	{
 		ArrayList<Menu> menus = new ArrayList<>();
 		String sql = "SELECT * FROM MENU WHERE NOMBRE_RESTAURANTE = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+idRestaurante;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, idRestaurante);
@@ -128,6 +134,8 @@ public class DAOTablaMenu  extends DAO
 	{
 		ArrayList<Menu> menus = new ArrayList<>();
 		String sql = "SELECT * FROM MENU";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
@@ -196,6 +204,8 @@ public class DAOTablaMenu  extends DAO
 	public void eliminarMenu(Connection conn, Menu menu, String log)
 	{
 		String sql = "DELETE FROM MENU WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+menu.getIdMenu();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, menu.getIdMenu());
@@ -221,6 +231,8 @@ public class DAOTablaMenu  extends DAO
 	{
 		ArrayList<Menu> menus = new ArrayList<>();
 		String sql = "SELECT * FROM MENU WHERE BEBIDA = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
@@ -259,6 +271,8 @@ public class DAOTablaMenu  extends DAO
 	{
 		ArrayList<Menu> menus = new ArrayList<>();
 		String sql = "SELECT * FROM MENU WHERE ACOMPANIAMIENTO = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
@@ -298,6 +312,8 @@ public class DAOTablaMenu  extends DAO
 	{
 		ArrayList<Menu> menus = new ArrayList<>();
 		String sql = "SELECT * FROM MENU WHERE PLATOFUERTE = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
@@ -337,6 +353,8 @@ public class DAOTablaMenu  extends DAO
 	{
 		ArrayList<Menu> menus = new ArrayList<>();
 		String sql = "SELECT * FROM MENU WHERE ENTRADA = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
@@ -376,6 +394,8 @@ public class DAOTablaMenu  extends DAO
 	{
 		ArrayList<Menu> menus = new ArrayList<>();
 		String sql = "SELECT * FROM MENU WHERE POSTRE = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
@@ -414,6 +434,8 @@ public class DAOTablaMenu  extends DAO
 	public Menu darMenuPorIdDisponibilidad(Connection conn, Long id, String log) {
 		Menu menu = null;
 		String sql = "SELECT DISTINCT PRODUCTO.ID as id FROM MENU, PRODUCTO WHERE MENU.ID = ? AND PRODUCTO.CANTIDAD > 0";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);

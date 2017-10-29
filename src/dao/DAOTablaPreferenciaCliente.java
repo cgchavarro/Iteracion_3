@@ -19,6 +19,8 @@ public class DAOTablaPreferenciaCliente  extends DAO{
 	public void agregarPreferenciaCliente(Connection conn, PreferenciaCliente categoria, String log)
 	{
 		String sql = "INSERT INTO PREFERENCIACLIENTE VALUES (?,?)";
+		String mensajeLog =sql+"&"+categoria.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, categoria.getIdCliente());
@@ -43,6 +45,8 @@ public class DAOTablaPreferenciaCliente  extends DAO{
 	{
 		PreferenciaCliente categoria = null;
 		String sql = "SELECT * FROM PREFERENCIACLIENTE WHERE ID_CLIENTE = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
@@ -73,6 +77,8 @@ public class DAOTablaPreferenciaCliente  extends DAO{
 	{
 		ArrayList<PreferenciaCliente> categorias = new ArrayList<>();
 		String sql = "SELECT * FROM PREFERENCIACLIENTE WHERE PREFERENCIA = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+nombre;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, nombre);
@@ -103,6 +109,8 @@ public class DAOTablaPreferenciaCliente  extends DAO{
 	{
 		ArrayList<PreferenciaCliente> categorias = new ArrayList<>();
 		String sql = "SELECT * FROM PREFERENCIACLIENTE";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
@@ -155,6 +163,8 @@ public class DAOTablaPreferenciaCliente  extends DAO{
 	public void eliminarPreferencia(Connection conn,PreferenciaCliente categoria, String log)
 	{
 		String sql = "DELETE FROM PREFERENCIACLIENTE WHERE ID_CLIENTE = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+categoria.getIdCliente();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, categoria.getIdCliente());

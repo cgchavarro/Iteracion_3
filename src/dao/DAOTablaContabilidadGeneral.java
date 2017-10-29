@@ -52,8 +52,7 @@ public class DAOTablaContabilidadGeneral  extends DAO
 	{
 		ArrayList<ContabilidadGeneral> restaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM CONTABILIDADGENERAL WHERE FECHA = ?";
-
-		String mensajeLog =sql+"&"+Date.class.getName()+":"+nombre.toString();
+		String mensajeLog =sql+"&"+Date.class.getName()+":"+nombre.getTime();
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
@@ -156,7 +155,7 @@ public class DAOTablaContabilidadGeneral  extends DAO
 	public void eliminarContabilidadGeneral(Connection conn, ContabilidadGeneral restaurante, String log)
 	{
 		String sql = "DELETE FROM CONTABILIDADGENERAL WHERE NOMBRE_RESTAURANTE = ? AND FECHA =? AND ID_ROTONDA =?";
-		String mensajeLog =sql+"&"+String.class.getName()+":"+restaurante.getNombreRestaurante()+","+Date.class.getName()+":"+restaurante.getFechaContabilidad()+","+Long.class.getName()+":"+restaurante.getIdRotonda();
+		String mensajeLog =sql+"&"+String.class.getName()+":"+restaurante.getNombreRestaurante()+","+Date.class.getName()+":"+restaurante.getFechaContabilidad().getTime()+","+Long.class.getName()+":"+restaurante.getIdRotonda();
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{

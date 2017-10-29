@@ -19,6 +19,8 @@ public class DAOTablaZona extends DAO
 	public void agregarZona(Connection conn, Zona zona, String log)
 	{
 		String sql = "INSERT INTO ZONA VALUES (?,?,?,?,?,?,?)";
+		String mensajeLog =sql+"&"+zona.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, zona.getIdZona());
@@ -29,8 +31,6 @@ public class DAOTablaZona extends DAO
 			preStat.setString(6, zona.getCondicionesTecnicas());
 			preStat.setLong(7, zona.getIdRotonda());
 			preStat.executeQuery();
-			String mensajeLog =sql+"&"+zona.toParametros();
-			escribirLog(mensajeLog, log);
 			conn.commit();
 		}
 		catch(SQLException e)
@@ -51,6 +51,8 @@ public class DAOTablaZona extends DAO
 	{
 		Zona zona = null;
 		String sql = "SELECT * FROM ZONA WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
@@ -91,7 +93,8 @@ public class DAOTablaZona extends DAO
 	{
 		ArrayList<Zona> zonas = new ArrayList<>();
 		String sql = "SELECT * FROM ZONA WHERE NOMBRE = ?";
-		String query = "SELECT * FROM ZONA WHERE NOMBRE = '"+nombre+"'";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+nombre;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, nombre);
@@ -110,7 +113,6 @@ public class DAOTablaZona extends DAO
 			}	
 
 			conn.commit();
-			escribirLog(query, log);
 			//	escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
@@ -132,6 +134,8 @@ public class DAOTablaZona extends DAO
 	{
 		ArrayList<Zona> zonas = new ArrayList<>();
 		String sql = "SELECT * FROM ZONA";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
@@ -201,12 +205,13 @@ public class DAOTablaZona extends DAO
 	public void eliminarZona(Connection conn, Zona zona, String log)
 	{
 		String sql = "DELETE FROM ZONA WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+zona.getIdZona();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, zona.getIdZona());
 			preStat.executeQuery();
 			conn.commit();
-			//	escribirLog(preStat.toString());
 		}
 		catch(SQLException e)
 		{

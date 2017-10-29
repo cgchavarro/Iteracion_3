@@ -18,6 +18,8 @@ public class DAOTablaRotonda  extends DAO
 	public void agregarRotonda(Connection conn, Rotonda rotonda, String log)
 	{
 		String sql = "INSERT INTO ROTONDANDES VALUES (?,?)";
+		String mensajeLog =sql+"&"+rotonda.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, rotonda.getId());
@@ -43,6 +45,8 @@ public class DAOTablaRotonda  extends DAO
 	{
 		Rotonda rotonda = null;
 		String sql = "SELECT * FROM ROTONDANDES WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
@@ -74,6 +78,8 @@ public class DAOTablaRotonda  extends DAO
 	{
 		ArrayList<Rotonda> rotondas = new ArrayList<>();
 		String sql = "SELECT * FROM ROTONDANDES WHERE NOMBRE = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+nombre;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, nombre);
@@ -105,6 +111,8 @@ public class DAOTablaRotonda  extends DAO
 	{
 		ArrayList<Rotonda> rotondas = new ArrayList<>();
 		String sql = "SELECT * FROM ROTONDANDES";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
@@ -158,6 +166,8 @@ public class DAOTablaRotonda  extends DAO
 	public void eliminarRotonda(Connection conn, Rotonda rotonda, String log)
 	{
 		String sql = "DELETE FROM ROTONDANDES WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+rotonda.getId();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, rotonda.getId());

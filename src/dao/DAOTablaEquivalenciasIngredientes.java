@@ -20,6 +20,8 @@ public class DAOTablaEquivalenciasIngredientes  extends DAO
 	public void agregarEquivalenciaIngredientes(Connection conn, EquivalenciaIngredientes eq, String log)
 	{
 		String sql = "INSERT INTO EQUIVALENCIASINGREDIENTES VALUES (?,?)";
+		String mensajeLog =sql+"&"+eq.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, eq.getIdIngrediente1());
@@ -46,6 +48,8 @@ public class DAOTablaEquivalenciasIngredientes  extends DAO
 	{
 		ArrayList<EquivalenciaIngredientes> tiposINGREDIENTES = new ArrayList<>();
 		String sql = "SELECT * FROM EQUIVALENCIASINGREDIENTES";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 

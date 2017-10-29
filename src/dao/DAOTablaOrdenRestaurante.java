@@ -20,6 +20,8 @@ public class DAOTablaOrdenRestaurante  extends DAO
 	{
 
 		String sql = "INSERT INTO ORDEN_RESTAURANTE VALUES (?,?,?,?,?,?,?)";
+		String mensajeLog =sql+"&"+ordenRestaurante.toParametros();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, ordenRestaurante.getIdOrdenRestaurante());
@@ -51,6 +53,8 @@ public class DAOTablaOrdenRestaurante  extends DAO
 	{
 		for(OrdenRestaurante orden:ordenRestaurante) {
 			String sql = "INSERT INTO ORDEN_RESTAURANTE VALUES (?,?,?,?,?,?,?)";
+			String mensajeLog =sql+"&"+orden.toParametros();
+			escribirLog(mensajeLog, log);
 			try(PreparedStatement preStat = conn.prepareStatement(sql))
 			{
 				preStat.setLong(1, orden.getIdOrdenRestaurante());
@@ -84,6 +88,8 @@ public class DAOTablaOrdenRestaurante  extends DAO
 	{
 		OrdenRestaurante ordenRestaurante = null;
 		String sql = "SELECT * FROM ORDEN_RESTAURANTE WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
@@ -121,6 +127,8 @@ public class DAOTablaOrdenRestaurante  extends DAO
 	{
 		ArrayList<OrdenRestaurante> ordenRestaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM ORDEN_RESTAURANTE WHERE ID_CLIENTE = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+idMenu;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, idMenu);
@@ -161,6 +169,8 @@ public class DAOTablaOrdenRestaurante  extends DAO
 	{
 		ArrayList<OrdenRestaurante> ordenRestaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM ORDEN_RESTAURANTE WHERE ID_MENU = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+idMenu;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, idMenu);
@@ -200,6 +210,8 @@ public class DAOTablaOrdenRestaurante  extends DAO
 	{
 		ArrayList<OrdenRestaurante> ordenRestaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM ORDEN_RESTAURANTE WHERE MESA = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+idMenu;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, idMenu);
@@ -239,6 +251,8 @@ public class DAOTablaOrdenRestaurante  extends DAO
 	{
 		ArrayList<OrdenRestaurante> ordenRestaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM ORDEN_RESTAURANTE WHERE SERVIDA = t";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 
@@ -277,6 +291,8 @@ public class DAOTablaOrdenRestaurante  extends DAO
 	{
 		ArrayList<OrdenRestaurante> ordenRestaurantes = new ArrayList<>();
 		String sql = "SELECT * FROM ORDEN_RESTAURANTE";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			ResultSet rs = preStat.executeQuery();
@@ -342,6 +358,8 @@ public class DAOTablaOrdenRestaurante  extends DAO
 	public void eliminarOrdenRestaurante(Connection conn, OrdenRestaurante ordenRestaurante, String log)
 	{
 		String sql = "DELETE FROM ORDEN_RESTAURANTE WHERE ID = ?";
+		String mensajeLog =sql+"&"+Long.class.getName()+":"+ordenRestaurante.getIdOrdenRestaurante();
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, ordenRestaurante.getIdOrdenRestaurante());
@@ -415,8 +433,10 @@ public class DAOTablaOrdenRestaurante  extends DAO
 		return ordenRestaurantes;
 	}
 
-	public void eliminarOrdenRestauranteMesa(Connection conn, String idMesa, String logs) {
+	public void eliminarOrdenRestauranteMesa(Connection conn, String idMesa, String log) {
 		String sql = "DELETE FROM ORDEN_RESTAURANTE WHERE MESA = ?";
+		String mensajeLog =sql+"&"+String.class.getName()+":"+idMesa;
+		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, idMesa);
