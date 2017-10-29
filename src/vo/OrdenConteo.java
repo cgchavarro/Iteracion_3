@@ -16,11 +16,11 @@ public class OrdenConteo
 	//TODO completar atributos
 	
 	public OrdenConteo(@JsonProperty(value="cantidadOrdenes") int cantidadClientes, 
-			@JsonProperty(value="cantidadOrdenesClientes") int cantidadOrdenesClientes	)
+			@JsonProperty(value="cantidadOrdenesClientes") int cantidadOrdenesClientes, @JsonProperty(value="cantidadOrdenesClientesNoClientes") int noClientes	)
 	{
 	this.cantidadOrdenes=cantidadClientes;
 	this.cantidadOrdenesClientes= cantidadOrdenesClientes;
-	this.cantidadOrdenesClientesNoClientes=cantidadClientes-cantidadOrdenesClientes;
+	this.cantidadOrdenesClientesNoClientes=noClientes;
 	}
 	
 

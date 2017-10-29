@@ -1,0 +1,42 @@
+{
+	"variables": [],
+	"info": {
+		"name": "RFC8",
+		"_postman_id": "1effe650-a87f-b0dd-0b6b-54b583d474b1",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "OrdenesRestaurante",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/administradorrotonda/ordenes",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"idIngrediente1\": 999,\r\n        \"idIngrediente2\": 98\r\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

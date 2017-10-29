@@ -10,26 +10,28 @@ public class ProductoVenta {
 
 
 	@JsonProperty(value="nombre_restaurante")
-	private String nombre;
+	private String nombre_restaurante;
 
 
 
 	@JsonProperty(value="ventasTotales")
-	private int ventas;
+	private int ventasTotales;
 
 
-	
+	@JsonProperty(value="cantidadVendidos")
+	private int cantidadVendidos;
 
 
 
 	public ProductoVenta(@JsonProperty(value="idProducto")Long idProducto, 
 			@JsonProperty(value="nombre_restaurante")String nombre, 
 			
-			@JsonProperty(value="ventasTotales") int cantidad
+			@JsonProperty(value="ventasTotales") int cantidad, @JsonProperty(value="cantidadVendidos") int vendidos
 			) {
 		this.idProducto = idProducto;
-		this.nombre = nombre;
-		this.ventas=cantidad;
+		this.nombre_restaurante = nombre;
+		this.ventasTotales=cantidad;
+		this.cantidadVendidos= vendidos;
 		
 	}
 
@@ -44,31 +46,48 @@ public class ProductoVenta {
 	}
 
 
-	public String getNombre() {
-		return nombre;
+	
+
+
+	public String getNombre_restaurante() {
+		return nombre_restaurante;
 	}
 
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombre_restaurante(String nombre_restaurante) {
+		this.nombre_restaurante = nombre_restaurante;
 	}
 
 
-	public int getVentas() {
-		return ventas;
+	public int getVentasTotales() {
+		return ventasTotales;
 	}
 
 
-	public void setVentas(int ventas) {
-		this.ventas = ventas;
+	public void setVentasTotales(int ventasTotales) {
+		this.ventasTotales = ventasTotales;
+	}
+
+
+	
+
+
+	public int getCantidadVendidos() {
+		return cantidadVendidos;
+	}
+
+
+	public void setCantidadVendidos(int cantidadVendidos) {
+		this.cantidadVendidos = cantidadVendidos;
 	}
 
 
 	public String toParametros()
 	{
 		return 	Long.class.getName() + ":" + idProducto + "," + 
-				String.class.getName()+ ":" + nombre + "," +
-								Integer.class.getName() + ":" + ventas ;
+				String.class.getName()+ ":" + nombre_restaurante + "," +
+								Integer.class.getName() + ":" + ventasTotales +
+								Integer.class.getName() + ":" + cantidadVendidos;
 	}
 
 }

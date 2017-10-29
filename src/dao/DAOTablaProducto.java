@@ -338,7 +338,7 @@ public class DAOTablaProducto  extends DAO{
 	public ArrayList<ProductoVenta> darProductosVentaPorRestaurante(Connection conn, String name, String log) {
 		ArrayList<ProductoVenta> productos = new ArrayList<ProductoVenta>();
 
-		String sql = "SELECT ID,CANTIDADVENTAS*PRECIO-CANTIDADVENTAS*COSTO AS VENTASTOTALES, NOMBRE_RESTAURANTE FROM PRODUCTO LEFT JOIN( SELECT PRODUCTO.ID AS IDENTIFICADOR, COUNT(*) AS CANTIDADVENTAS FROM PRODUCTO LEFT JOIN ( SELECT MENU.POSTRE AS POSTRE FROM ORDEN_RESTAURANTE LEFT JOIN MENU ON ORDEN_RESTAURANTE.ID_MENU = MENU.ID) ON POSTRE= PRODUCTO.ID GROUP BY PRODUCTO.ID ORDER BY ID) ON PRODUCTO.ID = IDENTIFICADOR WHERE NOMBRE_RESTAURANTE =? ORDER BY NOMBRE_RESTAURANTE";
+		String sql = "SELECT ID,CANTIDADVENTAS,CANTIDADVENTAS*PRECIO-CANTIDADVENTAS*COSTO AS VENTASTOTALES, NOMBRE_RESTAURANTE FROM PRODUCTO LEFT JOIN( SELECT PRODUCTO.ID AS IDENTIFICADOR, COUNT(*) AS CANTIDADVENTAS FROM PRODUCTO LEFT JOIN ( SELECT MENU.POSTRE AS POSTRE FROM ORDEN_RESTAURANTE LEFT JOIN MENU ON ORDEN_RESTAURANTE.ID_MENU = MENU.ID) ON POSTRE= PRODUCTO.ID GROUP BY PRODUCTO.ID ORDER BY ID) ON PRODUCTO.ID = IDENTIFICADOR WHERE NOMBRE_RESTAURANTE =? ORDER BY NOMBRE_RESTAURANTE";
 		String mensajeLog =sql+"&"+String.class.getName()+":"+name;
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -351,10 +351,11 @@ public class DAOTablaProducto  extends DAO{
 				Long id = rs.getLong("ID");
 				
 				int tiempo = rs.getInt("VENTASTOTALES");
+				int ventidos = rs.getInt("CANTIDADVENTAS");
 			
 				String nombreR = rs.getString("NOMBRE_RESTAURANTE");
 			
-				productos.add( new ProductoVenta(id,nombreR ,tiempo));
+				productos.add( new ProductoVenta(id,nombreR ,tiempo,ventidos));
 			}
 			conn.commit();
 		} catch (SQLException e) {
@@ -369,7 +370,7 @@ public class DAOTablaProducto  extends DAO{
 	public ArrayList<ProductoVenta> darProductosVenta(Connection conn, String log) {
 		ArrayList<ProductoVenta> productos = new ArrayList<ProductoVenta>();
 
-		String sql = "SELECT ID,CANTIDADVENTAS*PRECIO-CANTIDADVENTAS*COSTO AS VENTASTOTALES, NOMBRE_RESTAURANTE FROM PRODUCTO LEFT JOIN( SELECT PRODUCTO.ID AS IDENTIFICADOR, COUNT(*) AS CANTIDADVENTAS FROM PRODUCTO LEFT JOIN ( SELECT MENU.POSTRE AS POSTRE FROM ORDEN_RESTAURANTE LEFT JOIN MENU ON ORDEN_RESTAURANTE.ID_MENU = MENU.ID) ON POSTRE= PRODUCTO.ID GROUP BY PRODUCTO.ID ORDER BY ID) ON PRODUCTO.ID = IDENTIFICADOR  ORDER BY NOMBRE_RESTAURANTE";
+		String sql = "SELECT ID,CANTIDADVENTAS,CANTIDADVENTAS*PRECIO-CANTIDADVENTAS*COSTO AS VENTASTOTALES, NOMBRE_RESTAURANTE FROM PRODUCTO LEFT JOIN( SELECT PRODUCTO.ID AS IDENTIFICADOR, COUNT(*) AS CANTIDADVENTAS FROM PRODUCTO LEFT JOIN ( SELECT MENU.POSTRE AS POSTRE FROM ORDEN_RESTAURANTE LEFT JOIN MENU ON ORDEN_RESTAURANTE.ID_MENU = MENU.ID) ON POSTRE= PRODUCTO.ID GROUP BY PRODUCTO.ID ORDER BY ID) ON PRODUCTO.ID = IDENTIFICADOR  ORDER BY NOMBRE_RESTAURANTE";
 		String mensajeLog =sql;
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
@@ -384,8 +385,8 @@ public class DAOTablaProducto  extends DAO{
 				int tiempo = rs.getInt("VENTASTOTALES");
 			
 				String nombreR = rs.getString("NOMBRE_RESTAURANTE");
-			
-				productos.add( new ProductoVenta(id,nombreR ,tiempo));
+				int ventidos = rs.getInt("CANTIDADVENTAS");
+				productos.add( new ProductoVenta(id,nombreR ,tiempo, ventidos));
 			}
 			conn.commit();
 		} catch (SQLException e) {

@@ -41,6 +41,7 @@ import vo.EquivalenciaProductos;
 import vo.Ingrediente;
 import vo.IngredienteProducto;
 import vo.Producto;
+import vo.ProductoVenta;
 import vo.Reserva;
 import vo.Restaurante;
 import vo.Rotonda;
@@ -49,6 +50,7 @@ import vo.TipoProducto;
 
 import vo.Zona;
 import vo.Menu;
+import vo.OrdenConteo;
 import vo.OrdenRestaurante;
 import vo.PreferenciaCliente;
 
@@ -1682,7 +1684,52 @@ public class RotondAndesMaster
 		return productos;
 	}
 
+	public ArrayList<ProductoVenta> darProductosVentaRestaurante(String res) {
+		ArrayList<ProductoVenta> productos = new ArrayList<>();
+		DAOTablaProducto dao = new DAOTablaProducto();
+		try(Connection conn = darConexion())
+		{
+			productos = dao.darProductosVentaPorRestaurante(conn, res, log);
+		}
+		catch(SQLException e)
+		{
 
+			e.printStackTrace();
+		}
+		return productos;
+	}
+	public ArrayList<ProductoVenta> darProductosVenta() {
+		ArrayList<ProductoVenta> productos = new ArrayList<>();
+		DAOTablaProducto dao = new DAOTablaProducto();
+		try(Connection conn = darConexion())
+		{
+			productos = dao.darProductosVenta(conn, log);
+		}
+		catch(SQLException e)
+		{
+
+			e.printStackTrace();
+		}
+		return productos;
+	}
+
+	
+	public OrdenConteo darOrdenConteo()
+	{
+		 OrdenConteo  oc=null;
+				 DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
+			try(Connection conn = darConexion())
+			{
+				oc= dao.darConteoOrdenes(conn, log);
+			}
+			catch(SQLException e)
+			{
+
+				e.printStackTrace();
+			}
+			return oc;
+				 
+	}
 
 	public ArrayList<Producto> darProductosRestaurante(String name) 
 	{

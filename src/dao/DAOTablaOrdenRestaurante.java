@@ -463,7 +463,8 @@ public class DAOTablaOrdenRestaurante  extends DAO
 	{
 		
 		String sql1 = "SELECT COUNT (ID) AS CANTIDADORDENES  FROM ORDEN_RESTAURANTE  WHERE ID IS NOT NULL";
-		OrdenConteo oc = new OrdenConteo(0,0);
+		OrdenConteo oc = new OrdenConteo(0,0,0);
+		int clientes = 0;
 		String mensajeLog =sql1;
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql1))
@@ -474,6 +475,7 @@ public class DAOTablaOrdenRestaurante  extends DAO
 			while(rs.next())
 			{
 				int idOrdenRestaurante = rs.getInt("CANTIDADORDENES");
+				clientes= idOrdenRestaurante;
 				oc.setCantidadOrdenes(idOrdenRestaurante);
 				
 			conn.commit();
@@ -502,7 +504,9 @@ public class DAOTablaOrdenRestaurante  extends DAO
 			while(rs.next())
 			{
 				int idOrdenRestaurante = rs.getInt("CANTIDADORDENESCLIENTES");
+				clientes-=idOrdenRestaurante;
 				oc.setCantidadOrdenesClientes(idOrdenRestaurante);
+				oc.setCantidadOrdenesClientesNoClientes(clientes);
 				
 			conn.commit();
 		}

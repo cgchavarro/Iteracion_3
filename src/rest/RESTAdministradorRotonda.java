@@ -22,9 +22,11 @@ import vo.AdministradorRotonda;
 import vo.Cliente;
 import vo.MensajeError;
 import vo.Menu;
+import vo.OrdenConteo;
 import vo.OrdenRestaurante;
 import vo.PreferenciaCliente;
 import vo.Producto;
+import vo.ProductoVenta;
 import vo.Restaurante;
 import vo.Zona;
 
@@ -285,5 +287,27 @@ public class RESTAdministradorRotonda
 		//		cuando un restaurante hace esta consulta obtiene la información de sus propias actividades,
 		//		mientras que el administrador obtiene toda la información. Ver RNF1.
 		//	
+	
+	
+	@GET
+	@Path(  "/ordenes" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	public Response darOrdenes( )
+	{
+		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		try
+		{
+			ArrayList lista = new ArrayList();
+	OrdenConteo oc = tm.darOrdenConteo();
+	lista.add(oc);
+	ArrayList<ProductoVenta> productos = tm.darProductosVenta();
+	lista.addAll(productos);
+			return Response.status( 200 ).entity( lista).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
+	}
 	
 }
