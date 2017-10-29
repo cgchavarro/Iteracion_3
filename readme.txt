@@ -1,4 +1,4 @@
-Para ejecutar el proyecto:
+﻿Para ejecutar el proyecto:
 -Abrir en Eclipse en un computador donde hayan JBossTools y wildfly 10.0.0 _En este servido se realizaron las pruebas_
 
 -Ejecutar el proyecto en un servidor wildfly, en  el 10.0.0 fueron realizadas las pruebas.
@@ -150,6 +150,14 @@ Donde {idCliente}, corresponde a un cliente ya existente.
 
 Algunos id de cliente son: 1010054402 y 2020202020.
 
+
+RFC8
+
+Obetener información ordenes clientes registrados y no registrados, información venta productos.
+
+GET http://localhost:8080/RotondAndes/rest/administradorrotonda/ordenes	
+
+GET  http://localhost:8080/RotondAndes/rest/administradorrotonda/ordenes/productosmenu
 
 
 

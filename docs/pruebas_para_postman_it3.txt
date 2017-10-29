@@ -138,6 +138,15 @@ Donde {idCliente}, corresponde a un cliente ya existente.
 Algunos id de cliente son: 1010054402 y 2020202020.
 
 
+RFC8
+
+Obetener información ordenes clientes registrados y no registrados, información venta productos.
+
+GET http://localhost:8080/RotondAndes/rest/administradorrotonda/ordenes	
+
+GET  http://localhost:8080/RotondAndes/rest/administradorrotonda/ordenes/productosmenu
+
+
 
 
 
