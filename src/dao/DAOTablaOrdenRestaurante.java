@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import vo.OrdenConteo;
 import vo.OrdenRestaurante;
 
 public class DAOTablaOrdenRestaurante  extends DAO
@@ -455,5 +456,69 @@ public class DAOTablaOrdenRestaurante  extends DAO
 
 			e.printStackTrace();
 		}
+	}
+	
+
+	public OrdenConteo darConteoOrdenes(Connection conn, String log)
+	{
+		
+		String sql1 = "SELECT COUNT (ID) AS CANTIDADORDENES  FROM ORDEN_RESTAURANTE  WHERE ID IS NOT NULL";
+		OrdenConteo oc = new OrdenConteo(0,0);
+		String mensajeLog =sql1;
+		escribirLog(mensajeLog, log);
+		try(PreparedStatement preStat = conn.prepareStatement(sql1))
+		{
+		
+			ResultSet rs = preStat.executeQuery();
+
+			while(rs.next())
+			{
+				int idOrdenRestaurante = rs.getInt("CANTIDADORDENES");
+				oc.setCantidadOrdenes(idOrdenRestaurante);
+				
+			conn.commit();
+		}
+		}
+		catch(SQLException e)
+		{
+			try 
+			{
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();
+		}
+		String sql2 = "SELECT COUNT(ID_CLIENTE) AS CANTIDADORDENESCLIENTES FROM ORDEN_RESTAURANTE WHERE ID_CLIENTE IS NOT NULL";
+		String mensajeLog2 =sql1;
+		escribirLog(mensajeLog2, log);
+		try(PreparedStatement preStat = conn.prepareStatement(sql2))
+		{
+		
+			ResultSet rs = preStat.executeQuery();
+
+			while(rs.next())
+			{
+				int idOrdenRestaurante = rs.getInt("CANTIDADORDENESCLIENTES");
+				oc.setCantidadOrdenesClientes(idOrdenRestaurante);
+				
+			conn.commit();
+		}
+		}
+		catch(SQLException e)
+		{
+			try 
+			{
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();
+		}
+		return oc;
 	}
 }
