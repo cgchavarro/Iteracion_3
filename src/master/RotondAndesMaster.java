@@ -1712,7 +1712,64 @@ public class RotondAndesMaster
 		}
 		return productos;
 	}
+	public ArrayList<ProductoVenta> darProductosVentaBebida() {
+		ArrayList<ProductoVenta> productos = new ArrayList<>();
+		DAOTablaProducto dao = new DAOTablaProducto();
+		try(Connection conn = darConexion())
+		{
+			productos = dao.darProductosVentaBebida(conn, log);
+		}
+		catch(SQLException e)
+		{
 
+			e.printStackTrace();
+		}
+		return productos;
+	}
+	public ArrayList<ProductoVenta> darProductosVentaPlatoFuerte() {
+		ArrayList<ProductoVenta> productos = new ArrayList<>();
+		DAOTablaProducto dao = new DAOTablaProducto();
+		try(Connection conn = darConexion())
+		{
+			productos = dao.darProductosVentaPlatoFuerte(conn, log);
+		}
+		catch(SQLException e)
+		{
+
+			e.printStackTrace();
+		}
+		return productos;
+	}
+	
+	public ArrayList<ProductoVenta> darProductosVentaEntrada() {
+		ArrayList<ProductoVenta> productos = new ArrayList<>();
+		DAOTablaProducto dao = new DAOTablaProducto();
+		try(Connection conn = darConexion())
+		{
+			productos = dao.darProductosVentaEntrada(conn, log);
+		}
+		catch(SQLException e)
+		{
+
+			e.printStackTrace();
+		}
+		return productos;
+	}
+
+	public ArrayList<ProductoVenta> darProductosVentaAcompaniamiento() {
+		ArrayList<ProductoVenta> productos = new ArrayList<>();
+		DAOTablaProducto dao = new DAOTablaProducto();
+		try(Connection conn = darConexion())
+		{
+			productos = dao.darProductosVentaAcompaniamiento(conn, log);
+		}
+		catch(SQLException e)
+		{
+
+			e.printStackTrace();
+		}
+		return productos;
+	}
 	
 	public OrdenConteo darOrdenConteo()
 	{

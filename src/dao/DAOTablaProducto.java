@@ -367,6 +367,36 @@ public class DAOTablaProducto  extends DAO{
 	}
 
 
+	public ArrayList<ProductoVenta> darProductosVentaAcompaniamiento(Connection conn, String log) {
+		ArrayList<ProductoVenta> productos = new ArrayList<ProductoVenta>();
+
+		String sql = "SELECT ID,CANTIDADVENTAS,CANTIDADVENTAS*PRECIO-CANTIDADVENTAS*COSTO AS VENTASTOTALES, NOMBRE_RESTAURANTE FROM PRODUCTO LEFT JOIN( SELECT PRODUCTO.ID AS IDENTIFICADOR, COUNT(*) AS CANTIDADVENTAS FROM PRODUCTO LEFT JOIN ( SELECT MENU.ACOMPANIAMIENTO AS POSTRE FROM ORDEN_RESTAURANTE LEFT JOIN MENU ON ORDEN_RESTAURANTE.ID_MENU = MENU.ID) ON POSTRE= PRODUCTO.ID GROUP BY PRODUCTO.ID ORDER BY ID) ON PRODUCTO.ID = IDENTIFICADOR  ORDER BY NOMBRE_RESTAURANTE";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
+		try(PreparedStatement preStat = conn.prepareStatement(sql))
+		{
+			
+			ResultSet rs = preStat.executeQuery();
+
+			while (rs.next()) {
+			
+				Long id = rs.getLong("ID");
+				
+				int tiempo = rs.getInt("VENTASTOTALES");
+			
+				String nombreR = rs.getString("NOMBRE_RESTAURANTE");
+				int ventidos = rs.getInt("CANTIDADVENTAS");
+				productos.add( new ProductoVenta(id,nombreR ,tiempo, ventidos));
+			}
+			conn.commit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return productos;
+	}
+
 	public ArrayList<ProductoVenta> darProductosVenta(Connection conn, String log) {
 		ArrayList<ProductoVenta> productos = new ArrayList<ProductoVenta>();
 
@@ -398,9 +428,95 @@ public class DAOTablaProducto  extends DAO{
 	}
 
 
+	public ArrayList<ProductoVenta> darProductosVentaBebida(Connection conn, String log) {
+		ArrayList<ProductoVenta> productos = new ArrayList<ProductoVenta>();
 
+		String sql = "SELECT ID,CANTIDADVENTAS,CANTIDADVENTAS*PRECIO-CANTIDADVENTAS*COSTO AS VENTASTOTALES, NOMBRE_RESTAURANTE FROM PRODUCTO LEFT JOIN( SELECT PRODUCTO.ID AS IDENTIFICADOR, COUNT(*) AS CANTIDADVENTAS FROM PRODUCTO LEFT JOIN ( SELECT MENU.BEBIDA AS POSTRE FROM ORDEN_RESTAURANTE LEFT JOIN MENU ON ORDEN_RESTAURANTE.ID_MENU = MENU.ID) ON POSTRE= PRODUCTO.ID GROUP BY PRODUCTO.ID ORDER BY ID) ON PRODUCTO.ID = IDENTIFICADOR  ORDER BY NOMBRE_RESTAURANTE";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
+		try(PreparedStatement preStat = conn.prepareStatement(sql))
+		{
+			
+			ResultSet rs = preStat.executeQuery();
 
+			while (rs.next()) {
+			
+				Long id = rs.getLong("ID");
+				
+				int tiempo = rs.getInt("VENTASTOTALES");
+			
+				String nombreR = rs.getString("NOMBRE_RESTAURANTE");
+				int ventidos = rs.getInt("CANTIDADVENTAS");
+				productos.add( new ProductoVenta(id,nombreR ,tiempo, ventidos));
+			}
+			conn.commit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+		return productos;
+	}
+
+	public ArrayList<ProductoVenta> darProductosVentaEntrada(Connection conn, String log) {
+		ArrayList<ProductoVenta> productos = new ArrayList<ProductoVenta>();
+
+		String sql = "SELECT ID,CANTIDADVENTAS,CANTIDADVENTAS*PRECIO-CANTIDADVENTAS*COSTO AS VENTASTOTALES, NOMBRE_RESTAURANTE FROM PRODUCTO LEFT JOIN( SELECT PRODUCTO.ID AS IDENTIFICADOR, COUNT(*) AS CANTIDADVENTAS FROM PRODUCTO LEFT JOIN ( SELECT MENU.ENTRADA AS POSTRE FROM ORDEN_RESTAURANTE LEFT JOIN MENU ON ORDEN_RESTAURANTE.ID_MENU = MENU.ID) ON POSTRE= PRODUCTO.ID GROUP BY PRODUCTO.ID ORDER BY ID) ON PRODUCTO.ID = IDENTIFICADOR  ORDER BY NOMBRE_RESTAURANTE";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
+		try(PreparedStatement preStat = conn.prepareStatement(sql))
+		{
+			
+			ResultSet rs = preStat.executeQuery();
+
+			while (rs.next()) {
+			
+				Long id = rs.getLong("ID");
+				
+				int tiempo = rs.getInt("VENTASTOTALES");
+			
+				String nombreR = rs.getString("NOMBRE_RESTAURANTE");
+				int ventidos = rs.getInt("CANTIDADVENTAS");
+				productos.add( new ProductoVenta(id,nombreR ,tiempo, ventidos));
+			}
+			conn.commit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return productos;
+	}
+
+	public ArrayList<ProductoVenta> darProductosVentaPlatoFuerte(Connection conn, String log) {
+		ArrayList<ProductoVenta> productos = new ArrayList<ProductoVenta>();
+
+		String sql = "SELECT ID,CANTIDADVENTAS,CANTIDADVENTAS*PRECIO-CANTIDADVENTAS*COSTO AS VENTASTOTALES, NOMBRE_RESTAURANTE FROM PRODUCTO LEFT JOIN( SELECT PRODUCTO.ID AS IDENTIFICADOR, COUNT(*) AS CANTIDADVENTAS FROM PRODUCTO LEFT JOIN ( SELECT MENU.PLATOFUERTE AS POSTRE FROM ORDEN_RESTAURANTE LEFT JOIN MENU ON ORDEN_RESTAURANTE.ID_MENU = MENU.ID) ON POSTRE= PRODUCTO.ID GROUP BY PRODUCTO.ID ORDER BY ID) ON PRODUCTO.ID = IDENTIFICADOR  ORDER BY NOMBRE_RESTAURANTE";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
+		try(PreparedStatement preStat = conn.prepareStatement(sql))
+		{
+			
+			ResultSet rs = preStat.executeQuery();
+
+			while (rs.next()) {
+			
+				Long id = rs.getLong("ID");
+				
+				int tiempo = rs.getInt("VENTASTOTALES");
+			
+				String nombreR = rs.getString("NOMBRE_RESTAURANTE");
+				int ventidos = rs.getInt("CANTIDADVENTAS");
+				productos.add( new ProductoVenta(id,nombreR ,tiempo, ventidos));
+			}
+			conn.commit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return productos;
+	}
 
 
 }

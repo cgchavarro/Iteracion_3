@@ -310,4 +310,44 @@ public class RESTAdministradorRotonda
 		}
 	}
 	
+	@GET
+	@Path(  "/ordenes/productosmenu" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	public Response darOrdenesProductosMenu( )
+	{
+		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		try
+		{
+			ArrayList lista = new ArrayList();
+	OrdenConteo oc = tm.darOrdenConteo();
+	
+	lista.add(oc);
+
+	
+	lista.add(new MensajeError("Entradas"));
+	ArrayList<ProductoVenta> productosEntrada = tm.darProductosVentaEntrada();
+	lista.addAll(productosEntrada);
+	
+	lista.add(new MensajeError("Bebida"));
+	ArrayList<ProductoVenta> productosB = tm.darProductosVentaBebida();
+	lista.addAll(productosB);
+	
+	lista.add(new MensajeError("Acompaniamientos"));
+	ArrayList<ProductoVenta> productosa = tm.darProductosVentaAcompaniamiento();
+	lista.addAll(productosa);
+	
+	lista.add(new MensajeError("Platos fuertes"));
+	ArrayList<ProductoVenta> productosf = tm.darProductosVentaPlatoFuerte();
+	lista.addAll(productosf);
+	
+	lista.add(new MensajeError("Postres"));
+	ArrayList<ProductoVenta> productos = tm.darProductosVenta();
+	lista.addAll(productos);
+			return Response.status( 200 ).entity( lista).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
+	}
 }
