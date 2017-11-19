@@ -20,6 +20,7 @@ import master.RotondAndesMaster;
 import vo.AdministradorRestaurante;
 import vo.AdministradorRotonda;
 import vo.Cliente;
+import vo.ClienteTipo;
 import vo.MensajeError;
 import vo.Menu;
 import vo.OrdenConteo;
@@ -309,6 +310,27 @@ public class RESTAdministradorRotonda
 			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
 		}
 	}
+	
+	
+	@GET
+	@Path( "/clientesTipo" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	public Response darClientesTipo( )
+	{
+		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		try
+		{
+			ArrayList<ClienteTipo> lista =  tm.darClientesTipo();
+	
+			return Response.status( 200 ).entity( lista).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
+	}
+	
+	
 	
 	@GET
 	@Path(  "/ordenes/productosmenu" )

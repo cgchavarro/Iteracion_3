@@ -1,0 +1,33 @@
+{
+	"variables": [],
+	"info": {
+		"name": "REquerimientos consulta it4",
+		"_postman_id": "80a11133-961e-83e3-384e-5e7281937114",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "RFC12",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/RotondAndes/rest/administradorrotonda/clientesTipo",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

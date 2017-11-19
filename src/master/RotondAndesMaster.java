@@ -34,6 +34,7 @@ import vo.AdministradorRestaurante;
 import vo.AdministradorRotonda;
 import vo.Categoria;
 import vo.Cliente;
+import vo.ClienteTipo;
 import vo.ContabilidadGeneral;
 import vo.ContabilidadRestaurante;
 import vo.EquivalenciaIngredientes;
@@ -363,6 +364,22 @@ public class RotondAndesMaster
 		return cliente;
 	}
 
+	public ArrayList<ClienteTipo> darClientesTipo()
+	{
+		ArrayList<ClienteTipo> cliente = null;
+		DAOTablaCliente dao = new DAOTablaCliente();
+		try(Connection conn = darConexion())
+		{
+			cliente = dao.darClientesTipo(conn,log);
+		}
+		catch(SQLException e)
+		{
+
+			e.printStackTrace();
+		}
+		return cliente;
+	}
+	
 	public void actualizarCliente(Cliente cliente)
 	{
 		DAOTablaCliente dao = new DAOTablaCliente();

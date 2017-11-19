@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vo.Cliente;
+import vo.ClienteTipo;
+
 
 public class DAOTablaCliente  extends DAO
 {
@@ -239,6 +241,47 @@ public class DAOTablaCliente  extends DAO
 
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<ClienteTipo> darClientesTipo(Connection conn, String log) {
+		ArrayList<ClienteTipo> clientes = new ArrayList<ClienteTipo>();
+
+		String sql = "select cliente.cedula,cliente.nombre, cliente.correo,cliente.ID_ROTONDA,CAST ((count(ORDEN_RESTAURANTE.FECHA)/13) AS INTEGER )  as numeroOrdenes, max(producto.precio) as preciominimo from cliente left join  (orden_restaurante left join  (menu right join producto  on menu.platofuerte = producto.id)  on orden_restaurante.id_menu = menu.id)  on  cliente.cedula = orden_restaurante.id_cliente  group by Cliente.cedula, Cliente.Nombre, Cliente.Correo, cliente.ID_ROTONDA order by numeroordenes desc, preciominimo desc";
+		String mensajeLog =sql;
+		escribirLog(mensajeLog, log);
+		try(PreparedStatement preStat = conn.prepareStatement(sql))
+		{
+			
+			ResultSet rs = preStat.executeQuery();
+
+			
+			while (rs.next()) {
+			
+				Long id = rs.getLong("CEDULA");
+				
+				Long tiempo = rs.getLong("ID_ROTONDA");
+				String nombre = rs.getString("NOMBRE");
+				String nombreR = rs.getString("CORREO");
+				int ventidos = rs.getInt("NUMEROORDENES");
+				int ventidos2 = rs.getInt("PRECIOMINIMO");
+				String tipo ;
+				if(ventidos>1)
+					tipo = new String("Cliente consume una vez por semana");
+				else if(ventidos2>24000)
+					tipo = new String("Cliente consume productos caros");
+				
+				else
+					tipo = new String("Cliente no consume");
+				clientes.add( new ClienteTipo(id,nombre,nombreR, tiempo, tipo));
+				
+			}
+			conn.commit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return clientes;
 	}
 
 }
