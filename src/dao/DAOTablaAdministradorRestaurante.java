@@ -1,12 +1,16 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 import vo.AdministradorRestaurante;
+import vo.Cliente;
+import vo.ClienteRFC;
 
 
 public class DAOTablaAdministradorRestaurante extends DAO
@@ -240,6 +244,84 @@ public class DAOTablaAdministradorRestaurante extends DAO
 
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<ClienteRFC> consultarConsumoClientes(Connection conn, String restaurante, String fechaMin, String fechaMax, String orderBy, String log)
+	{
+		ArrayList<ClienteRFC> clientes = new ArrayList<>();
+		String sql = "SELECT DISTINCT CEDULA, CLIENTE.NOMBRE, CORREO, MENU.NOMBRE_RESTAURANTE\r\n" + 
+				"FROM (CLIENTE RIGHT JOIN (ORDEN_RESTAURANTE RIGHT JOIN (MENU RIGHT JOIN PRODUCTO ON MENU.NOMBRE_RESTAURANTE =PRODUCTO.NOMBRE_RESTAURANTE) ON MENU.ID = ORDEN_RESTAURANTE.ID_MENU) ON CLIENTE.CEDULA = ORDEN_RESTAURANTE.ID_CLIENTE)\r\n" + 
+				"WHERE ORDEN_RESTAURANTE.ID_CLIENTE IS NOT NULL AND FECHA >= ? AND FECHA < ? AND MENU.NOMBRE_RESTAURANTE = ?\n" + 
+				"ORDER BY ?";
+		try(PreparedStatement preStat = conn.prepareStatement(sql))
+		{
+			preStat.setString(1, fechaMin);
+			preStat.setString(2, fechaMax);
+			preStat.setString(3, restaurante);
+			preStat.setString(4, orderBy);
+			ResultSet rs = preStat.executeQuery();
+			
+			while(rs.next())
+			{
+				Long cedula = rs.getLong("CEDULA");
+				String nombre1 = rs.getString("NOMBRE");
+				String correo = rs.getString("CORREO");
+				clientes.add(new ClienteRFC(cedula, nombre1, correo, restaurante));
+			}
+			conn.commit();
+		}
+		catch(SQLException e)
+		{
+			try 
+			{
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();
+		}
+		return clientes;
+	}
+	
+	public ArrayList<ClienteRFC> consultarNoConsumoClientes(Connection conn, String restaurante, String fechaMin, String fechaMax, String orderBy, String log)
+	{
+		ArrayList<ClienteRFC> clientes = new ArrayList<>();
+		String sql = "SELECT CEDULA, CLIENTE.NOMBRE, CORREO FROM CLIENTE MINUS SELECT DISTINCT CEDULA, CLIENTE.NOMBRE, CORREO FROM (CLIENTE RIGHT JOIN (ORDEN_RESTAURANTE RIGHT JOIN (MENU RIGHT JOIN PRODUCTO ON MENU.NOMBRE_RESTAURANTE =PRODUCTO.NOMBRE_RESTAURANTE) ON MENU.ID = ORDEN_RESTAURANTE.ID_MENU) ON CLIENTE.CEDULA = ORDEN_RESTAURANTE.ID_CLIENTE) WHERE FECHA >= ? AND FECHA < ? AND MENU.NOMBRE_RESTAURANTE = ? ORDER BY "+orderBy;
+		try(PreparedStatement preStat = conn.prepareStatement(sql))
+		{
+			System.out.println(fechaMin);
+			System.out.println(fechaMax);
+			System.out.println(restaurante);
+			System.out.println(orderBy);
+			preStat.setString(1, fechaMin);
+			preStat.setString(2, fechaMax);
+			preStat.setString(3, restaurante);
+			ResultSet rs = preStat.executeQuery();
+			
+			while(rs.next())
+			{
+				Long cedula = rs.getLong("CEDULA");
+				String nombre1 = rs.getString("NOMBRE");
+				String correo = rs.getString("CORREO");
+				clientes.add(new ClienteRFC(cedula, nombre1, correo, restaurante));
+			}
+			conn.commit();
+		}
+		catch(SQLException e)
+		{
+			try 
+			{
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();
+		}
+		return clientes;
 	}
 
 }

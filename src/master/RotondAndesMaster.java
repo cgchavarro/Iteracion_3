@@ -34,6 +34,7 @@ import vo.AdministradorRestaurante;
 import vo.AdministradorRotonda;
 import vo.Categoria;
 import vo.Cliente;
+import vo.ClienteRFC;
 import vo.ClienteTipo;
 import vo.ContabilidadGeneral;
 import vo.ContabilidadRestaurante;
@@ -2573,6 +2574,40 @@ public class RotondAndesMaster
 
 						e.printStackTrace();
 					}
+				}
+				
+				public ArrayList<ClienteRFC> consultarConsumoClientes(String restaurante, String fechaMin, String  fechaMax, String orderBy)
+				{
+					DAOTablaAdministradorRestaurante dao = new DAOTablaAdministradorRestaurante();
+					ArrayList<ClienteRFC> clientes = new ArrayList<>();
+					try(Connection conn = darConexion())
+					{
+						clientes = dao.consultarConsumoClientes(conn, restaurante, fechaMin, fechaMax, orderBy, log);
+						
+					} 
+					catch (SQLException e) 
+					{
+
+						e.printStackTrace();
+					}
+					return clientes;
+				}
+				
+				public ArrayList<ClienteRFC> consultarNoConsumoClientes(String restaurante, String fechaMin, String  fechaMax, String orderBy)
+				{
+					DAOTablaAdministradorRestaurante dao = new DAOTablaAdministradorRestaurante();
+					ArrayList<ClienteRFC> clientes = new ArrayList<>();
+					try(Connection conn = darConexion())
+					{
+						clientes = dao.consultarNoConsumoClientes(conn, restaurante, fechaMin, fechaMax, orderBy, log);
+						
+					} 
+					catch (SQLException e) 
+					{
+
+						e.printStackTrace();
+					}
+					return clientes;
 				}
 
 

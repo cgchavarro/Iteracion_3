@@ -1,5 +1,8 @@
 package rest;
 
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +21,7 @@ import javax.ws.rs.core.Response;
 
 import master.RotondAndesMaster;
 import vo.AdministradorRestaurante;
+import vo.ClienteRFC;
 import vo.EquivalenciaIngredientes;
 import vo.EquivalenciaProductos;
 import vo.Ingrediente;
@@ -294,19 +298,62 @@ public class RESTAdministradorRestaurante
 	//		NOTA: Respetando la privacidad de los clientes, 
 	//		cuando un restaurante hace esta consulta obtiene la información de sus propias actividades,
 	//		mientras que el administrador obtiene toda la información. Ver RNF1.
-	
+
 	//	
-	
+
 	@GET
 	@Path("/consultardedidos/{idRestaurante}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darPedidosRestaurante(@PathParam( "idRestaurante" ) String id)
 	{
-		
+
 		RotondAndesMaster tm = new RotondAndesMaster(getPath());
 		List<EquivalenciaIngredientes> clientes;
 		try {
 			clientes = tm.darEquivalenciasIngredientes();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(clientes).build();
+	}
+
+	/**
+	 * RFC9. CONSULTAR CONSUMO EN ROTONDANDES
+	 * Se quiere conocer la información de los usuarios que consumieron al menos un producto 
+	 * de un determinado restaurante en un rango de fechas. Los resultados deben ser clasificados 
+	 * según un criterio deseado por quien realiza la consulta. En la clasificación debe ofrecerse 
+	 * la posibilidad de agrupamiento y ordenamiento de las respuestas según los intereses del usuario 
+	 * que consulta como, por ejemplo, por los datos del cliente, por producto y por tipo de producto. 
+	 * Esta operación es realizada por los usuarios restaurante y por el gerente general de RotondAndes.
+	 * NOTA: Respetando la privacidad de los clientes, cuando un cliente restaurante hace esta consulta 
+	 * obtiene la información de su propia actividad, mientras que el administrador obtiene toda la información 
+	 * de cualquiera de los clientes. Ver RNF1.
+	 */
+
+	@GET
+	@Path("/consultarConsumo/{idRestaurante}/{fechaMin}/{fechaMax}/{orderBy}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response darConsumoRotondandes(@PathParam( "idRestaurante" ) String id, @PathParam( "fechaMin" ) String fechaMin, @PathParam( "fechaMax" ) String fechaMax, @PathParam( "orderBy" ) String orderBy)
+	{		
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		List<ClienteRFC> clientes;
+		try {
+			clientes = tm.consultarConsumoClientes(id, fechaMin, fechaMax, orderBy);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(clientes).build();
+	}
+	
+	@GET
+	@Path("/consultarNoConsumo/{idRestaurante}/{fechaMin}/{fechaMax}/{orderBy}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response darNoConsumoRotondandes(@PathParam( "idRestaurante" ) String id, @PathParam( "fechaMin" ) String fechaMin, @PathParam( "fechaMax" ) String fechaMax, @PathParam( "orderBy" ) String orderBy)
+	{		
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		List<ClienteRFC> clientes;
+		try {
+			clientes = tm.consultarNoConsumoClientes(id, fechaMin, fechaMax, orderBy);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
