@@ -57,6 +57,7 @@ public class DAOTablaMenu  extends DAO
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -97,6 +98,7 @@ public class DAOTablaMenu  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
+			preStat.setMaxRows(100);
 			preStat.setLong(1, idRestaurante);
 			ResultSet rs = preStat.executeQuery();
 			
@@ -137,7 +139,7 @@ public class DAOTablaMenu  extends DAO
 		String mensajeLog =sql;
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
-		{
+		{preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -184,6 +186,7 @@ public class DAOTablaMenu  extends DAO
 			preStat.setLong(7, menu.getIdAcompaniamiento());
 			preStat.setLong(8, menu.getIdBebida());
 			preStat.setLong(9, menu.getIdMenu());
+			preStat.setMaxRows(100);
 			preStat.executeQuery();
 			conn.commit();
 		}
@@ -234,7 +237,7 @@ public class DAOTablaMenu  extends DAO
 		String mensajeLog =sql+"&"+Long.class.getName()+":"+id;
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
-		{
+		{preStat.setMaxRows(100);
 			preStat.setLong(1, id);
 			ResultSet rs = preStat.executeQuery();
 			
@@ -275,7 +278,7 @@ public class DAOTablaMenu  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setLong(1, id);
+			preStat.setLong(1, id);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -316,7 +319,7 @@ public class DAOTablaMenu  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setLong(1, id);
+			preStat.setLong(1, id);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -357,7 +360,7 @@ public class DAOTablaMenu  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setLong(1, id);
+			preStat.setLong(1, id);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -398,7 +401,7 @@ public class DAOTablaMenu  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setLong(1, id);
+			preStat.setLong(1, id);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -438,7 +441,7 @@ public class DAOTablaMenu  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setLong(1, id);
+			preStat.setLong(1, id);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			ArrayList<Long> ids = new ArrayList<>();
 			

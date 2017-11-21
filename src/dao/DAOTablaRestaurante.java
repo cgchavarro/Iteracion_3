@@ -21,7 +21,7 @@ public class DAOTablaRestaurante  extends DAO
 		String mensajeLog =sql+"&"+restaurante.toParametros();
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
-		{
+		{preStat.setMaxRows(100);
 		
 			preStat.setString(1, restaurante.getNombre());
 			preStat.setString(2, restaurante.getTipoComida());
@@ -54,7 +54,7 @@ public class DAOTablaRestaurante  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setString(1, nombre);
+			preStat.setString(1, nombre);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -93,7 +93,7 @@ public class DAOTablaRestaurante  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setLong(1, nombre);
+			preStat.setLong(1, nombre);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -131,7 +131,7 @@ public class DAOTablaRestaurante  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			ResultSet rs = preStat.executeQuery();
+			ResultSet rs = preStat.executeQuery();preStat.setMaxRows(100);
 			
 			while(rs.next())
 			{

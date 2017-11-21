@@ -61,7 +61,7 @@ public class DAOTablaProducto  extends DAO{
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setLong(1, id);
+			preStat.setLong(1, id);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while(rs.next())
@@ -106,7 +106,7 @@ public class DAOTablaProducto  extends DAO{
 
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setString(1, nombre);
+			preStat.setString(1, nombre);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while (rs.next()) {
@@ -142,7 +142,7 @@ public class DAOTablaProducto  extends DAO{
 
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setString(1, name);
+			preStat.setString(1, name);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while (rs.next()) {
@@ -178,7 +178,7 @@ public class DAOTablaProducto  extends DAO{
 
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setLong(1, id);
+			preStat.setLong(1, id);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while (rs.next()) {
@@ -213,7 +213,7 @@ public class DAOTablaProducto  extends DAO{
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setDouble(1, min);
-			preStat.setDouble(2, max);
+			preStat.setDouble(2, max);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while (rs.next()) {
@@ -247,7 +247,7 @@ public class DAOTablaProducto  extends DAO{
 		escribirLog(mensajeLog, log);
 
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
-		{
+		{preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while (rs.next()) {
@@ -277,7 +277,7 @@ public class DAOTablaProducto  extends DAO{
 	{
 		String sql = "UPDATE PRODUCTO SET NOMBRE = ?, ID_CATEGORIA = ?, DESCRIPCION_ESP = ?, DESCRIPCION_ING = ?, TIEMPO = ?, COSTO = ?, PRECIO = ?, CANTIDAD = ?, NOMBRE_RESTAURANTE =?, CANTIDAD_MAXIMA =? WHERE ID = ?";
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
-		{
+		{preStat.setMaxRows(100);
 			preStat.setString(1, producto.getNombre());
 			preStat.setLong(2, producto.getCategoria());
 			preStat.setString(3, producto.getDescripcionEsp());
@@ -304,7 +304,7 @@ public class DAOTablaProducto  extends DAO{
 		String mensajeLog =sql+"&"+Long.class.getName()+":"+producto.getIdProducto();
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
-		{
+		{preStat.setMaxRows(100);
 			preStat.setLong(1, producto.getIdProducto());
 			preStat.executeQuery();
 			conn.commit();
@@ -321,7 +321,7 @@ public class DAOTablaProducto  extends DAO{
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-		
+			preStat.setMaxRows(100);
 		preStat.setString(1, nombreRestaurante);
 						
 			preStat.executeQuery();
@@ -343,7 +343,7 @@ public class DAOTablaProducto  extends DAO{
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setString(1, name);
+			preStat.setString(1, name);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while (rs.next()) {
@@ -375,7 +375,7 @@ public class DAOTablaProducto  extends DAO{
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while (rs.next()) {
@@ -405,7 +405,7 @@ public class DAOTablaProducto  extends DAO{
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while (rs.next()) {
@@ -436,7 +436,7 @@ public class DAOTablaProducto  extends DAO{
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while (rs.next()) {
@@ -466,7 +466,7 @@ public class DAOTablaProducto  extends DAO{
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while (rs.next()) {
@@ -496,7 +496,7 @@ public class DAOTablaProducto  extends DAO{
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while (rs.next()) {

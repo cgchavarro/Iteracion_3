@@ -30,6 +30,7 @@ public class DAOTablaAdministradorRotonda extends DAO
 			preStat.setString(2, cliente.getNombre());
 			preStat.setString(3, cliente.getCorreo());
 			preStat.setLong(4, cliente.getIdRotonda());
+			preStat.setMaxRows(100);
 			preStat.executeQuery();
 			conn.commit();
 			escribirLog("COMMIT", log);
@@ -57,6 +58,7 @@ public class DAOTablaAdministradorRotonda extends DAO
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, cedula);
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -96,6 +98,7 @@ AdministradorRotonda cliente = null;
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, correo);
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -134,6 +137,7 @@ AdministradorRotonda cliente = null;
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, nombre);
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -170,6 +174,7 @@ AdministradorRotonda cliente = null;
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -205,6 +210,7 @@ AdministradorRotonda cliente = null;
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
+			preStat.setMaxRows(100);
 			preStat.setString(1,  cliente.getNombre());
 			preStat.setString(2, cliente.getCorreo());
 			preStat.setLong(3, cliente.getIdRotonda());
@@ -234,6 +240,7 @@ AdministradorRotonda cliente = null;
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
+			preStat.setMaxRows(100);
 			preStat.setLong(1, cliente.getCedula());
 			preStat.executeQuery();
 			conn.commit();

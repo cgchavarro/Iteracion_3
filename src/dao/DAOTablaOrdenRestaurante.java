@@ -24,7 +24,7 @@ public class DAOTablaOrdenRestaurante  extends DAO
 		String mensajeLog =sql+"&"+ordenRestaurante.toParametros();
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
-		{
+		{preStat.setMaxRows(100);
 			preStat.setLong(1, ordenRestaurante.getIdOrdenRestaurante());
 			preStat.setDate(2, ordenRestaurante.getFecha());
 			preStat.setLong(3, ordenRestaurante.getIdMenu());
@@ -57,7 +57,7 @@ public class DAOTablaOrdenRestaurante  extends DAO
 			String mensajeLog =sql+"&"+orden.toParametros();
 			escribirLog(mensajeLog, log);
 			try(PreparedStatement preStat = conn.prepareStatement(sql))
-			{
+			{preStat.setMaxRows(100);
 				preStat.setLong(1, orden.getIdOrdenRestaurante());
 				preStat.setDate(2, orden.getFecha());
 				preStat.setLong(3, orden.getIdMenu());
@@ -93,7 +93,7 @@ public class DAOTablaOrdenRestaurante  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setLong(1, id);
+			preStat.setLong(1, id);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while(rs.next())
@@ -132,7 +132,7 @@ public class DAOTablaOrdenRestaurante  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setLong(1, idMenu);
+			preStat.setLong(1, idMenu);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while(rs.next())
@@ -174,7 +174,7 @@ public class DAOTablaOrdenRestaurante  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setLong(1, idMenu);
+			preStat.setLong(1, idMenu);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while(rs.next())
@@ -215,7 +215,7 @@ public class DAOTablaOrdenRestaurante  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setString(1, idMenu);
+			preStat.setString(1, idMenu);preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while(rs.next())
@@ -256,7 +256,7 @@ public class DAOTablaOrdenRestaurante  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while(rs.next())
@@ -295,7 +295,7 @@ public class DAOTablaOrdenRestaurante  extends DAO
 		String mensajeLog =sql;
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
-		{
+		{preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while(rs.next())
@@ -469,7 +469,7 @@ public class DAOTablaOrdenRestaurante  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql1))
 		{
-		
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			while(rs.next())

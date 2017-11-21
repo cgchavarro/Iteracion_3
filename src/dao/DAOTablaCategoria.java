@@ -49,6 +49,7 @@ public class DAOTablaCategoria extends DAO {
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, id);
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			while(rs.next())
 			{
@@ -81,6 +82,7 @@ public class DAOTablaCategoria extends DAO {
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, nombre);
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			while(rs.next())
 			{
@@ -111,6 +113,7 @@ public class DAOTablaCategoria extends DAO {
 		String mensajeLog =sql;
 		escribirLog(mensajeLog, log);
 		PreparedStatement preStat = conn.prepareStatement(sql);
+		preStat.setMaxRows(100);
 		ResultSet rs = preStat.executeQuery();
 		while(rs.next())
 		{
@@ -130,6 +133,7 @@ public class DAOTablaCategoria extends DAO {
 		{
 			preStat.setString(1, categoria.getNombre());
 			preStat.setLong(2, categoria.getId());
+			preStat.setMaxRows(100);
 			preStat.executeQuery();
 
 			conn.commit();

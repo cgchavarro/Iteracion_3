@@ -29,6 +29,7 @@ public class DAOTablaAdministradorRestaurante extends DAO
 			preStat.setString(2, cliente.getNombre());
 			preStat.setString(3, cliente.getCorreo());
 			preStat.setString(4, cliente.getNombreRestaurante());
+			preStat.setMaxRows(100);
 			preStat.executeQuery();
 			conn.commit();
 		}
@@ -55,6 +56,7 @@ public class DAOTablaAdministradorRestaurante extends DAO
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setLong(1, cedula);
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -92,6 +94,7 @@ public class DAOTablaAdministradorRestaurante extends DAO
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, correo);
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -129,6 +132,7 @@ public class DAOTablaAdministradorRestaurante extends DAO
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
 			preStat.setString(1, nombre);
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -164,6 +168,7 @@ public class DAOTablaAdministradorRestaurante extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -202,6 +207,7 @@ public class DAOTablaAdministradorRestaurante extends DAO
 			preStat.setString(2, cliente.getCorreo());
 			preStat.setString(3, cliente.getNombreRestaurante());
 			preStat.setLong(4, cliente.getCedula());
+			preStat.setMaxRows(100);
 			preStat.executeQuery();
 			conn.commit();
 		}
