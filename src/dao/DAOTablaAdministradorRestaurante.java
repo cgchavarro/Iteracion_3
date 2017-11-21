@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 
 
 import vo.AdministradorRestaurante;
-import vo.Cliente;
 import vo.ClienteRFC;
 
 
@@ -291,10 +289,6 @@ public class DAOTablaAdministradorRestaurante extends DAO
 		String sql = "SELECT CEDULA, CLIENTE.NOMBRE, CORREO FROM CLIENTE MINUS SELECT DISTINCT CEDULA, CLIENTE.NOMBRE, CORREO FROM (CLIENTE RIGHT JOIN (ORDEN_RESTAURANTE RIGHT JOIN (MENU RIGHT JOIN PRODUCTO ON MENU.NOMBRE_RESTAURANTE =PRODUCTO.NOMBRE_RESTAURANTE) ON MENU.ID = ORDEN_RESTAURANTE.ID_MENU) ON CLIENTE.CEDULA = ORDEN_RESTAURANTE.ID_CLIENTE) WHERE FECHA >= ? AND FECHA < ? AND MENU.NOMBRE_RESTAURANTE = ? ORDER BY "+orderBy;
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			System.out.println(fechaMin);
-			System.out.println(fechaMax);
-			System.out.println(restaurante);
-			System.out.println(orderBy);
 			preStat.setString(1, fechaMin);
 			preStat.setString(2, fechaMax);
 			preStat.setString(3, restaurante);
