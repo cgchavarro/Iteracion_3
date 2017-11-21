@@ -365,13 +365,13 @@ public class RotondAndesMaster
 		return cliente;
 	}
 
-	public ArrayList<ClienteTipo> darClientesTipo()
+	public ArrayList<ClienteTipo> darClientesTipo(String fechaMin, String fechaMAx)
 	{
 		ArrayList<ClienteTipo> cliente = null;
 		DAOTablaCliente dao = new DAOTablaCliente();
 		try(Connection conn = darConexion())
 		{
-			cliente = dao.darClientesTipo(conn,log);
+			cliente = dao.darClientesTipo(conn, fechaMin,  fechaMAx,log);
 		}
 		catch(SQLException e)
 		{

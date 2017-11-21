@@ -243,15 +243,28 @@ public class DAOTablaCliente  extends DAO
 		}
 	}
 	
-	public ArrayList<ClienteTipo> darClientesTipo(Connection conn, String log) {
+	public ArrayList<ClienteTipo> darClientesTipo(Connection conn, String fechaMin,String fechaMax, String log) {
 		ArrayList<ClienteTipo> clientes = new ArrayList<ClienteTipo>();
 
-		String sql = "select cliente.cedula,cliente.nombre, cliente.correo,cliente.ID_ROTONDA,CAST ((count(ORDEN_RESTAURANTE.FECHA)/13) AS INTEGER )  as numeroOrdenes, max(producto.precio) as preciominimo from cliente left join  (orden_restaurante left join  (menu right join producto  on menu.platofuerte = producto.id)  on orden_restaurante.id_menu = menu.id)  on  cliente.cedula = orden_restaurante.id_cliente  group by Cliente.cedula, Cliente.Nombre, Cliente.Correo, cliente.ID_ROTONDA order by numeroordenes desc, preciominimo desc";
+		String sql = "SELECT CLIENTE.CEDULA,CLIENTE.NOMBRE,\r\n" + 
+				"CAST ((COUNT(ORDEN_RESTAURANTE.FECHA)/52) AS INTEGER )  AS NUMEROORDENES, MAX(PRODUCTO.PRECIO) AS PRECIOMINIMO \r\n" + 
+				"FROM CLIENTE LEFT JOIN  \r\n" + 
+				"(ORDEN_RESTAURANTE \r\n" + 
+				"        LEFT JOIN  (MENU \r\n" + 
+				"                        RIGHT JOIN PRODUCTO  \r\n" + 
+				"                        ON MENU.PLATOFUERTE = PRODUCTO.ID)  \r\n" + 
+				"        ON ORDEN_RESTAURANTE.ID_MENU = MENU.ID)  \r\n" + 
+				"ON  CLIENTE.CEDULA = ORDEN_RESTAURANTE.ID_CLIENTE  \r\n" + 
+				"where orden_restaurante.fecha BETWEEN  ? AND ? \r\n" + 
+				"GROUP BY CLIENTE.CEDULA, CLIENTE.NOMBRE \r\n" + 
+				"ORDER BY NUMEROORDENES DESC";
 		String mensajeLog =sql;
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			preStat.setMaxRows(55);
+			preStat.setString(1, fechaMin);
+			preStat.setString(2, fechaMax);
+			preStat.setMaxRows(100);
 			ResultSet rs = preStat.executeQuery();
 
 			
@@ -259,9 +272,9 @@ public class DAOTablaCliente  extends DAO
 			
 				Long id = rs.getLong("CEDULA");
 				
-				Long tiempo = rs.getLong("ID_ROTONDA");
+		
 				String nombre = rs.getString("NOMBRE");
-				String nombreR = rs.getString("CORREO");
+			
 				int ventidos = rs.getInt("NUMEROORDENES");
 				int ventidos2 = rs.getInt("PRECIOMINIMO");
 				String tipo ;
@@ -272,7 +285,7 @@ public class DAOTablaCliente  extends DAO
 				
 				else
 					tipo = new String("Cliente no consume");
-				clientes.add( new ClienteTipo(id,nombre,nombreR, tiempo, tipo));
+				clientes.add( new ClienteTipo(id,nombre, tipo));
 				
 			}
 			conn.commit();

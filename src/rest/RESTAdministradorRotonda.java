@@ -314,14 +314,14 @@ public class RESTAdministradorRotonda
 	
 	
 	@GET
-	@Path( "/clientesTipo" )
+	@Path( "/clientesTipo/{fechaMin}/{fechaMax}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response darClientesTipo( )
+	public Response darClientesTipo(@PathParam( "fechaMin" ) String fechaMin, @PathParam( "fechaMax" ) String fechaMax )
 	{
 		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
 		try
 		{
-			ArrayList<ClienteTipo> lista =  tm.darClientesTipo();
+			ArrayList<ClienteTipo> lista =  tm.darClientesTipo(fechaMin,fechaMax);
 	
 			return Response.status( 200 ).entity( lista).build( );			
 		}
