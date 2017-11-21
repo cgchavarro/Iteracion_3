@@ -2610,7 +2610,24 @@ public class RotondAndesMaster
 					return clientes;
 				}
 
+				public ArrayList<ClienteRFC> consultarFuncionamiento( String fechaMin, String  fechaMax)
+				{
+					DAOTablaAdministradorRotonda dao = new DAOTablaAdministradorRotonda();
+					ArrayList clientes = new ArrayList<>();
+					try(Connection conn = darConexion())
+					{
+						clientes = dao.consultarFuncionalidad(conn,fechaMin, fechaMax, log);
+						
+					} 
+					catch (SQLException e) 
+					{
 
+						e.printStackTrace();
+					}
+					return clientes;
+				}
+				
+				
 				public ArrayList<OrdenRestaurante> actualizarOrdenesRestaurante(ArrayList<OrdenRestaurante> ordenes) {
 					DAOTablaOrdenRestaurante dao = new DAOTablaOrdenRestaurante();
 					ArrayList<OrdenRestaurante> retornar = new ArrayList<>();

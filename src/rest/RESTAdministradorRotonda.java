@@ -20,6 +20,7 @@ import master.RotondAndesMaster;
 import vo.AdministradorRestaurante;
 import vo.AdministradorRotonda;
 import vo.Cliente;
+import vo.ClienteRFC;
 import vo.ClienteTipo;
 import vo.MensajeError;
 import vo.Menu;
@@ -371,5 +372,20 @@ public class RESTAdministradorRotonda
 		{
 			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
 		}
+	}
+	
+	@GET
+	@Path("/consultarFuncionamiento/{fechaMin}/{fechaMax}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response darFuncionamiento( @PathParam( "fechaMin" ) String fechaMin, @PathParam( "fechaMax" ) String fechaMax)
+	{		
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		List clientes;
+		try {
+			clientes = tm.consultarFuncionamiento(fechaMin,fechaMax);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(clientes).build();
 	}
 }

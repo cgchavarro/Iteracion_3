@@ -1,12 +1,15 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vo.AdministradorRotonda;
+import vo.ClienteRFC;
+import vo.ProductoConsumo;
 
 
 public class DAOTablaAdministradorRotonda extends DAO
@@ -250,4 +253,61 @@ AdministradorRotonda cliente = null;
 		}
 	}
 
+	public ArrayList consultarFuncionalidad(Connection conn, String fechaMin,String fechaMax, String log)
+	{
+		ArrayList clientes = new ArrayList<>();
+		
+		String sql = "select id,nombre, nombre_restaurante,fecha, conteo from (select PRODUCTO.ID, producto.nombre,producto.nombre_restaurante, orden_restaurante.fecha, count(*) as conteo from producto left join (menu left join ORDEN_RESTAURANTE on menu.id = orden_Restaurante.id_menu) on (menu.postre=producto.ID or menu.platofuerte = producto.id or menu.acompaniamiento = producto.id or menu.bebida=producto.id or menu.entrada=producto.id) where orden_restaurante.fecha >= ? and orden_restaurante.fecha <= ? group by PRODUCTO.ID, producto.nombre, producto.nombre_restaurante, orden_restaurante.fecha order by orden_restaurante.fecha) where conteo>=3 or (conteo<2 and conteo >0) order by fecha desc";
+		try(PreparedStatement preStat = conn.prepareStatement(sql))
+		{
+			preStat.setString(1, fechaMin);
+			preStat.setString(2, fechaMax);
+			preStat.setMaxRows(100);
+		    ResultSet rs = preStat.executeQuery();
+		
+			Date fechaA = new Date(1, 1,1999);
+					int contAct =0;
+			while(rs.next())
+			{
+				Date fecha = rs.getDate("FECHA");
+				
+				int cont = rs.getInt("CONTEO");
+				Long idProdu = rs.getLong("ID");
+				String nombre1 = rs.getString("NOMBRE");
+				String nombre2 = rs.getString("NOMBRE_RESTAURANTE");
+		
+				if(fechaA.getDay()!=fecha.getDay())
+				{
+					fechaA=fecha;
+					contAct=cont;
+					clientes.add(new ProductoConsumo(idProdu,nombre1,nombre2,fecha,cont));
+				}
+				else if(cont==1&& contAct>1)
+				{	contAct=cont;
+				clientes.add(new ProductoConsumo(idProdu,nombre1,nombre2,fecha,cont));
+				}
+				else if(cont==1&& contAct==1)
+				{
+					
+				}
+	
+			}
+			conn.commit();
+		}
+		catch(SQLException e)
+		{
+			try 
+			{
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();
+		}
+		return clientes;
+	}
+	
+	
 }
