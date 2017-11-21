@@ -2609,6 +2609,40 @@ public class RotondAndesMaster
 					}
 					return clientes;
 				}
+				
+				public ArrayList<ClienteRFC> consultarConsumoDeUnCliente(Long cedula, String restaurante, String fechaMin, String  fechaMax, String orderBy)
+				{
+					DAOTablaCliente dao = new DAOTablaCliente();
+					ArrayList<ClienteRFC> clientes = new ArrayList<>();
+					try(Connection conn = darConexion())
+					{
+						clientes = dao.consultarConsumoCliente(conn, cedula, restaurante, fechaMin, fechaMax, orderBy, log);
+						
+					} 
+					catch (SQLException e) 
+					{
+
+						e.printStackTrace();
+					}
+					return clientes;
+				}
+				
+				public ArrayList<ClienteRFC> consultarNoConsumoDeUnCliente(Long cedula, String restaurante, String fechaMin, String  fechaMax, String orderBy)
+				{
+					DAOTablaCliente dao = new DAOTablaCliente();
+					ArrayList<ClienteRFC> clientes = new ArrayList<>();
+					try(Connection conn = darConexion())
+					{
+						clientes = dao.consultarNoConsumoCliente(conn, cedula, restaurante, fechaMin, fechaMax, orderBy, log);
+						
+					} 
+					catch (SQLException e) 
+					{
+
+						e.printStackTrace();
+					}
+					return clientes;
+				}
 
 				public ArrayList<ClienteRFC> consultarFuncionamiento( String fechaMin, String  fechaMax)
 				{

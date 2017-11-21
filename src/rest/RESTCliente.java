@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 
 import master.RotondAndesMaster;
 import vo.Cliente;
+import vo.ClienteRFC;
 import vo.OrdenRestaurante;
 import vo.PreferenciaCliente;
 import vo.Producto;
@@ -250,6 +251,36 @@ public class RESTCliente
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(cliente).build();
+	}
+	
+	@GET
+	@Path("/{id: \\d+}/consultarConsumo/{idRestaurante}/{fechaMin}/{fechaMax}/{orderBy}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response darConsumoRotondandes(@PathParam( "id" ) Long id, @PathParam( "idRestaurante" ) String idRest, @PathParam( "fechaMin" ) String fechaMin, @PathParam( "fechaMax" ) String fechaMax, @PathParam( "orderBy" ) String orderBy)
+	{		
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		List<ClienteRFC> clientes;
+		try {
+			clientes = tm.consultarConsumoDeUnCliente(id, idRest, fechaMin, fechaMax, orderBy);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(clientes).build();
+	}
+	
+	@GET
+	@Path("/{id: \\d+}/consultarNoConsumo/{idRestaurante}/{fechaMin}/{fechaMax}/{orderBy}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response darNoConsumoRotondandes(@PathParam( "id" ) Long id, @PathParam( "idRestaurante" ) String idRest, @PathParam( "fechaMin" ) String fechaMin, @PathParam( "fechaMax" ) String fechaMax, @PathParam( "orderBy" ) String orderBy)
+	{		
+		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		List<ClienteRFC> clientes;
+		try {
+			clientes = tm.consultarNoConsumoDeUnCliente(id, idRest, fechaMin, fechaMax, orderBy);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(clientes).build();
 	}
 	
 }

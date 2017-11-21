@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vo.Cliente;
+import vo.ClienteRFC;
 import vo.ClienteTipo;
 
 
@@ -299,6 +300,81 @@ public class DAOTablaCliente  extends DAO
 			e.printStackTrace();
 		}
 
+		return clientes;
+	}
+	
+	public ArrayList<ClienteRFC> consultarConsumoCliente(Connection conn, Long cedula, String restaurante, String fechaMin, String fechaMax, String orderBy, String log)
+	{
+		ArrayList<ClienteRFC> clientes = new ArrayList<>();
+		String sql = "SELECT DISTINCT CEDULA, CLIENTE.NOMBRE, CORREO, MENU.NOMBRE_RESTAURANTE, FECHA\r\n" + 
+				"FROM (CLIENTE RIGHT JOIN (ORDEN_RESTAURANTE RIGHT JOIN (MENU RIGHT JOIN PRODUCTO ON MENU.NOMBRE_RESTAURANTE =PRODUCTO.NOMBRE_RESTAURANTE) ON MENU.ID = ORDEN_RESTAURANTE.ID_MENU) ON CLIENTE.CEDULA = ORDEN_RESTAURANTE.ID_CLIENTE)\r\n" + 
+				"WHERE ORDEN_RESTAURANTE.ID_CLIENTE IS NOT NULL AND FECHA >= ? AND FECHA < ? AND MENU.NOMBRE_RESTAURANTE = ? AND CEDULA = ?\n" + 
+				"ORDER BY ?";
+		try(PreparedStatement preStat = conn.prepareStatement(sql))
+		{
+			preStat.setString(1, fechaMin);
+			preStat.setString(2, fechaMax);
+			preStat.setString(3, restaurante);
+			preStat.setLong(4, cedula);
+			preStat.setString(5, orderBy);
+		preStat.setMaxRows(75);
+			ResultSet rs = preStat.executeQuery();
+			
+			while(rs.next())
+			{
+				String nombre1 = rs.getString("NOMBRE");
+				String correo = rs.getString("CORREO");
+				clientes.add(new ClienteRFC(cedula, nombre1, correo, restaurante));
+			}
+			conn.commit();
+		}
+		catch(SQLException e)
+		{
+			try 
+			{
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();
+		}
+		return clientes;
+	}
+	
+	public ArrayList<ClienteRFC> consultarNoConsumoCliente(Connection conn, Long cedula, String restaurante, String fechaMin, String fechaMax, String orderBy, String log)
+	{
+		ArrayList<ClienteRFC> clientes = new ArrayList<>();
+		String sql = "SELECT CEDULA, CLIENTE.NOMBRE, CORREO FROM CLIENTE WHERE CEDULA = ? MINUS SELECT DISTINCT CEDULA, CLIENTE.NOMBRE, CORREO FROM (CLIENTE RIGHT JOIN (ORDEN_RESTAURANTE RIGHT JOIN (MENU RIGHT JOIN PRODUCTO ON MENU.NOMBRE_RESTAURANTE =PRODUCTO.NOMBRE_RESTAURANTE) ON MENU.ID = ORDEN_RESTAURANTE.ID_MENU) ON CLIENTE.CEDULA = ORDEN_RESTAURANTE.ID_CLIENTE) WHERE FECHA >= ? AND FECHA < ? AND MENU.NOMBRE_RESTAURANTE = ? AND CEDULA = ? ORDER BY "+orderBy;
+		try(PreparedStatement preStat = conn.prepareStatement(sql))
+		{
+			preStat.setLong(1, cedula);
+			preStat.setString(2, fechaMin);
+			preStat.setString(3, fechaMax);
+			preStat.setString(4, restaurante);
+			preStat.setLong(5, cedula);
+			ResultSet rs = preStat.executeQuery();
+			while(rs.next())
+			{
+				String nombre1 = rs.getString("NOMBRE");
+				String correo = rs.getString("CORREO");
+				clientes.add(new ClienteRFC(cedula, nombre1, correo, restaurante));
+			}
+			conn.commit();
+		}
+		catch(SQLException e)
+		{
+			try 
+			{
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();
+		}
 		return clientes;
 	}
 
