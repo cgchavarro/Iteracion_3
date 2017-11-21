@@ -257,6 +257,7 @@ public class DAOTablaAdministradorRestaurante extends DAO
 			preStat.setString(2, fechaMax);
 			preStat.setString(3, restaurante);
 			preStat.setString(4, orderBy);
+		preStat.setMaxRows(75);
 			ResultSet rs = preStat.executeQuery();
 			
 			while(rs.next())
@@ -293,7 +294,7 @@ public class DAOTablaAdministradorRestaurante extends DAO
 			preStat.setString(2, fechaMax);
 			preStat.setString(3, restaurante);
 			ResultSet rs = preStat.executeQuery();
-			
+			preStat.setMaxRows(75);
 			while(rs.next())
 			{
 				Long cedula = rs.getLong("CEDULA");

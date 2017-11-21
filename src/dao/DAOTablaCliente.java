@@ -251,7 +251,7 @@ public class DAOTablaCliente  extends DAO
 		escribirLog(mensajeLog, log);
 		try(PreparedStatement preStat = conn.prepareStatement(sql))
 		{
-			
+			preStat.setMaxRows(55);
 			ResultSet rs = preStat.executeQuery();
 
 			
