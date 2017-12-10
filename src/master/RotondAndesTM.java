@@ -56,7 +56,7 @@ import vo.OrdenConteo;
 import vo.OrdenRestaurante;
 import vo.PreferenciaCliente;
 
-public class RotondAndesMaster 
+public class RotondAndesTM 
 {
 //	private static final String CONNECTION_DATA_FILE_NAME_REMOTE = "/conexion.properties";
 //
@@ -141,7 +141,7 @@ public class RotondAndesMaster
 	 * llevarán a cabo.
 	 * @param contextPathP, path absoluto en el servidor del contexto del deploy actual
 	 */
-	public RotondAndesMaster(String contextPathP) {
+	public RotondAndesTM(String contextPathP) {
 		connectionDataPath = contextPathP + CONNECTION_DATA_FILE_NAME_REMOTE;
 		log= contextPathP+ARCHIVO;
 		initConnectionData();
@@ -2678,6 +2678,20 @@ public class RotondAndesMaster
 					return retornar;
 				}
 
+				public void eliminarRestauranteRotonda(String nombreRestaurante)
+				{
+					DAOTablaAdministradorRotonda dao = new DAOTablaAdministradorRotonda();
+					try(Connection conn = darConexion())
+					{
+						dao.eliminarRestaurante(conn, nombreRestaurante, log);
+						conn.commit();
+					}
+					catch(SQLException e)
+					{
+
+						e.printStackTrace();
+					}
+				}
 				// ----------------------------------  Fin metodos EquivalenciasProducto	----------------------------------
 		}
 

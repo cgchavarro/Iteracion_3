@@ -16,7 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.Categoria;
 
 
@@ -38,7 +38,7 @@ public class RESTCategoria
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearCategoria(Categoria categoria) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearCategoria(categoria);
 		} catch (Exception e) {
@@ -52,7 +52,7 @@ public class RESTCategoria
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darCategoriaId( @PathParam( "id" ) Long id )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			Categoria categoria = tm.darCategoriaPorId(id);
@@ -69,7 +69,7 @@ public class RESTCategoria
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darCategoriaNombre( @PathParam( "nombre" ) String nombre )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList<Categoria> categorias = tm.darCategoriaPorNombre(nombre);
@@ -84,7 +84,7 @@ public class RESTCategoria
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darCategorias() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<Categoria> categorias;
 		try {
 			categorias = tm.darCategorias();
@@ -98,7 +98,7 @@ public class RESTCategoria
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarCategoria(Categoria categoria) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.actualizarCategoria(categoria);
 		} catch (Exception e) {
@@ -111,7 +111,7 @@ public class RESTCategoria
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarCategoria(Categoria categoria) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarCategoria(categoria);
 		} catch (Exception e) {

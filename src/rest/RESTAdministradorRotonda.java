@@ -16,7 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.AdministradorRestaurante;
 import vo.AdministradorRotonda;
 import vo.Cliente;
@@ -51,7 +51,7 @@ public class RESTAdministradorRotonda
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearAdministradorRotonda(AdministradorRotonda cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearAdministradorRotonda(cliente);
 		} catch (Exception e) {
@@ -66,7 +66,7 @@ public class RESTAdministradorRotonda
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearCliente(Cliente atraco) 
 	{
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearCliente(atraco);
 		} catch (Exception e) {
@@ -82,7 +82,7 @@ public class RESTAdministradorRotonda
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearRestaurante(AdministradorRestaurante atraco) 
 	{
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearAdministradorRestaurante(atraco);
 		} catch (Exception e) {
@@ -98,7 +98,7 @@ public class RESTAdministradorRotonda
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearRestaurante(Restaurante atraco) 
 	{
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearRestaurante(atraco);
 		} catch (Exception e) {
@@ -113,7 +113,7 @@ public class RESTAdministradorRotonda
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearZona(Zona atraco) 
 	{
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearZona(atraco);
 		} catch (Exception e) {
@@ -126,7 +126,7 @@ public class RESTAdministradorRotonda
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darAdministradorRotondaId( @PathParam( "id" ) Long id )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			AdministradorRotonda cliente = tm.darAdministradorRotondaPorCedula(id);
@@ -143,7 +143,7 @@ public class RESTAdministradorRotonda
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darAdministradorRotondaNombre( @PathParam( "nombre" ) String nombre )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList<AdministradorRotonda> clientes = tm.darAdministradorRotondaPorNombre(nombre);
@@ -160,7 +160,7 @@ public class RESTAdministradorRotonda
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darAdministradorRotondaCorreo( @PathParam( "correo" ) String correo )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			AdministradorRotonda cliente = tm.darAdministradorRotondaPorCorreo(correo);
@@ -175,7 +175,7 @@ public class RESTAdministradorRotonda
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darAdministradorRotondas() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<AdministradorRotonda> clientes;
 		try {
 			clientes = tm.darAdministradorRotondas();
@@ -192,7 +192,7 @@ public class RESTAdministradorRotonda
 	public Response darConsumoClienteId( @PathParam( "idcliente" ) Long id )
 	{
 		long startTime = System.currentTimeMillis();
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			Cliente cliente = tm.darClientePorCedula(id);
@@ -257,7 +257,7 @@ public class RESTAdministradorRotonda
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarAdministradorRotonda(AdministradorRotonda cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.actualizarAdministradorRotonda(cliente);
 		} catch (Exception e) {
@@ -270,7 +270,7 @@ public class RESTAdministradorRotonda
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarAdministradorRotonda(AdministradorRotonda cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarAdministradorRotonda(cliente);
 		} catch (Exception e) {
@@ -296,7 +296,7 @@ public class RESTAdministradorRotonda
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darOrdenes( )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList lista = new ArrayList();
@@ -318,7 +318,7 @@ public class RESTAdministradorRotonda
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darClientesTipo(@PathParam( "fechaMin" ) String fechaMin, @PathParam( "fechaMax" ) String fechaMax )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList<ClienteTipo> lista =  tm.darClientesTipo(fechaMin,fechaMax);
@@ -338,7 +338,7 @@ public class RESTAdministradorRotonda
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darOrdenesProductosMenu( )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList lista = new ArrayList();
@@ -379,7 +379,7 @@ public class RESTAdministradorRotonda
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darFuncionamiento( @PathParam( "fechaMin" ) String fechaMin, @PathParam( "fechaMax" ) String fechaMax)
 	{		
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List clientes;
 		try {
 			clientes = tm.consultarFuncionamiento(fechaMin,fechaMax);
@@ -387,5 +387,22 @@ public class RESTAdministradorRotonda
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(clientes).build();
+	}
+	
+	@DELETE
+	@Path("eliminar/{nombreRestaurante}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response eliminarRestaurante(@PathParam( "nombreRestaurante") String nombreRest)
+	{
+		RotondAndesTM tm = new RotondAndesTM(getPath());
+		try {
+			tm.eliminarRestauranteRotonda(nombreRest);
+			MensajeError mensaje = new MensajeError("Se ha eliminado el restaurante " + nombreRest);
+			return Response.status(200).entity(mensaje).build();
+		}
+		catch(Exception e)
+		{
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
 	}
 }

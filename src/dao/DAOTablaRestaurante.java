@@ -197,7 +197,6 @@ public class DAOTablaRestaurante  extends DAO
 			preStat.setString(1, restaurante.getNombre());
 			preStat.executeQuery();
 			conn.commit();
-			conn.commit();
 		}
 		catch(SQLException e)
 		{

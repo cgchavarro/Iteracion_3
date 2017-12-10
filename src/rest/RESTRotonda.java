@@ -16,7 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.Rotonda;
 
 
@@ -38,7 +38,7 @@ public class RESTRotonda
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearRotonda(Rotonda rotonda) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearRotonda(rotonda);
 		} catch (Exception e) {
@@ -52,7 +52,7 @@ public class RESTRotonda
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darRotondaId( @PathParam( "id" ) Long id )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			Rotonda rotonda = tm.darRotondaPorId(id);
@@ -69,7 +69,7 @@ public class RESTRotonda
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darRotondaNombre( @PathParam( "nombre" ) String nombre )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList<Rotonda> rotondas = tm.darRotondasPorNombre(nombre);
@@ -84,7 +84,7 @@ public class RESTRotonda
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darRotondas() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<Rotonda> rotondas;
 		try {
 			rotondas = tm.darRotondas();
@@ -98,7 +98,7 @@ public class RESTRotonda
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarRotonda(Rotonda rotonda) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.actualizarRotonda(rotonda);
 		} catch (Exception e) {
@@ -111,7 +111,7 @@ public class RESTRotonda
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarRotonda(Rotonda rotonda) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarRotonda(rotonda);
 		} catch (Exception e) {

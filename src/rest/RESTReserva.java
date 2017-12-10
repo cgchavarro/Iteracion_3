@@ -16,7 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.Reserva;
 
 
@@ -38,7 +38,7 @@ public class RESTReserva
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearReserva(Reserva reserva) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearReserva(reserva);
 		} catch (Exception e) {
@@ -52,7 +52,7 @@ public class RESTReserva
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darReservaId( @PathParam( "id" ) Long id )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			Reserva reserva = tm.darReservaPorId(id);
@@ -69,7 +69,7 @@ public class RESTReserva
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darReservaNombre( @PathParam( "idZona" ) Long idZona )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList<Reserva> reservas = tm.darReservaPorNombre(idZona);
@@ -86,7 +86,7 @@ public class RESTReserva
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darReservaCorreo( @PathParam( "idCliente" ) Long idCliente )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList<Reserva> reserva = tm.darReservaPorIdCliente(idCliente);
@@ -101,7 +101,7 @@ public class RESTReserva
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darReservas() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<Reserva> reservas;
 		try {
 			reservas = tm.darReservas();
@@ -115,7 +115,7 @@ public class RESTReserva
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarReserva(Reserva reserva) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.actualizarReserva(reserva);
 		} catch (Exception e) {
@@ -128,7 +128,7 @@ public class RESTReserva
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarReserva(Reserva reserva) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarReserva(reserva);
 		} catch (Exception e) {

@@ -17,7 +17,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.EquivalenciaProductos;
 import vo.MensajeError;
 import vo.Menu;
@@ -44,7 +44,7 @@ public class RESTOrdenRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearOrdenRestaurante(OrdenRestaurante orden) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 
 
 
@@ -93,7 +93,7 @@ public class RESTOrdenRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearOrdenRestauranteMesa(OrdenRestaurante[] ordenesRestaurante, String idMesa) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		for(OrdenRestaurante orden:ordenesRestaurante)
 		{
 			if(tm.darMenuPorIdVerificandoDisponibilidadProductos(orden.getIdMenu()) == null)
@@ -122,7 +122,7 @@ public class RESTOrdenRestaurante
 	public Response crearOrdenRestauranteConEquivalencias(OrdenRestauranteEquivalencias ordenEquiv) {
 
 
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		EquivalenciaProductos[] equivalencias = ordenEquiv.getEquivalencias();
 		OrdenRestaurante ordenRestaurante = ordenEquiv.getOrdenRestaurante();
 
@@ -188,7 +188,7 @@ public class RESTOrdenRestaurante
 
 
 	private ArrayList<Producto> reemplazarConEquivalencias(ArrayList<Producto> productos, EquivalenciaProductos[] equivalencias) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		for(int i = 0; i < productos.size(); i ++)
 		{
 			Producto producto = productos.get(i);
@@ -205,7 +205,7 @@ public class RESTOrdenRestaurante
 
 	private boolean verificarEquivalenciaProducto(EquivalenciaProductos equivalencia)
 	{
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 
 		if(tm.darEquivalenciaProductos(equivalencia)!=null)
 		{
@@ -247,7 +247,7 @@ public class RESTOrdenRestaurante
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darOrdenRestauranteId( @PathParam( "id" ) Long id )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			OrdenRestaurante ordenRestaurante = tm.darOrdenRestaurantePorId(id);
@@ -279,7 +279,7 @@ public class RESTOrdenRestaurante
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darOrdenRestaurantes() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<OrdenRestaurante> ordenRestaurantes;
 		try {
 			ordenRestaurantes = tm.darOrdenRestaurantes();
@@ -296,7 +296,7 @@ public class RESTOrdenRestaurante
 	public Response servirOrdenMesa (@PathParam( "idMesa" ) String id)
 	{
 
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		ArrayList<OrdenRestaurante> ordenes = tm.darOrdenRestaurantePorMesa(id);
 		tm.actualizarOrdenesRestaurante(ordenes);
 		ordenes = tm.darOrdenRestaurantePorMesa(id);
@@ -308,7 +308,7 @@ public class RESTOrdenRestaurante
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarOrdenRestaurante(OrdenRestaurante ordenRestaurante) 
 	{
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try 
 		{
 			tm.actualizarOrdenRestaurante(ordenRestaurante);
@@ -318,7 +318,7 @@ public class RESTOrdenRestaurante
 		return Response.status(200).entity(ordenRestaurante).build();
 	}
 
-	private void actualizarProductos(OrdenRestaurante ordenRestaurante, RotondAndesMaster tm) 
+	private void actualizarProductos(OrdenRestaurante ordenRestaurante, RotondAndesTM tm) 
 	{
 		// TODO Auto-generated method stub
 		Menu m = tm.darMenuPorId(ordenRestaurante.getIdMenu());
@@ -340,7 +340,7 @@ public class RESTOrdenRestaurante
 
 
 	}
-	private void actualizarProductosOrdenes(OrdenRestaurante[] ordenRestaurante, RotondAndesMaster tm) 
+	private void actualizarProductosOrdenes(OrdenRestaurante[] ordenRestaurante, RotondAndesTM tm) 
 	{
 		// TODO Auto-generated method stub
 		for(OrdenRestaurante orden : ordenRestaurante)
@@ -370,7 +370,7 @@ public class RESTOrdenRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarOrdenRestaurante(OrdenRestaurante ordenRestaurante) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarOrdenRestaurante(ordenRestaurante);
 		} catch (Exception e) {
@@ -385,7 +385,7 @@ public class RESTOrdenRestaurante
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response cancelarOrdenPedido(@PathParam( "idOrden" ) Long id)
 	{
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		OrdenRestaurante orden = tm.darOrdenRestaurantePorId(id);
 		if(!orden.isServida())
 		{
@@ -410,7 +410,7 @@ public class RESTOrdenRestaurante
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response cancelarOrdenPedidoMesa( @PathParam( "idMesa" ) String id)
 	{
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		ArrayList<OrdenRestaurante> ordenes = tm.darOrdenRestaurantePorMesa(id);
 		for(OrdenRestaurante orden:ordenes)
 		{

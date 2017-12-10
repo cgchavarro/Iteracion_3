@@ -15,7 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.Restaurante;
 
 
@@ -38,7 +38,7 @@ public class RESTRestaurante
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darRestauranteNombre( @PathParam( "username" ) String id )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			Restaurante restaurante = tm.darRestaurantePorNombre(id);
@@ -70,7 +70,7 @@ public class RESTRestaurante
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darRestaurantes() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<Restaurante> restaurantes;
 		try {
 			restaurantes = tm.darRestaurantes();
@@ -84,7 +84,7 @@ public class RESTRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarRestaurante(Restaurante restaurante) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.actualizarRestaurante(restaurante);
 		} catch (Exception e) {
@@ -97,13 +97,13 @@ public class RESTRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarRestaurante(Restaurante restaurante) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarRestaurante(restaurante);
+			return Response.status(200).entity(restaurante).build();
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(restaurante).build();
 	}
 	
 }

@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.Cliente;
 import vo.ClienteRFC;
 import vo.OrdenRestaurante;
@@ -45,7 +45,7 @@ public class RESTCliente
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearPreferencia(PreferenciaCliente cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearPreferenciaCliente(cliente);
 		} catch (Exception e) {
@@ -59,7 +59,7 @@ public class RESTCliente
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarPreferencia(PreferenciaCliente cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.actualizarPreferenciaCliente(cliente);
 		} catch (Exception e) {
@@ -90,7 +90,7 @@ public class RESTCliente
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darClienteId( @PathParam( "id" ) Long id )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			Cliente cliente = tm.darClientePorCedula(id);
@@ -122,7 +122,7 @@ public class RESTCliente
 	public Response darConsumoClienteId( @PathParam( "idcliente" ) Long id )
 	{
 		long startTime = System.currentTimeMillis();
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			Cliente cliente = tm.darClientePorCedula(id);
@@ -185,7 +185,7 @@ public class RESTCliente
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darClienteNombre( @PathParam( "nombre" ) String nombre )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList<Cliente> clientes = tm.darClientePorNombre(nombre);
@@ -202,7 +202,7 @@ public class RESTCliente
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darClienteCorreo( @PathParam( "correo" ) String correo )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			Cliente cliente = tm.darClientePorCorreo(correo);
@@ -217,7 +217,7 @@ public class RESTCliente
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darClientes() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<Cliente> clientes;
 		try {
 			clientes = tm.darClientes();
@@ -231,7 +231,7 @@ public class RESTCliente
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarCliente(Cliente cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.actualizarCliente(cliente);
 		} catch (Exception e) {
@@ -244,7 +244,7 @@ public class RESTCliente
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarCliente(Cliente cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarCliente(cliente);
 		} catch (Exception e) {
@@ -258,7 +258,7 @@ public class RESTCliente
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darConsumoRotondandes(@PathParam( "id" ) Long id, @PathParam( "idRestaurante" ) String idRest, @PathParam( "fechaMin" ) String fechaMin, @PathParam( "fechaMax" ) String fechaMax, @PathParam( "orderBy" ) String orderBy)
 	{		
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<ClienteRFC> clientes;
 		try {
 			clientes = tm.consultarConsumoDeUnCliente(id, idRest, fechaMin, fechaMax, orderBy);
@@ -273,7 +273,7 @@ public class RESTCliente
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darNoConsumoRotondandes(@PathParam( "id" ) Long id, @PathParam( "idRestaurante" ) String idRest, @PathParam( "fechaMin" ) String fechaMin, @PathParam( "fechaMax" ) String fechaMax, @PathParam( "orderBy" ) String orderBy)
 	{		
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<ClienteRFC> clientes;
 		try {
 			clientes = tm.consultarNoConsumoDeUnCliente(id, idRest, fechaMin, fechaMax, orderBy);

@@ -15,7 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.Menu;
 
 
@@ -39,7 +39,7 @@ public class RESTMenu
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darMenuId( @PathParam( "id" ) Long id )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			Menu menu = tm.darMenuPorId(id);
@@ -56,7 +56,7 @@ public class RESTMenu
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darMenuRestaurante( @PathParam( "idRestaurante" ) Long idRestaurante )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList<Menu> menus = tm.darMenusPorRestaurante(idRestaurante);
@@ -71,7 +71,7 @@ public class RESTMenu
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darMenus() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<Menu> menus;
 		try {
 			menus = tm.darMenus();
@@ -85,7 +85,7 @@ public class RESTMenu
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarMenu(Menu menu) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.actualizarMenu(menu);
 		} catch (Exception e) {
@@ -98,7 +98,7 @@ public class RESTMenu
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarMenu(Menu menu) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarMenu(menu);
 		} catch (Exception e) {

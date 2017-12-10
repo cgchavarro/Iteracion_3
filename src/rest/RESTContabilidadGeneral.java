@@ -17,7 +17,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.ContabilidadGeneral;
 
 
@@ -40,7 +40,7 @@ public class RESTContabilidadGeneral
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearContabilidadGeneral(ContabilidadGeneral reserva) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearContabilidadGeneral(reserva);
 		} catch (Exception e) {
@@ -56,7 +56,7 @@ public class RESTContabilidadGeneral
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darContabilidadGeneralPorFecha( @PathParam( "fecha" ) String fecha )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{ Date dateObj= Date.valueOf(fecha); 
 		ArrayList<ContabilidadGeneral> reservas = tm.darContabilidadGeneralPorFecha(dateObj);
@@ -73,7 +73,7 @@ public class RESTContabilidadGeneral
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darContabilidadesGeneral() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<ContabilidadGeneral> reservas;
 		try {
 			reservas = tm.darContabilidadesGeneral();
@@ -87,7 +87,7 @@ public class RESTContabilidadGeneral
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarContabilidadGeneral(ContabilidadGeneral reserva) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.actualizarContabilidadGeneral(reserva);
 		} catch (Exception e) {
@@ -100,7 +100,7 @@ public class RESTContabilidadGeneral
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarContabilidadGeneral(ContabilidadGeneral reserva) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarContabilidadGeneral(reserva);
 		} catch (Exception e) {

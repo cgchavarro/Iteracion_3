@@ -16,7 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.Menu;
 import vo.Producto;
 
@@ -42,7 +42,7 @@ public class RESTProducto
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darProductoId( @PathParam( "id" ) Long id )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			Producto producto = tm.darProductoPorId(id);
@@ -59,7 +59,7 @@ public class RESTProducto
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darProductoNombre( @PathParam( "nombre" ) String nombre )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList<Producto> productos = tm.darProductosPorNombre(nombre);
@@ -74,7 +74,7 @@ public class RESTProducto
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darProductos() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<Producto> productos;
 		try {
 			productos = tm.darProductos();
@@ -88,7 +88,7 @@ public class RESTProducto
 	@Path( "/productosrestaurante/{nombre}" )
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darProductosRestaurante(@PathParam( "nombre" ) String name) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<Producto> productos;
 		try {
 			productos = tm.darProductosRestaurante(name);
@@ -102,7 +102,7 @@ public class RESTProducto
 	@Path( "/productoscategoria/{idCategoria}" )
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darProductosRestaurante(@PathParam( "idCategoria" ) Long id) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<Producto> productos;
 		try {
 			productos = tm.darProductosCategoria(id);
@@ -116,7 +116,7 @@ public class RESTProducto
 	@Path( "/precios/{precioMenor}/max/{precioMax}" )
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darProductosRestaurante(@PathParam( "precioMenor" ) double min, @PathParam( "precioMax" )double max) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<Producto> productos;
 		try {
 			productos = tm.darProductosRangoPrecio(min,max);
@@ -129,7 +129,7 @@ public class RESTProducto
 	@Path( "/masofrecido" )
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darProductoMasOfrecido() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		
 		try {
 			ArrayList<Producto> productos;
@@ -212,7 +212,7 @@ private ArrayList<Long> darArregloIds(ArrayList<Producto> productos)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarProducto(Producto producto) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.actualizarProducto(producto);
 		} catch (Exception e) {
@@ -225,7 +225,7 @@ private ArrayList<Long> darArregloIds(ArrayList<Producto> productos)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarProducto(Producto producto) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarProducto(producto);
 		} catch (Exception e) {

@@ -14,7 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.PreferenciaCliente;
 
 
@@ -37,7 +37,7 @@ public class RESTPreferenciaCliente
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darPreferenciaClienteId( @PathParam( "id" ) Long id )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			PreferenciaCliente categoria = tm.darPreferenciaClientePorId(id);
@@ -54,7 +54,7 @@ public class RESTPreferenciaCliente
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darPreferenciaClientePorNombre( @PathParam( "nombre" ) String nombre )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList<PreferenciaCliente> categorias = tm.darPreferenciaClientePorNombre(nombre);
@@ -69,7 +69,7 @@ public class RESTPreferenciaCliente
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darPreferenciaClientes() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<PreferenciaCliente> categorias;
 		try {
 			categorias = tm.darPreferenciaClientes();
@@ -83,7 +83,7 @@ public class RESTPreferenciaCliente
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarPreferenciaCliente(PreferenciaCliente categoria) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarPreferenciaCliente(categoria);
 		} catch (Exception e) {

@@ -15,7 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.Ingrediente;
 
 
@@ -39,7 +39,7 @@ public class RESTIngrediente
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darIngredienteId( @PathParam( "id" ) Long id )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			Ingrediente ingrediente = tm.darIngredientePorId(id);
@@ -56,7 +56,7 @@ public class RESTIngrediente
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darIngredienteNombre( @PathParam( "nombre" ) String nombre )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList<Ingrediente> ingredientes = tm.darIngredientePorNombre(nombre);
@@ -71,7 +71,7 @@ public class RESTIngrediente
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darIngredientes() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<Ingrediente> ingredientes;
 		try {
 			ingredientes = tm.darIngredientes();
@@ -85,7 +85,7 @@ public class RESTIngrediente
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarIngrediente(Ingrediente ingrediente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.actualizarIngrediente(ingrediente);
 		} catch (Exception e) {
@@ -98,7 +98,7 @@ public class RESTIngrediente
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarIngrediente(Ingrediente ingrediente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarIngrediente(ingrediente);
 		} catch (Exception e) {

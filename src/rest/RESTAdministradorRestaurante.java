@@ -19,7 +19,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.AdministradorRestaurante;
 import vo.ClienteRFC;
 import vo.EquivalenciaIngredientes;
@@ -50,7 +50,7 @@ public class RESTAdministradorRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearProducto(Producto cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		if(cliente.getCosto()>0)
 		{
 			try {
@@ -68,7 +68,7 @@ public class RESTAdministradorRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearIngrediente(Ingrediente cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearIngrediente(cliente);
 		} catch (Exception e) {
@@ -81,7 +81,7 @@ public class RESTAdministradorRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearMenu(Menu cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearMenu(cliente);
 		} catch (Exception e) {
@@ -95,7 +95,7 @@ public class RESTAdministradorRestaurante
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darAdministradorRestauranteId( @PathParam( "id" ) Long id )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			AdministradorRestaurante cliente = tm.darAdministradorRestaurantePorCedula(id);
@@ -112,7 +112,7 @@ public class RESTAdministradorRestaurante
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darAdministradorRestauranteNombre( @PathParam( "nombre" ) String nombre )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList<AdministradorRestaurante> clientes = tm.darAdministradorRestaurantePorNombre(nombre);
@@ -129,7 +129,7 @@ public class RESTAdministradorRestaurante
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darAdministradorRestauranteCorreo( @PathParam( "correo" ) String correo )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			AdministradorRestaurante cliente = tm.darAdministradorRestaurantePorCorreo(correo);
@@ -145,7 +145,7 @@ public class RESTAdministradorRestaurante
 	@Path( "/surtirrestaurante/{nombreRestaurante}" )
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response surtirRestaurante(@PathParam( "nombreRestaurante" ) String nombre ) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		ArrayList<Producto> cliente;
 		try {
 			tm.surtirProductosRestaurante(nombre);
@@ -163,7 +163,7 @@ public class RESTAdministradorRestaurante
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darAdministradorRestaurantes() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<AdministradorRestaurante> clientes;
 		try {
 			clientes = tm.darAdministradorRestaurantes();
@@ -177,7 +177,7 @@ public class RESTAdministradorRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarAdministradorRestaurante(AdministradorRestaurante cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.actualizarAdministradorRestaurante(cliente);
 		} catch (Exception e) {
@@ -190,7 +190,7 @@ public class RESTAdministradorRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarAdministradorRestaurante(AdministradorRestaurante cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarAdministradorRestaurante(cliente);
 		} catch (Exception e) {
@@ -207,7 +207,7 @@ public class RESTAdministradorRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearSimilitudProductos(EquivalenciaProductos cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearEquivalenciasProducto(cliente);
 		} catch (Exception e) {
@@ -220,7 +220,7 @@ public class RESTAdministradorRestaurante
 	@Path("/equivalenciaproductos")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darEquivalenciasProductos() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<EquivalenciaProductos> clientes;
 		try {
 			clientes = tm.darEquivalenciasProductos();
@@ -235,7 +235,7 @@ public class RESTAdministradorRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarEquivalenciaProductos(EquivalenciaProductos cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarEquivalenciasProducto(cliente);
 		} catch (Exception e) {
@@ -251,7 +251,7 @@ public class RESTAdministradorRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearSimilitudIngredientes(EquivalenciaIngredientes cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearEquivalenciasIngrediente(cliente);
 		} catch (Exception e) {
@@ -264,7 +264,7 @@ public class RESTAdministradorRestaurante
 	@Path("/equivalenciaingredientes")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darEquivalenciasIngredientes() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<EquivalenciaIngredientes> clientes;
 		try {
 			clientes = tm.darEquivalenciasIngredientes();
@@ -279,7 +279,7 @@ public class RESTAdministradorRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarEquivalenciaIngredientes(EquivalenciaIngredientes cliente) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarEquivalenciasIngredientes(cliente);
 		} catch (Exception e) {
@@ -307,7 +307,7 @@ public class RESTAdministradorRestaurante
 	public Response darPedidosRestaurante(@PathParam( "idRestaurante" ) String id)
 	{
 
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<EquivalenciaIngredientes> clientes;
 		try {
 			clientes = tm.darEquivalenciasIngredientes();
@@ -335,7 +335,7 @@ public class RESTAdministradorRestaurante
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darConsumoRotondandes(@PathParam( "idRestaurante" ) String id, @PathParam( "fechaMin" ) String fechaMin, @PathParam( "fechaMax" ) String fechaMax, @PathParam( "orderBy" ) String orderBy)
 	{		
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<ClienteRFC> clientes;
 		try {
 			clientes = tm.consultarConsumoClientes(id, fechaMin, fechaMax, orderBy);
@@ -350,7 +350,7 @@ public class RESTAdministradorRestaurante
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darNoConsumoRotondandes(@PathParam( "idRestaurante" ) String id, @PathParam( "fechaMin" ) String fechaMin, @PathParam( "fechaMax" ) String fechaMax, @PathParam( "orderBy" ) String orderBy)
 	{		
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<ClienteRFC> clientes;
 		try {
 			clientes = tm.consultarNoConsumoClientes(id, fechaMin, fechaMax, orderBy);

@@ -17,7 +17,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.ContabilidadRestaurante;
 
 
@@ -39,7 +39,7 @@ public class RESTContabilidadRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearContabilidadRestaurante(ContabilidadRestaurante reserva) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearContabilidadRestaurante(reserva);
 		} catch (Exception e) {
@@ -54,7 +54,7 @@ public class RESTContabilidadRestaurante
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darContabilidadRestauranteId( @PathParam( "id" ) Long id )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ContabilidadRestaurante reserva = tm.darContabilidadRestaurantePorId(id);
@@ -71,7 +71,7 @@ public class RESTContabilidadRestaurante
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darContabilidadRestaurantePorFecha( @PathParam( "fecha" ) String fecha )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{ Date dateObj= Date.valueOf(fecha); 
 		ArrayList<ContabilidadRestaurante> reservas = tm.darContabilidadRestaurantePorFecha(dateObj);
@@ -88,7 +88,7 @@ public class RESTContabilidadRestaurante
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darContabilidadRestaurantes() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<ContabilidadRestaurante> reservas;
 		try {
 			reservas = tm.darContabilidadesRestaurante();
@@ -102,7 +102,7 @@ public class RESTContabilidadRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarContabilidadRestaurante(ContabilidadRestaurante reserva) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.actualizarContabilidadRestaurante(reserva);
 		} catch (Exception e) {
@@ -115,7 +115,7 @@ public class RESTContabilidadRestaurante
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarContabilidadRestaurante(ContabilidadRestaurante reserva) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarContabilidadRestaurante(reserva);
 		} catch (Exception e) {

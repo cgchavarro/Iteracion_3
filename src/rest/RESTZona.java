@@ -15,7 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.Producto;
 import vo.Restaurante;
 import vo.Zona;
@@ -42,7 +42,7 @@ public class RESTZona
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darZonaId( @PathParam( "id" ) Long id )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			Zona zona = tm.darZonaPorId(id);
@@ -99,7 +99,7 @@ public class RESTZona
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darZonaNombre( @PathParam( "nombre" ) String nombre )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList<Zona> zonas = tm.darZonasPorNombre(nombre);
@@ -114,7 +114,7 @@ public class RESTZona
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darZonas() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		System.out.println(getPath());
 		List<Zona> zonas;
 		try {
@@ -129,7 +129,7 @@ public class RESTZona
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarZona(Zona zona) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.actualizarZona(zona);
 		} catch (Exception e) {
@@ -142,7 +142,7 @@ public class RESTZona
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarZona(Zona zona) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarZona(zona);
 		} catch (Exception e) {

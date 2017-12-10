@@ -16,7 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import master.RotondAndesMaster;
+import master.RotondAndesTM;
 import vo.Tipo;
 
 
@@ -38,7 +38,7 @@ public class RESTTipo
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearTipo(Tipo tipo) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.crearTipo(tipo);
 		} catch (Exception e) {
@@ -52,7 +52,7 @@ public class RESTTipo
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darTipoId( @PathParam( "id" ) Long id )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			Tipo tipo = tm.darTipoPorId(id);
@@ -69,7 +69,7 @@ public class RESTTipo
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response darTipoNombre( @PathParam( "nombre" ) String nombre )
 	{
-		RotondAndesMaster tm = new RotondAndesMaster( getPath( ) );
+		RotondAndesTM tm = new RotondAndesTM( getPath( ) );
 		try
 		{
 			ArrayList<Tipo> tipos = tm.darTiposPorNombre(nombre);
@@ -84,7 +84,7 @@ public class RESTTipo
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response darTipos() {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		List<Tipo> tipos;
 		try {
 			tipos = tm.darTipos();
@@ -98,7 +98,7 @@ public class RESTTipo
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response actualizarTipo(Tipo tipo) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.actualizarTipo(tipo);
 		} catch (Exception e) {
@@ -111,7 +111,7 @@ public class RESTTipo
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarTipo(Tipo tipo) {
-		RotondAndesMaster tm = new RotondAndesMaster(getPath());
+		RotondAndesTM tm = new RotondAndesTM(getPath());
 		try {
 			tm.eliminarTipo(tipo);
 		} catch (Exception e) {
